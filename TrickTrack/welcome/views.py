@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from .models import User
+from .models import PseudoUser
 
 
 def index(request):
-    users = User.objects.all()
+    users = PseudoUser.objects.all()
     return render(request, 'welcome/index.html', {'title': 'preveeed', 'users': users})
 
 

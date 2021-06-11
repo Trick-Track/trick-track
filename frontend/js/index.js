@@ -1,6 +1,7 @@
 import {isEscEvent} from './util.js';
-import {initialCells, setCellBackground} from './cell.js';
+import {initialCells} from './cell.js';
 import {generateMatrix} from './matrix.js';
+import {addArrowsHandlers} from './slider.js';
 
 
 let sounds = ['./samples/bdsh.wav', 
@@ -63,12 +64,13 @@ console.log(cellsArray)
     cell.addEventListener('click', (evt) => {
     const {time} = newLanes[0];
     cell = evt.target;
-    const i = [...slideFirst[0].children].indexOf(cell, 0);
+    const i = cellsArray.indexOf(cell, 0);
     time[i].checked = true;
+    console.log(time[i])
   })
 })
 
-
+addArrowsHandlers();
 
 
 
@@ -171,7 +173,7 @@ function scheduleSound() {
 
   let nextStepStartTime = now + 0.9;
  // let sequencerCurrentTime = now - sequencerStartTime;
-  nextStepTime += secondsPerBeat * 0.25 ;
+  nextStepTime += secondsPerBeat * 16 ;
   //now -= startTime
   //
   while(nextStepTime < nextStepStartTime) {
@@ -277,7 +279,7 @@ document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       isPlaying = !isPlaying;
-      ы
+      scheduleSound()
     }
 });
 

@@ -2,6 +2,7 @@ import {isEscEvent} from './util.js';
 import {initialCells} from './cell.js';
 import {generateMatrix} from './matrix.js';
 import {addArrowsHandlers} from './slider.js';
+import {addBpmInputHandler} from './bpm.js'
 
 
 let sounds = ['./samples/bdsh.wav', 
@@ -10,7 +11,7 @@ let sounds = ['./samples/bdsh.wav',
               ];
 
 const STEPS = 32;
-const activeStep = 16; 
+const activeStep = 32; 
 
 //cell
 
@@ -158,35 +159,33 @@ onButtonPlaySound();
 
 //Sequencer
 
+const bpm = 120;
 let startTime = 0;
-let nextStepTime = 0;
+let nextStepTime = 0.0;
 let currentStep = 0;
-let now = context.currentTime;
+let secondsPerBeat = 60 / bpm ;    
 let isPlaying = false;
 
 //let lastStep = -1;
 
 
 function scheduleSound() {
+  let now = context.currentTime;
+  now -= startTime
  
-  let secondsPerBeat = 60 / 120 / 4;    
 
-  let nextStepStartTime = now + 0.9;
- // let sequencerCurrentTime = now - sequencerStartTime;
-  nextStepTime += secondsPerBeat * 16 ;
-  //now -= startTime
-  //
-  while(nextStepTime < nextStepStartTime) {
-    playStepAtTime(newLanes, nextStepTime);
+  while (nextStepTime < now + 0.2 ) {
+    
+    let pt = nextStepTime + startTime;
+    playStepAtTime(newLanes, pt);
     nextStep(newLanes);
+    
+    console.log(nextStepTime)
   }
-  //const ti = window.setTimeout(scheduleSound, 0.25);
+  const ti = setTimeout(scheduleSound, 0);
 }
 
-// function setTempo(newTempo) {
-//   tempo = newTempo;
-//   tic = (60 / tempo) / 4;  
-// }
+
 
 function nextStep(newLanes) {
   currentStep++;
@@ -196,11 +195,16 @@ function nextStep(newLanes) {
       lane.time[currentStep].played = true;
     }
   });
-
+  
   if (currentStep === activeStep) {
-  currentStep = 0;
+    currentStep = 0;
   }
-  console.log(currentStep)
+
+  nextStepTime += secondsPerBeat / 4;
+
+
+  
+  console.log(currentStep);
 }
 
 function playStepAtTime(newLanes, playTime) {
@@ -217,9 +221,8 @@ function playStepAtTime(newLanes, playTime) {
 
 
 function play() {
- isPlaying = true;
-  nextNoteTime = 0.0;
-  startTime = now + 0.005;
+  nextStepTime = 0.0;
+  startTime = context.currentTime + 0.005;
   scheduleSound();
 }
 
@@ -236,8 +239,7 @@ function stop() {
 
 
 
-const bpm = 120;
-let spb = (60/bpm);
+let spb = (60/120);
 let frames = 0;
 
 let currentCell = 0;
@@ -256,6 +258,7 @@ const loop = () => {
     currentCell = Math.floor(beatTime*4);
 
     if(lastStep != currentCell) {
+     
       
      for (let i = 0; i < 16; i++) {
       if(lastStep === i) {
@@ -279,7 +282,7 @@ document.addEventListener('keydown', (evt) => {
     if (isEscEvent(evt)) {
       evt.preventDefault();
       isPlaying = !isPlaying;
-      scheduleSound()
+      play()
     }
 });
 

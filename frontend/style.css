@@ -65,13 +65,13 @@
 
 } 
 
-.activated-cell {
+/* .activated-cell {
     background-color: pink;
 }
 
 .played-cell {
     color: green;
-}
+} */
 
 .button {
     display: block;
@@ -91,8 +91,21 @@
       width: 70px;
   }
 
+
   .slider-tracker {
       display: flex;
-
-  }
+    
+}
   
+
+ .sequencer__step-list {
+     display: none
+ }
+
+ .slide-2 .sequencer__cell{
+     background-color: yellow;
+ }
+
+ .sequencer__step-list.current-slide {
+     display: flex;
+ }

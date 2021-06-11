@@ -1,8 +1,6 @@
-const slides = document.querySelectorAll('.slider-tracker');
-const nextSlide = document.querySelector('.slider__arrow--next');
-const previousSlide = document.querySelector('.slider__arrow--prew');
-
- let slideNumber = 1;
+const nextArrow = document.querySelector('.slider__arrow--next');
+const previousArrow = document.querySelector('.slider__arrow--prev');
+let slideNumber = 1;
 
  
 //  class slider {
@@ -13,9 +11,12 @@ const previousSlide = document.querySelector('.slider__arrow--prew');
 //     this.slide = selector;
 //     this.interval = 5000;
 
-  showSlide(slideNumber)
+const showSlide = (n) => {
+  const slidesLists = document.querySelectorAll('.slider-tracker');
 
-   const showSlide = (n) => {
+  slidesLists.forEach((slidesList) => {
+      const slides = slidesList.children
+
       let i;
       if (n > slides.length) {
         slideNumber = 1;
@@ -24,15 +25,29 @@ const previousSlide = document.querySelector('.slider__arrow--prew');
         slideNumber = slides.length;
       }
       for (i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("slide-current");
+        slides[i].classList.remove("current-slide");
       }
 
-      slides[slideNumber-1].classList.add("slide-current");
+      slides[slideNumber-1].classList.add("current-slide");
+    });
     }
 
-    function nextSlides() {
-      showSlide(slideNumber += 1);
-    }
-    function currentSlide (n) {
-      showSlide(slideNumber = n);
-    }
+const onNextArrowClick = () => {
+  showSlide(slideNumber += 1);
+}
+
+const onPreviousArrowClick = () => {
+  showSlide(slideNumber -= 1);
+}
+// function currentSlide (n) {
+//   showSlide(slideNumber = n);
+// }
+
+
+const addArrowsHandlers = () => {
+  nextArrow.addEventListener('click', onNextArrowClick);
+  previousArrow.addEventListener('click', onPreviousArrowClick);
+}
+
+export {addArrowsHandlers}
+

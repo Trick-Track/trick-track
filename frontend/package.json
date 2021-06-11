@@ -1,0 +1,20 @@
+{
+  "name": "trick-track",
+  "private": true,
+  "devDependencies": {
+    "browser-sync": "2.26.14"
+  },
+  "scripts": {
+    "start": "browser-sync start --server "
+  },
+  
+  "browserslist": [
+    "last 2 versions",
+    "not dead",
+    "not ie <= 11"
+  ],
+  "type": "module",
+  "engines": {
+    "node": "14.16.0"
+  }
+}

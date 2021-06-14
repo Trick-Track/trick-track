@@ -13,11 +13,12 @@ const sampleTemplate = document.querySelector('#matrix').content.querySelector('
 
 
 const renderStep = () => {
-  const newStep = document.createElement('button');
-  newStep.classList.add('sequencer__cell');
-  newStep.type = 'button';
-  newStep.tabIndex = 0;
-  return newStep;
+  const cellElement = document.createElement('button');
+  cellElement.classList.add('sequencer__cell');
+  cellElement.type = 'button';
+  cellElement.tabIndex = 0;
+
+  return cellElement;
 }
 
 const fillStep = (stepsList, steps) => {
@@ -43,21 +44,23 @@ const fillStep = (stepsList, steps) => {
   
   
 const generateMatrixLane = (lane) => {
-  const{line, time} = lane
+  const{line, cells} = lane
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = line.replace(/^.*[\\\/]/, '').slice(0, -4);
   sampleList.append(newSample);
 
   const stepsList = newSample.querySelectorAll('.sequencer__step-list');
-  fillStep(stepsList, time); 
+  fillStep(stepsList, cells); 
 };
 
 
 const generateMatrix = (lanes) => {
-  lanes.forEach((lane) => {
+    lanes.forEach((lane) => {
     generateMatrixLane(lane);
   })
 };
+
+
 
 
 

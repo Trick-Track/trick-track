@@ -16,7 +16,9 @@ const initialCells = (steps) => {
     return cells;
 }
 
-const setCellBackground = (checked, played) => {
+const setCellBackground = (lanes) => {
+  const {cells} = lanes[0];
+  const {played, checked} = cells;
 
       switch(true) {
       case checked && played:
@@ -24,9 +26,9 @@ const setCellBackground = (checked, played) => {
       case checked && !played:
         return "#ffff00";
       case !checked && played:
-        return "fffacd";
+        return "#fffacd";
       default:
-        return "white";
+        return "#000000";
     }
   }
 

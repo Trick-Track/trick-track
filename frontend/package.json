@@ -7,7 +7,6 @@
   "scripts": {
     "start": "browser-sync start --server "
   },
-  
   "browserslist": [
     "last 2 versions",
     "not dead",
@@ -16,5 +15,8 @@
   "type": "module",
   "engines": {
     "node": "14.16.0"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
   }
 }

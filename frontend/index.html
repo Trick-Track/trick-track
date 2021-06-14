@@ -8,15 +8,16 @@
   </head>
   <body class="page__body">
     <main class="page-main" >
-      <section class="sequencer">
-        <label for="bpm">bpm</label>
-        <input name="bpm" id="bpm" type="number" min="1" max="300" value="60" step="1"/>
-
-        <button type="button" id="delete">delete</button>
-        <button type="button" id="add">add</button>
+      <section class="app">
+        <div class="">
+          <label for="bpm">bpm</label>
+          <input name="bpm" id="bpm" type="number" min="1" max="300" value="120" step="1"/>
+        </div>
+        <div class="player">
+          <button type="button" class="player__button player__button--play" id="play">play</button>
+          <button type="button" class="player__button player__button--stop" id="stop">stop</button>
         <div>
-          <!--<button type="button" class="button button-play"></button>
-          <button type="button" class="button button-stop"></button>-->
+          
         </div>
         <div class="sequencer__wrapper">
         

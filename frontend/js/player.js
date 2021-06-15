@@ -1,23 +1,26 @@
+const player = document.querySelectorAll('.player')
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
-let isPlaying = false;
 
 const playProject = (cb) => {
-    isPlaying = true;
+    //isPlaying = true;
     cb();
 }
 
 const stopPlayProject = (cb) => {
-    isPlaying = false;
-    
+    //isPlaying = false;
+    cb();
 }
 
-const addButtonPlayHandler = (cb) => {
-    playButton.addEventListener('click', () => playProject(cb));
+const addButtonPlayHandler = (callback, cb) => {
+    playButton.addEventListener('click', (callback));
+    stopButton.removeEventListener('click', (cb))
 }
 
-const addButtonStopHandler = () => {
-    stopButton.addEventListener('click', stopPlayProject)
+const addButtonStopHandler = (cb, callback) => {
+    stopButton.addEventListener('click', (cb));
+    playButton.removeEventListener('click', callback)
+
 }
 
 export {addButtonPlayHandler, addButtonStopHandler}

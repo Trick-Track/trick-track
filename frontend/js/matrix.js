@@ -1,4 +1,4 @@
-import {setCellBackground} from './cell.js';
+import {setCellPlayedColor} from './cell.js';
 
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
@@ -60,6 +60,58 @@ const generateMatrix = (lanes) => {
   })
 };
 
+const createCellsArray = (i) => {
+  const slidesFirst = document.querySelectorAll('.slide-1');
+  const slidesSecond = document.querySelectorAll('.slide-2');
+  
+  const cellsOfLane = [];
+    cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
+    cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);
+    return cellsOfLane;
+}
+
+const createAllCellsArray = () => {
+  const allCellsLists = []
+  for (let i = 0; i < 3; i++) {
+    const cellsOfLane = createCellsArray(i);
+    allCellsLists.push(cellsOfLane);
+  }
+  return allCellsLists
+}
+
+
+
+const addButtonCellHandler = (cellsElements, lanes, cb) => {
+  //const cellsButtonsArray = createAllCellsArray();
+  cellsElements.forEach((cellsOfLane) => {
+
+    cellsOfLane.forEach((cell) => cell.addEventListener('click', (evt) => {
+      const i = cellsElements.indexOf(cellsOfLane, 0);
+      const {cells} = lanes[i];
+      const cell = evt.target;
+      const j = cellsOfLane.indexOf(cell, 0);
+      cells[j].checked = cells[j].checked ? false : true; 
+      cell.style.background = cb(cells[j]);
+    }))
+  })
+};
+
+const renderPlayedCells = (cellsElements, lanes, cell) => {
+  //currentCell = lane.cells[currentStep - 1]
+  lanes.forEach((lane) => {
+    const {cells} = lane;
+
+
+    cells.forEach((cell) => {
+    const i = lanes.indexOf(lane);
+    const cellsOfLane = cellsElements[i];
+    const j = cells.indexOf(cell, 0);
+      if (cell.played != false) {
+      cellsOfLane[j].style.backgroundColor = setCellPlayedColor(cell);
+      }
+    })
+  })
+}
 
 
 
@@ -84,4 +136,4 @@ const generateMatrix = (lanes) => {
 
 
   
-  export {generateMatrix}
+  export {generateMatrix, createAllCellsArray, addButtonCellHandler, renderPlayedCells}

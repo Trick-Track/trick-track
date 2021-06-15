@@ -16,21 +16,34 @@ const initialCells = (steps) => {
     return cells;
 }
 
-const setCellBackground = (lanes) => {
-  const {cells} = lanes[0];
-  const {played, checked} = cells;
-
-      switch(true) {
-      case checked && played:
-        return "#ffffff";
-      case checked && !played:
-        return "#ffff00";
-      case !checked && played:
-        return "#fffacd";
-      default:
-        return "#000000";
-    }
+const setCellCheckedColor = (cell) => {
+  const {checked} = cell;
+  switch(checked) {
+    case true:
+      return "#000000";
+    break;
+    case false:
+      return "#ffffff";
+    break;
+    default:
+      return "#ffffff";
   }
+}
+
+const setCellPlayedColor = (cell) => {
+  const {played} = cell;
+  switch(played) {
+    case true:
+      return "#ff00ff";
+   break;
+    case false:
+      return "#ffffff";
+    break;
+    default:
+      return "#ffffff";
+  }
+}
 
 
-export {initialCells, setCellBackground}
+
+export {initialCells, setCellCheckedColor, setCellPlayedColor}

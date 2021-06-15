@@ -102,9 +102,6 @@
      display: none
  }
 
- .slide-2 .sequencer__cell{
-     background-color: yellow;
- }
 
  .sequencer__step-list.current-slide {
      display: flex;

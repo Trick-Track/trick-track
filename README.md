@@ -4,14 +4,15 @@
 digital audio workstation online
 
 
-### Usage
+### Installation
+```
+pip install requirements.txt
 
-_pip install requirements.txt_
+python manage.py makemigrations
 
-_python manage.py makemigrations_
+python manage.py migrate
 
-_python manage.py migrate_
-
-_python manage.py runserver_
+python manage.py runserver
 
 http://127.0.0.1:8000/
+```

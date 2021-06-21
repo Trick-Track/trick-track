@@ -16,17 +16,33 @@ const initialCells = (steps) => {
     return cells;
 }
 
+const createLanes = (sounds, cells) => {
+  const lines = []
+ 
+  sounds.map((sound) => {
+    const steps = [];
+
+    for (let i = 0; i < cells.length; i++) {
+      const clonedCell = Object.assign({}, cells[i]);
+      steps.push(clonedCell)
+    }
+    const obj = {line: sound, cells: steps}
+    lines.push(obj)
+  })
+  return lines
+}
+
 const setCellCheckedColor = (cell) => {
   const {checked} = cell;
   switch(checked) {
     case true:
-      return "#000000";
+      return '#000000';
     break;
     case false:
-      return "#ffffff";
+      return '#ffffff';
     break;
     default:
-      return "#ffffff";
+      return '#ffffff';
   }
 }
 
@@ -35,7 +51,9 @@ const setCellPlayedColor = (cell) => {
   switch(played) {
     case true:
       return "#ff00ff";
-   break;
+    break;
+    case (!true): 
+      return ""
     case false:
       return "#ffffff";
     break;
@@ -46,4 +64,4 @@ const setCellPlayedColor = (cell) => {
 
 
 
-export {initialCells, setCellCheckedColor, setCellPlayedColor}
+export {initialCells, createLanes, setCellCheckedColor, setCellPlayedColor}

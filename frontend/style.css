@@ -17,19 +17,21 @@
   
 
 .sequencer__wrapper {
-    width: 900px;
+    width: 90%;
     height: auto;
     background-color: rgb(255, 255, 255);
     position: fixed;
     margin-top: 200px;
+    border: 1px solid black;
 
 }
 
 .sequencer__samples-list {
-    width: 100%;
+    width: 80%;
     height: auto;
     list-style: none;
     margin: 0;
+    float: right;
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -39,7 +41,7 @@
 
 .sequencer__samples-item {
     width: 100%;
-    min-height: 50px;
+    min-height: 70px;
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -61,7 +63,7 @@
     background-color: white;
     display: flex;
     flex-direction: row;
-    border: 1px dashed grey;
+    border: 2px solid grey;
 
 } 
 
@@ -74,27 +76,34 @@
 } */
 
 .button {
-    display: block;
-    padding: 15px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100px;
+    height: 50px;
     border: none;
     text-overflow: ellipsis;
     box-sizing: content-box;
     background-color: #3498db;
     color: white;
-    text-align: center;
     text-transform: uppercase;
     font: inherit;
   }
 
   .sample-button {
       width: 70px;
+      max-height: 30px;
   }
 
 
-  .slider-tracker {
-      display: flex;
-    
+.slider-tracker {
+    display: flex;
+  
+
+}
+
+.slide {
+    width: 100%
 }
   
 
@@ -106,3 +115,45 @@
  .sequencer__step-list.current-slide {
      display: flex;
  }
+
+
+
+ /***player******/
+ 
+ .player__slider {
+     margin-top: 25px;
+ } 
+
+.player__control {
+	position: relative;
+    margin-top: 15px;
+    height: 4px;
+    background-color: black;
+    width: 400px;  
+  	border-radius: 5px;
+  	padding-right: 20px;
+  	padding-left: 20px;
+}
+
+/* .player__control-scale {
+  	height: 4px;
+  	background: green;
+} */
+
+
+.player__control-toggle {
+	position: absolute;
+	top: 60px;
+	left: 0;
+  	width: 4px;
+ 	height: 4px;
+ 	padding: 0;
+  	border: 8px solid pink;
+  	background-color: grey;
+  	border-radius: 50%;
+  	/* box-shadow: 0 2px 1px 0 red; */
+  	cursor: pointer;
+}
+
+
+

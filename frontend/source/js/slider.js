@@ -39,9 +39,9 @@ const onNextArrowClick = () => {
 const onPreviousArrowClick = () => {
   showSlide(slideNumber -= 1);
 }
-// function currentSlide (n) {
-//   showSlide(slideNumber = n);
-// }
+function currentSlide (n) {
+  showSlide(slideNumber = n);
+}
 
 
 const addArrowsHandlers = () => {
@@ -49,5 +49,5 @@ const addArrowsHandlers = () => {
   previousArrow.addEventListener('click', onPreviousArrowClick);
 }
 
-export {addArrowsHandlers}
+export {addArrowsHandlers, currentSlide}
 

@@ -2,17 +2,26 @@
   "name": "trick-track",
   "private": true,
   "devDependencies": {
-    "browser-sync": "2.26.14"
+    "browser-sync": "2.26.14",
+    "css-loader": "^5.2.6",
+    "node-sass": "^6.0.0",
+    "postcss-loader": "^6.1.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.35.1",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
   },
   "scripts": {
-    "start": "browser-sync start --server "
+    "build": "webpack",
+    "start": "browser-sync start --server \"production/\" --no-ui --files \"source/**/*.js\""
   },
   "browserslist": [
     "last 2 versions",
     "not dead",
     "not ie <= 11"
   ],
-  "type": "module",
   "engines": {
     "node": "14.16.0"
   },

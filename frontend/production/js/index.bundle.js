@@ -1,2 +1,880 @@
-!function(){"use strict";const e=document.querySelector(".sequencer__wrapper").querySelector(".sequencer__samples-list"),t=document.querySelector("#matrix").content.querySelector(".sequencer__samples-item"),n=()=>{const e=document.createElement("button");return e.classList.add("sequencer__cell"),e.type="button",e.tabIndex=0,e},c=e=>{const t=document.querySelectorAll(".slide-1"),n=document.querySelectorAll(".slide-2"),c=[];return c.push.apply(c,t[e].children),c.push.apply(c,n[e].children),c},r=(e,t)=>{t.forEach((n=>{const{cells:c}=n;c.forEach((r=>{const o=t.indexOf(n),s=e[o],l=c.indexOf(r,0);0!=r.played&&(s[l].style.borderColor=(e=>{const{played:t}=e;switch(t){case!0:return"#ff00ff";case!1:return"";case!1:default:return"#ffffff"}})(r))}))}))},o=document.querySelector(".slider__arrow--next"),s=document.querySelector(".slider__arrow--prev");let l=1;const u=e=>{document.querySelectorAll(".slider-tracker").forEach((t=>{const n=t.children;let c;for(e>n.length&&(l=1),e<1&&(l=n.length),c=0;c<n.length;c++)n[c].classList.remove("current-slide");n[l-1].classList.add("current-slide")}))};function a(e){u(l=e)}document.querySelector("#bpm"),document.querySelectorAll(".player"),document.getElementById("play"),document.getElementById("stop"),document.getElementById(".#sample"),document.querySelectorAll('[data-action="volume"]'),document.querySelectorAll('[data-action="panner"]');let d=["./samples/bdsh.wav","./samples/boom.wav","./samples/tsk.wav"];const i=((e,t)=>{const n=[];return e.map((e=>{const c=[];for(let e=0;e<t.length;e++){const n=Object.assign({},t[e]);c.push(n)}const r={line:e,cells:c};n.push(r)})),n})(d,(e=>{let t=[];for(let e=0;e<32;e++){const e={played:!1,checked:!1,disabled:!1};t.push(e)}return t})());i.forEach((c=>{(c=>{const{line:r,cells:o}=c,s=t.cloneNode(!0);s.querySelector(".button").textContent=r.replace(/^.*[\\\/]/,"").slice(0,-4),e.append(s),((e,t)=>{const c=document.createDocumentFragment(),r=document.createDocumentFragment();t.slice(0,16).forEach((e=>{const t=n();c.append(t)})),t.slice(16,32).forEach((e=>{const t=n();r.append(t)})),e[0].append(c),e[1].append(r)})(s.querySelectorAll(".sequencer__step-list"),o)})(c)}));const f=(()=>{const e=[];for(let t=0;t<3;t++){const n=c(t);e.push(n)}return e})();var p,m;m=i,(p=f).forEach((e=>{e.forEach((t=>t.addEventListener("click",(t=>{const n=p.indexOf(e,0),{cells:c}=m[n],r=t.target,o=e.indexOf(r,0);c[o].checked=!c[o].checked,r.style.background=(e=>{const{checked:t}=e;switch(t){case!0:return"#000000";case!1:default:return"#ffffff"}})(c[o])}))))})),o.addEventListener("click",(()=>{u(l+=1)})),s.addEventListener("click",(()=>{u(l-=1)}));let h=new(window.AudioContext||window.webkitAudioContext);const y=(e,t)=>{const n=h.createBufferSource();n.buffer=e;const c=h.createGain();n.connect(c).connect(h.destination),n.start(t)},E=new class{constructor(e,t){this.context=e,this.urls=t,this.buffer=[]}loadSound(e,t){let n=new XMLHttpRequest;n.open("get",e,!0),n.responseType="arraybuffer";let c=this;n.onload=function(){c.context.decodeAudioData(n.response,(function(e){c.buffer[t]=e}))},n.send()}createBuffer(){this.urls.forEach(((e,t)=>{this.loadSound(e,t)}))}getSound(e){return this.buffer[e]}}(h,d);E.createBuffer();let q=document.getElementsByClassName("button");var S=[];S.push.apply(S,q),S.forEach((e=>e.addEventListener("click",(t=>{e=t.target;const n=S.indexOf(e,0);y(E.getSound(n),0)}))));let b=0,g=0,w=0,k=60/bpm,v=!1;function _(){let e=h.currentTime;for(e-=b;g<e+.2;)A(i,g+b,r),x(i,a);setTimeout(_,0)}function x(e,t){w++,e.forEach((e=>{const{cells:t}=e;t.forEach((t=>{(t=e.cells[w-1])?t.played=!0:t.played=!1}))})),t(w>16?2:1),30===w&&(w=0),g+=k/4}function A(e,t,n){for(let n=0;n<e.length;n++)0!=e[n].cells[w].checked&&y(E.getSound(n),t);n(f,i)}document.addEventListener("keydown",(e=>{(e=>"Escape"===e.key)(e)&&(e.preventDefault(),v=!v,v=!0,w=w,g=0,b=h.currentTime+.005,_())}))}();
+/******/ (function() { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./source/js/add.js":
+/*!**************************!*\
+  !*** ./source/js/add.js ***!
+  \**************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addInpytAddHandler": function() { return /* binding */ addInpytAddHandler; }
+/* harmony export */ });
+/* harmony import */ var _matrix_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./matrix.js */ "./source/js/matrix.js");
+
+
+const inputAdd = document.getElementById('.#sample');
+
+const FILE_TYPES = ['mp3', 'wav'];
+
+const uploadFile = (evt, cb) => {
+
+    const sound = evt.files;
+    const fileName = sound.url.toLowerCase();
+  
+    const matches = FILE_TYPES.some((it) => {
+      return fileName.endsWith(it);
+    });
+  
+    if (matches) {
+      const reader = new FileReader();
+      reader.addEventListener('load', cb)
+      reader.readAsDataURL(sound);
+    }
+  };
+  
+const uploadSound = () => {
+  uploadFile(inputAdd, _matrix_js__WEBPACK_IMPORTED_MODULE_0__.generateMatrixLane)
+}
+
+const addInpytAddHandler = () => {
+  inputAdd.addEventListener('click', uploadSound)
+};
+
+
+
+/***/ }),
+
+/***/ "./source/js/bpm.js":
+/*!**************************!*\
+  !*** ./source/js/bpm.js ***!
+  \**************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addBpmInputHandler": function() { return /* binding */ addBpmInputHandler; },
+/* harmony export */   "setTempo": function() { return /* binding */ setTempo; }
+/* harmony export */ });
+const bpmControl = document.querySelector('#bpm');
+
+
+const addBpmInputHandler = (callback) => {
+  let tempo
+    bpmControl.addEventListener('change', function() {
+    tempo = this.value;
+    callback(tempo)
+  });
+  
+};
+
+const setTempo = (tempo) => {
+    //const tempo = bpmControl.value;
+    const tic = (60 / tempo) / 4;
+    return tic;  
+  }
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./source/js/cell.js":
+/*!***************************!*\
+  !*** ./source/js/cell.js ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "initialCells": function() { return /* binding */ initialCells; },
+/* harmony export */   "createLanes": function() { return /* binding */ createLanes; },
+/* harmony export */   "setCellCheckedColor": function() { return /* binding */ setCellCheckedColor; },
+/* harmony export */   "setCellPlayedColor": function() { return /* binding */ setCellPlayedColor; }
+/* harmony export */ });
+
+const initialCells = (steps) => {
+    let cells = [];
+   
+    for (let i = 0; i < steps; i++) {
+
+      const cell = {
+        played: false,
+        checked: false,
+        disabled: false
+      };
+
+      cells.push(cell);
+    }
+    
+    return cells;
+}
+
+const createLanes = (sounds, cells) => {
+  const lines = []
+ 
+  sounds.map((sound) => {
+    const steps = [];
+
+    for (let i = 0; i < cells.length; i++) {
+      const clonedCell = Object.assign({}, cells[i]);
+      steps.push(clonedCell)
+    }
+    const obj = {line: sound, cells: steps}
+    lines.push(obj)
+  })
+  return lines
+}
+
+const setCellCheckedColor = (cell) => {
+  const {checked} = cell;
+  switch(checked) {
+    case true:
+      return '#000000';
+    break;
+    case false:
+      return '#ffffff';
+    break;
+    default:
+      return '#ffffff';
+  }
+}
+
+const setCellPlayedColor = (cell) => {
+  const {played} = cell;
+  switch(played) {
+    case true:
+      return "#ff00ff";
+    break;
+    case (!true): 
+      return ""
+    case false:
+      return "#ffffff";
+    break;
+    default:
+      return "#ffffff";
+  }
+}
+
+
+
+
+
+/***/ }),
+
+/***/ "./source/js/controls.js":
+/*!*******************************!*\
+  !*** ./source/js/controls.js ***!
+  \*******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "am": function() { return /* binding */ am; }
+/* harmony export */ });
+const volumeControls = document.querySelectorAll('[data-action="volume"]');
+const pannerControls = document.querySelectorAll('[data-action="panner"]');
+
+const am = (buffer, audioData) => {
+    volumeControls.forEach((volumeControl) => {
+        console.log(volumeControl)
+        volumeControl.addEventListener('input', () => {
+            const j = volumeControls.indexOf(volumeControl, 0)
+            const i = [...buffer.urls].indexOf(audioData, 0)
+            if (j === i) {
+                return volumeControl.value;
+            } 
+        })
+    });
+}
+
+
+
+
+// volumeControl.addEventListener('input', function() {
+//     
+// 	gainNode.gain.value = this.value;
+// }, false);
+
+// // panning
+// const pannerOptions = {pan: 0};
+// const panner = new StereoPannerNode(context, pannerOptions);
+
+
+// pannerControl.addEventListener('input', function() {
+// 	panner.pan.value = this.value;	
+// }, false);
+  
+
+/***/ }),
+
+/***/ "./source/js/matrix.js":
+/*!*****************************!*\
+  !*** ./source/js/matrix.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "generateMatrix": function() { return /* binding */ generateMatrix; },
+/* harmony export */   "createAllCellsArray": function() { return /* binding */ createAllCellsArray; },
+/* harmony export */   "generateMatrixLane": function() { return /* binding */ generateMatrixLane; },
+/* harmony export */   "addButtonCellHandler": function() { return /* binding */ addButtonCellHandler; },
+/* harmony export */   "renderPlayedCells": function() { return /* binding */ renderPlayedCells; }
+/* harmony export */ });
+/* harmony import */ var _cell_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cell.js */ "./source/js/cell.js");
+
+
+const sequencer = document.querySelector('.sequencer__wrapper');
+const sampleList = sequencer.querySelector('.sequencer__samples-list');
+const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
+
+// const createLine = (sound) => {
+//   const newSample = sampleTemplate.cloneNode(true);
+//   newSample.querySelector('.button').textContent = sound;
+//   sampleList.append(newSample);
+// }
+
+const renderStep = () => {
+  const cellElement = document.createElement('button');
+  cellElement.classList.add('sequencer__cell');
+  cellElement.type = 'button';
+  cellElement.tabIndex = 0;
+
+  return cellElement;
+}
+
+const fillStep = (stepsList, steps) => {
+   
+   const fragment = document.createDocumentFragment();
+   const fragmentOne = document.createDocumentFragment();
+
+   steps.slice(0, 16).forEach((step) => {
+    
+    const newStep = renderStep();
+  
+    fragment.append(newStep);
+    });
+
+    steps.slice(16, 32).forEach((step) => {
+      const newStep = renderStep();
+      fragmentOne.append(newStep);
+      });
+  
+    stepsList[0].append(fragment);
+    stepsList[1].append(fragmentOne);
+};
+  
+  
+const generateMatrixLane = (lane) => {
+  const{line, cells} = lane
+  const newSample = sampleTemplate.cloneNode(true);
+  newSample.querySelector('.button').textContent = line.replace(/^.*[\\\/]/, '').slice(0, -4);
+  sampleList.append(newSample);
+
+  const stepsList = newSample.querySelectorAll('.sequencer__step-list');
+  fillStep(stepsList, cells); 
+};
+
+
+const generateMatrix = (lanes) => {
+    lanes.forEach((lane) => {
+    generateMatrixLane(lane);
+  })
+};
+
+const createCellsArray = (i) => {
+  const slidesFirst = document.querySelectorAll('.slide-1');
+  const slidesSecond = document.querySelectorAll('.slide-2');
+  
+  const cellsOfLane = [];
+    cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
+    cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);
+    return cellsOfLane;
+}
+
+const createAllCellsArray = () => {
+  const allCellsLists = []
+  for (let i = 0; i < 3; i++) {
+    const cellsOfLane = createCellsArray(i);
+    allCellsLists.push(cellsOfLane);
+  }
+  return allCellsLists
+}
+
+const addButtonCellHandler = (cellsElements, lanes, cb) => {
+  //const cellsButtonsArray = createAllCellsArray();
+  cellsElements.forEach((cellsOfLane) => {
+
+    cellsOfLane.forEach((cell) => cell.addEventListener('click', (evt) => {
+      const i = cellsElements.indexOf(cellsOfLane, 0);
+      const {cells} = lanes[i];
+      const cell = evt.target;
+      const j = cellsOfLane.indexOf(cell, 0);
+      cells[j].checked = cells[j].checked ? false : true; 
+      cell.style.background = cb(cells[j]);
+    }))
+  })
+};
+
+const renderPlayedCells = (cellsElements, lanes) => {
+
+  lanes.forEach((lane) => {
+    const {cells} = lane;
+    cells.forEach((cell) => {
+      const i = lanes.indexOf(lane);
+      const cellsOfLane = cellsElements[i];
+      const j = cells.indexOf(cell, 0);
+
+      if (cell.played != false) {
+        cellsOfLane[j].style.borderColor = (0,_cell_js__WEBPACK_IMPORTED_MODULE_0__.setCellPlayedColor)(cell);
+      }
+      
+    })
+  })
+}
+
+
+//создание новой дорожки
+
+  
+
+// const deleteLane = (lanes) => {
+  
+//   const before = lanes.slice(0, i);
+//   const after = lanes.slice(i, i + 1);
+//     const newArray = [...before, ...after];
+
+//     return {
+//       lanes: newArray,
+//     }
+//   })
+// };
+
+
+
+
+  
+  
+
+/***/ }),
+
+/***/ "./source/js/player.js":
+/*!*****************************!*\
+  !*** ./source/js/player.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addButtonPlayHandler": function() { return /* binding */ addButtonPlayHandler; },
+/* harmony export */   "addButtonStopHandler": function() { return /* binding */ addButtonStopHandler; }
+/* harmony export */ });
+const player = document.querySelectorAll('.player')
+const playButton = document.getElementById('play');
+const stopButton = document.getElementById('stop');
+
+const playProject = (cb) => {
+    //isPlaying = true;
+    cb();
+}
+
+const stopPlayProject = (cb) => {
+    //isPlaying = false;
+    cb();
+}
+
+const addButtonPlayHandler = (callback, cb) => {
+    playButton.addEventListener('click', (callback));
+    stopButton.removeEventListener('click', (cb))
+}
+
+const addButtonStopHandler = (cb, callback) => {
+    stopButton.addEventListener('click', (cb));
+    playButton.removeEventListener('click', callback)
+
+}
+
+
+
+/***/ }),
+
+/***/ "./source/js/slider.js":
+/*!*****************************!*\
+  !*** ./source/js/slider.js ***!
+  \*****************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addArrowsHandlers": function() { return /* binding */ addArrowsHandlers; },
+/* harmony export */   "currentSlide": function() { return /* binding */ currentSlide; }
+/* harmony export */ });
+const nextArrow = document.querySelector('.slider__arrow--next');
+const previousArrow = document.querySelector('.slider__arrow--prev');
+let slideNumber = 1;
+
+ 
+//  class slider {
+      
+//   constructor(selector) {  
+//     this.loop = false;
+//     this.autoplay = false;
+//     this.slide = selector;
+//     this.interval = 5000;
+
+const showSlide = (n) => {
+  const slidesLists = document.querySelectorAll('.slider-tracker');
+
+  slidesLists.forEach((slidesList) => {
+      const slides = slidesList.children
+
+      let i;
+      if (n > slides.length) {
+        slideNumber = 1;
+      }
+      if (n < 1) {
+        slideNumber = slides.length;
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("current-slide");
+      }
+
+      slides[slideNumber-1].classList.add("current-slide");
+    });
+    }
+
+const onNextArrowClick = () => {
+  showSlide(slideNumber += 1);
+}
+
+const onPreviousArrowClick = () => {
+  showSlide(slideNumber -= 1);
+}
+function currentSlide (n) {
+  showSlide(slideNumber = n);
+}
+
+
+const addArrowsHandlers = () => {
+  nextArrow.addEventListener('click', onNextArrowClick);
+  previousArrow.addEventListener('click', onPreviousArrowClick);
+}
+
+
+
+
+
+/***/ }),
+
+/***/ "./source/js/util.js":
+/*!***************************!*\
+  !*** ./source/js/util.js ***!
+  \***************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isEscEvent": function() { return /* binding */ isEscEvent; },
+/* harmony export */   "isMouseLeftEvent": function() { return /* binding */ isMouseLeftEvent; }
+/* harmony export */ });
+const PRIMARY_MOUSE_BUTTON = 0;
+
+const isEscEvent = (evt) => {
+    return evt.key === ('Escape' || 0);
+  };
+  
+  const isMouseLeftEvent = (evt) => {
+    return evt.button === PRIMARY_MOUSE_BUTTON;
+  }
+  
+  
+
+/***/ }),
+
+/***/ "./source/sass/style.scss":
+/*!********************************!*\
+  !*** ./source/sass/style.scss ***!
+  \********************************/
+/***/ (function() {
+
+throw new Error("Module parse failed: Unexpected character '@' (2:0)\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\n| \n> @import \"global/variables\";\n| @import \"blocks/button\";\n| @import \"blocks/page\";");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+!function() {
+"use strict";
+/*!****************************!*\
+  !*** ./source/js/index.js ***!
+  \****************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _util_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util.js */ "./source/js/util.js");
+/* harmony import */ var _cell_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cell.js */ "./source/js/cell.js");
+/* harmony import */ var _matrix_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./matrix.js */ "./source/js/matrix.js");
+/* harmony import */ var _slider_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./slider.js */ "./source/js/slider.js");
+/* harmony import */ var _bpm_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./bpm.js */ "./source/js/bpm.js");
+/* harmony import */ var _player_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./player.js */ "./source/js/player.js");
+/* harmony import */ var _add_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./add.js */ "./source/js/add.js");
+/* harmony import */ var _controls_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./controls.js */ "./source/js/controls.js");
+/* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../sass/style.scss */ "./source/sass/style.scss");
+/* harmony import */ var _sass_style_scss__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_sass_style_scss__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+
+
+
+
+
+//import {debounce} from 'lodash';
+
+const DEBOUNCE_TIME = 1000;
+
+
+let sounds = ['./samples/bdsh.wav', 
+                './samples/boom.wav', 
+                './samples/tsk.wav',
+              ];
+
+const STEPS = 32;
+const activeStep = 30; 
+
+const newCells = (0,_cell_js__WEBPACK_IMPORTED_MODULE_1__.initialCells)(STEPS);
+const newLanes = (0,_cell_js__WEBPACK_IMPORTED_MODULE_1__.createLanes)(sounds, newCells); //дорожки
+(0,_matrix_js__WEBPACK_IMPORTED_MODULE_2__.generateMatrix)(newLanes); // отрисовка дорожек
+
+const cellsButtons = (0,_matrix_js__WEBPACK_IMPORTED_MODULE_2__.createAllCellsArray)();
+
+(0,_matrix_js__WEBPACK_IMPORTED_MODULE_2__.addButtonCellHandler)(cellsButtons, newLanes, _cell_js__WEBPACK_IMPORTED_MODULE_1__.setCellCheckedColor)
+
+;(0,_slider_js__WEBPACK_IMPORTED_MODULE_3__.addArrowsHandlers)(); //стрелки слайдера
+
+
+
+
+
+
+
+// addFilterHandlers(
+//   debounce(renderOffersPin, DEBOUNCE_TIME));
+// })
+
+
+
+////Bufer////////////////////////////////////////////////////////
+
+let context = new (window.AudioContext || window.webkitAudioContext)();
+
+class Buffer {
+  
+  constructor(context, urls) {  
+    this.context = context;
+    this.urls = urls;
+    this.buffer = [];
+  }
+  
+  loadSound(url, index) {
+    let request = new XMLHttpRequest();
+    request.open('get', url, true);
+    request.responseType = 'arraybuffer';
+    let thisBuffer = this;
+    request.onload = function() {
+    
+      thisBuffer.context.decodeAudioData(request.response, function(data) {
+          thisBuffer.buffer[index] = data;
+      });
+          
+     };
+    request.send();
+  };
+  
+  createBuffer() {
+    this.urls.forEach((url, index) => {
+      this.loadSound(url, index);
+  
+    })
+  }
+
+ getSound(index) {
+    return this.buffer[index];
+  }
+
+}
+
+
+
+
+const playSound = (audioData, playTime) => {
+
+  const source = context.createBufferSource(); 
+  source.buffer = audioData;
+  const gain = context.createGain();
+
+  source.connect(gain).connect(context.destination);
+ 
+    source.start(playTime);
+}
+
+
+const buffer = new Buffer(context, sounds);
+
+buffer.createBuffer();
+
+//////////////////////////////////////////////////
+
+
+let button = document.getElementsByClassName('button');
+var allSounds = [];
+  allSounds.push.apply(allSounds, button);
+
+
+
+const onButtonPlaySound = () => {
+
+  allSounds.forEach((btn) => btn.addEventListener('click', (evt) => {
+      btn = evt.target;
+      const i = allSounds.indexOf(btn, 0);
+
+    playSound(buffer.getSound(i), 0) 
+
+}))
+}
+
+onButtonPlaySound();
+
+
+
+//Sequencer
+
+let startTime = 0;
+let nextStepTime = 0.0;
+let currentStep = 0;
+let secondsPerBeat = 60 / bpm ;    
+let isPlaying = false;
+
+
+function scheduleSound() {
+  let now = context.currentTime;
+  now -= startTime
+ 
+
+  while (nextStepTime < now + 0.2 ) {
+    
+    let pt = nextStepTime + startTime;
+    playStepAtTime(newLanes, pt, _matrix_js__WEBPACK_IMPORTED_MODULE_2__.renderPlayedCells);
+    
+    nextStep(newLanes, _slider_js__WEBPACK_IMPORTED_MODULE_3__.currentSlide);
+  }
+    const ti = setTimeout(scheduleSound, 0);
+}
+
+
+
+function nextStep(lanes, callback) {
+  currentStep++;
+
+  lanes.forEach((lane) => {
+
+    const {cells} = lane;
+    cells.forEach((cell) => {
+      const currentCell = lane.cells[currentStep - 1];
+   
+    if (cell = currentCell) {
+      cell.played = true; 
+    }
+    else {
+      cell.played = false
+    };
+
+   });
+  });
+
+  currentStep > 16 ? callback(2)  : callback(1);
+  
+  
+  if (currentStep === activeStep) {
+    currentStep = 0;
+  }
+  
+  nextStepTime += secondsPerBeat / 4;
+}
+
+
+
+function playStepAtTime(lanes, playTime, callback) {
+ 
+    for(let i = 0; i < lanes.length; i++) {
+        const lane = lanes[i];
+        if (lane.cells[currentStep].checked != false) {
+          playSound(buffer.getSound(i), playTime);
+        }
+    }
+    callback(cellsButtons, newLanes);
+} 
+
+
+
+function play() {
+  isPlaying = true;
+  currentStep = currentStep;
+  nextStepTime = 0;
+  startTime = context.currentTime + 0.005;
+  scheduleSound();
+
+}
+
+
+
+
+// function stop() {
+//   isPlaying = false;
+//   scheduleSound()  
+//   console.log('stop')
+//   console.log(isPlaying)
+// }
+
+
+
+// addButtonPlayHandler(play, stop);
+// addButtonStopHandler(stop, play)
+
+
+
+  
+
+// const loop = () => {
+//   let spb = (60/120);
+//   let frames = 0;
+
+//    let currentC = 0;
+//    let lastStep = -1;
+
+//   if(!isPlaying) {
+//     frames++;
+
+//     let seconds = 60/frames;
+//     let beatTime = spb/seconds%activeStep;
+
+
+//     lastStep = currentC;
+//     currentC = Math.floor(beatTime*4);
+
+
+//     if(lastStep != currentC) {
+     
+      
+//      //for (let i = 0; i < activeStep; i++) {
+//       if(lastStep === i) {
+//         now = 0;
+//         playSound(buffer.getSound(1))
+//         playSound(buffer.getSound(2))
+//       }
+//     } 
+//   }
+
+// }
+//   requestAnimationFrame(loop)
+
+// }
+
+
+
+document.addEventListener('keydown', (evt) => {
+  
+    if ((0,_util_js__WEBPACK_IMPORTED_MODULE_0__.isEscEvent)(evt)) {
+      evt.preventDefault();
+      isPlaying = !isPlaying
+      play()
+    }
+});
+
+
+
+
+}();
+/******/ })()
+;
 //# sourceMappingURL=index.bundle.js.map

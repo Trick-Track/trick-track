@@ -1,0 +1,58 @@
+.sequencer__wrapper {
+    width: 80%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    margin-top: 200px;
+    border: 1px solid $black;
+
+}
+
+
+.sequencer__samples-list {
+    width: 80%;
+    height: auto;
+    list-style: none;
+    margin: 0;
+    float: right;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border: 1px solid $black;
+}
+
+
+.sequencer__samples-item {
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.sequencer__step-list {
+    display: flex;
+    height: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 2;
+} 
+
+
+.sequencer__cell {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid grey;
+
+} 
+
+
+.sample-button {
+    width: 70px;
+    max-height: 30px;
+}

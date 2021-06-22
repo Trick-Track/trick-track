@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.mailru',
 
     'daw',
-    'welcome',
 ]
 
 MIDDLEWARE = [

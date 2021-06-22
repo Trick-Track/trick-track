@@ -3,7 +3,9 @@
   "private": true,
   "devDependencies": {
     "browser-sync": "2.26.14",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^5.2.6",
+    "html-webpack-plugin": "^5.3.1",
     "node-sass": "^6.0.0",
     "postcss-loader": "^6.1.0",
     "postcss-preset-env": "^6.7.0",
@@ -14,8 +16,9 @@
     "webpack-cli": "^4.7.2"
   },
   "scripts": {
-    "build": "webpack",
-    "start": "browser-sync start --server \"production/\" --no-ui --files \"source/**/*.js\""
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "start": "browser-sync start --server \"build/\" --no-ui --files \"source/**/*.js\""
   },
   "browserslist": [
     "last 2 versions",
@@ -26,6 +29,7 @@
     "node": "14.16.0"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8"
+    "lodash.debounce": "^4.0.8",
+    "normalize.css": "^8.0.1"
   }
 }

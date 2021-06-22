@@ -1,120 +1,13 @@
 
-.page {
-    height: 100%;
-    font-family: "Open Sans", "Arial", sans-serif;
-  }
-  
-  .page__body {
-    display: grid;
-    grid-template-rows: min-content 1fr min-content;
-    align-content: start;
-    min-width: 940px;
-    min-height: 100%;
-    margin: 0;
-    background-color: #ffffff;
-    color: #000000;
-  }
-  
-
-.sequencer__wrapper {
-    width: 90%;
-    height: auto;
-    background-color: rgb(255, 255, 255);
-    position: fixed;
-    margin-top: 200px;
-    border: 1px solid black;
-
-}
-
-.sequencer__samples-list {
-    width: 80%;
-    height: auto;
-    list-style: none;
-    margin: 0;
-    float: right;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    border: 1px solid black;
-}
-
-.sequencer__samples-item {
-    width: 100%;
-    min-height: 70px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    margin-bottom: 20px;
-}
-
-.sequencer__step-list {
-    display: flex;
-    height: 50px;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-grow: 2;
-} 
 
 
-.sequencer__cell {
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    display: flex;
-    flex-direction: row;
-    border: 2px solid grey;
-
-} 
-
-/* .activated-cell {
-    background-color: pink;
-}
-
-.played-cell {
-    color: green;
-} */
-
-.button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100px;
-    height: 50px;
-    border: none;
-    text-overflow: ellipsis;
-    box-sizing: content-box;
-    background-color: #3498db;
-    color: white;
-    text-transform: uppercase;
-    font: inherit;
-  }
-
-  .sample-button {
-      width: 70px;
-      max-height: 30px;
-  }
 
 
-.slider-tracker {
-    display: flex;
-  
-
-}
-
-.slide {
-    width: 100%
-}
-  
-
- .sequencer__step-list {
-     display: none
- }
 
 
- .sequencer__step-list.current-slide {
-     display: flex;
- }
+
+
+
 
 
 

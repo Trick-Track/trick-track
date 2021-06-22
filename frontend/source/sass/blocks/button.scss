@@ -2,15 +2,12 @@
     display: flex;
     align-items: center;
     text-transform: uppercase;
-    height: 75px;
     border: none;
-    @include text-size(12px, 15px, 700);
     letter-spacing: 2px;
     background-color: $black;
-    color: white;
+    color: $white;
     text-decoration: none;
     box-sizing: border-box;
-    min-height: 75px;
 
     &:hover {
         background-color: $white;

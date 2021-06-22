@@ -6,16 +6,15 @@ import {addBpmInputHandler, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
 import {am} from './controls.js';
+//import soundfile from '../samples/bdsh.wav'
 import '../sass/style.sass';
 
-//import {debounce} from 'lodash';
-
-const DEBOUNCE_TIME = 1000;
+console.log('hey');
 
 
-let sounds = ['./samples/bdsh.wav', 
-                './samples/boom.wav', 
-                './samples/tsk.wav',
+let sounds = ['../samples/bdsh.wav', 
+                '../samples/boom.wav', 
+                '../samples/tsk.wav',
               ];
 
 const STEPS = 32;

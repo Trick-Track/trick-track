@@ -6,7 +6,7 @@ import {addBpmInputHandler, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
 import {am} from './controls.js';
-import '../sass/style.scss'
+import '../sass/style.sass';
 
 //import {debounce} from 'lodash';
 

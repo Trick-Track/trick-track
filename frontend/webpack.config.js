@@ -2,6 +2,7 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 
 
@@ -25,15 +26,19 @@ module.exports = {
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
-        filename: 'index.[contenthash].js',
+        filename: filename('js'),
         path: path.resolve(__dirname, 'build'),
     },
      resolve: {
-       extensions: ['.js', '.wav'],
+       extensions: ['.js', '.wav', 'woff2'],
        alias: {
         normalize_css: __dirname + '/node_modules/normalize.css/normalize.css',
       }
        
+     },
+     devServer: {
+       port: 4200,
+       open: true,
      },
 
         module: {
@@ -44,7 +49,7 @@ module.exports = {
                 MiniCssExtractPlugin.loader,
                 'css-loader?url=false',
                 'sass-loader',
-              ]}
+              ]},
               // {
               //   test: /\.s[ac]ss/,
                
@@ -53,6 +58,10 @@ module.exports = {
               //   use: ['style-loader', 'css-loader', 'sass-loader'],
               //   }),
               // },
+              {
+                test: /\.(ttf|woff|woff2|eot)$/,
+                use: ['file-loader']
+              },
               // {
               //   test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
               //   use: ['file-loader'],
@@ -63,23 +72,20 @@ module.exports = {
             ],
         },
       
-        // module: {
-            // rules: [
-              // {
-                // test: /\.s[ac]ss/,
-                // use: post.extract({
-                // fallback: 'style-loader',
-          //       use: ['css-loader', 'postcss-loader', 'sass-loader'],
-          //     }),
-          //   }
-          //   ],
-          // },
+       
           plugins: [
             new HTMLWebpackPlugin({
               template: './source/index.html',
             }),
 
             new CleanWebpackPlugin(),
+            new CopyWebpackPlugin({
+              patterns: [
+              {
+              from: path.resolve(__dirname, 'source/samples'),
+              to: path.resolve(__dirname, 'build/samples')
+              }
+            ]}),
             new MiniCssExtractPlugin({
               filename: filename('css')
             }),

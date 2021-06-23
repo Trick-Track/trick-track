@@ -5,8 +5,7 @@ import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmInputHandler, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
-import {am} from './controls.js';
-
+//import {am} from './controls.js';
 import '../sass/style.sass';
 
 console.log('hey');
@@ -90,9 +89,9 @@ const playSound = (audioData, playTime) => {
 
   const source = context.createBufferSource();
   source.buffer = audioData;
-  const gain = context.createGain();
+ // const gain = context.createGain();
 
-  source.connect(gain).connect(context.destination);
+  source.connect(context.destination);
 
     source.start(playTime);
 }
@@ -127,7 +126,7 @@ onButtonPlaySound();
 
 
 //Sequencer
-
+let bpm = 100;
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
@@ -198,8 +197,7 @@ function playStepAtTime(lanes, playTime, callback) {
 
 function play() {
   isPlaying = true;
-  currentStep = currentStep;
-  nextStepTime = 0;
+  //nextStepTime = 0;
   startTime = context.currentTime + 0.005;
   scheduleSound();
 

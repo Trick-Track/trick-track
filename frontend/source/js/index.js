@@ -126,18 +126,22 @@ onButtonPlaySound();
 
 
 //Sequencer
-let bpm = 100;
+addBpmInputHandler();
+
+
+
+//let bpm = 100;
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
-let secondsPerBeat = 60 / bpm ;
+//let secondsPerBeat = 60 / bpm ;
 let isPlaying = false;
 
 
 function scheduleSound() {
   let now = context.currentTime;
-  now -= startTime
-
+  now -= startTime;
+ 
 
   while (nextStepTime < now + 0.2 ) {
 
@@ -176,8 +180,8 @@ function nextStep(lanes, callback) {
   if (currentStep === activeStep) {
     currentStep = 0;
   }
-
-  nextStepTime += secondsPerBeat / 4;
+  let tempo = setTempo();
+  nextStepTime += tempo;
 }
 
 

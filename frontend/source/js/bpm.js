@@ -1,21 +1,18 @@
 const bpmControl = document.querySelector('#bpm');
 
 
-const addBpmInputHandler = (callback) => {
-  let tempo
+const addBpmInputHandler = () => {
     bpmControl.addEventListener('change', function() {
-    tempo = this.value;
-    callback(tempo)
+     bpmControl.value = this.value;
   });
-  
 };
 
-const setTempo = (tempo) => {
-    //const tempo = bpmControl.value;
-    const tic = (60 / tempo) / 4;
+
+const setTempo = () => {
+    const bpm = bpmControl.value
+    const tic = (60 / bpm) / 4;
+    console.log(tic)
     return tic;  
   }
-
-
 
 export {addBpmInputHandler, setTempo};

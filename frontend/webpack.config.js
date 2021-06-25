@@ -10,7 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
-const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`
+const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 // const optimization = () => {
 //   const config = {
@@ -33,9 +33,11 @@ module.exports = {
        extensions: ['.js', '.wav', 'woff2'],
        alias: {
         normalize_css: __dirname + '/node_modules/normalize.css/normalize.css',
-      }
-       
-     },
+       },
+       fallback: { "path": false },
+      },
+    
+      
      devServer: {
        port: 4200,
        open: true,

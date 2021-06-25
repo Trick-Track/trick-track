@@ -2,14 +2,14 @@ import {isEscEvent} from './util.js';
 import {initialCells, setCellCheckedColor, createLanes, setCellPlayedColor} from './cell.js';
 import {addButtonCellHandler, generateMatrix, createAllCellsArray, renderPlayedCells} from './matrix.js';
 import {addArrowsHandlers, currentSlide} from './slider.js';
-import {addBpmInputHandler, setTempo} from './bpm.js';
+import {addBpmInputHandler, setBpm, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
-//import {am} from './controls.js';
+import {addVolumeControlsHandler} from './controls.js';
+import {createProject} from './project.js';
+
+
 import '../sass/style.sass';
-
-console.log('hey');
-
 
 
 let sounds = ['./samples/bdsh.wav',
@@ -19,30 +19,6 @@ let sounds = ['./samples/bdsh.wav',
 
 const STEPS = 32;
 const activeStep = 30;
-
-const newCells = initialCells(STEPS);
-const newLanes = createLanes(sounds, newCells); //дорожки
-generateMatrix(newLanes); // отрисовка дорожек
-
-const cellsButtons = createAllCellsArray();
-
-addButtonCellHandler(cellsButtons, newLanes, setCellCheckedColor)
-
-addArrowsHandlers(); //стрелки слайдера
-
-
-
-
-
-
-
-// addFilterHandlers(
-//   debounce(renderOffersPin, DEBOUNCE_TIME));
-// })
-
-
-
-////Bufer////////////////////////////////////////////////////////
 
 let context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -82,24 +58,61 @@ class Buffer {
 
 }
 
+const buffer = new Buffer(context, sounds)
+buffer.createBuffer();
+
+/////////////////////////
+
+
+const newCells = initialCells(STEPS);
+const newLanes = createLanes(buffer.urls, newCells); //дорожки
+generateMatrix(newLanes); // отрисовка дорожек
+
+const cellsButtons = createAllCellsArray();
+
+addButtonCellHandler(cellsButtons, newLanes, setCellCheckedColor)
+
+addArrowsHandlers(); //стрелки слайдера
+
+addBpmInputHandler(); //bpm
 
 
 
-const playSound = (audioData, playTime) => {
 
+addVolumeControlsHandler(newLanes)
+
+
+
+
+
+
+// addFilterHandlers(
+//   debounce(renderOffersPin, DEBOUNCE_TIME));
+// })
+
+
+
+////Bufer////////////////////////////////////////////////////////
+
+
+
+
+
+
+const playSound = (audioData, playTime, volume) => {
   const source = context.createBufferSource();
   source.buffer = audioData;
- // const gain = context.createGain();
-
-  source.connect(context.destination);
+  const gainNode= context.createGain();
+  gainNode.gain.value = volume;
+  source.connect(gainNode).connect(context.destination);
 
     source.start(playTime);
 }
 
 
-const buffer = new Buffer(context, sounds);
 
-buffer.createBuffer();
+
+
 
 //////////////////////////////////////////////////
 
@@ -126,15 +139,11 @@ onButtonPlaySound();
 
 
 //Sequencer
-addBpmInputHandler();
 
 
-
-//let bpm = 100;
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
-//let secondsPerBeat = 60 / bpm ;
 let isPlaying = false;
 
 
@@ -147,13 +156,11 @@ function scheduleSound() {
 
     let pt = nextStepTime + startTime;
     playStepAtTime(newLanes, pt, renderPlayedCells);
-
     nextStep(newLanes, currentSlide);
   }
-    const ti = setTimeout(scheduleSound, 0);
+    const ti = setTimeout(scheduleSound, 0)
+    
 }
-
-
 
 function nextStep(lanes, callback) {
   currentStep++;
@@ -164,14 +171,14 @@ function nextStep(lanes, callback) {
     cells.forEach((cell) => {
       const currentCell = lane.cells[currentStep - 1];
 
-    if (cell = currentCell) {
-      cell.played = true;
-    }
-    else {
-      cell.played = false
-    };
+      if (cell = currentCell) {
+        cell.played = true;
+      }
+      else {
+        cell.played = false // не работает
+      };
 
-   });
+    });
   });
 
   currentStep > 16 ? callback(2)  : callback(1);
@@ -185,18 +192,24 @@ function nextStep(lanes, callback) {
 }
 
 
+// 
+
 
 function playStepAtTime(lanes, playTime, callback) {
 
     for(let i = 0; i < lanes.length; i++) {
         const lane = lanes[i];
+        const volume = lane.volume
         if (lane.cells[currentStep].checked != false) {
-          playSound(buffer.getSound(i), playTime);
+          playSound(buffer.getSound(i), playTime, volume);
         }
     }
     callback(cellsButtons, newLanes);
 }
 
+// let bpm = setBpm();
+//     let project = createProject(newLanes, bpm);
+//     console.log(project)
 
 
 function play() {

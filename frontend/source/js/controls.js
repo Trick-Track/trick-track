@@ -1,7 +1,4 @@
 
-const pannerControls = document.querySelectorAll('[data-action="panner"]');
-
-
 const addVolumeControlsHandler = (lanes) => {
   const volumeControls = document.querySelectorAll('[data-action="volume"]');
 
@@ -12,23 +9,30 @@ const addVolumeControlsHandler = (lanes) => {
           const i = [...volumeControls].indexOf(volumeControl, 0);
           const lane = lanes[i]; 
           lane.volume = evt.target.value;
-          console.log(lane)
     })
   })
 }
 
-// volumeControl.addEventListener('input', function() {
-//     
-// 	gainNode.gain.value = this.value;
-// }, false);
 
-// // panning
-// const pannerOptions = {pan: 0};
-// const panner = new StereoPannerNode(context, pannerOptions);
+const addPannerControlsHandler = (lanes) => {
+  const pannerControls = document.querySelectorAll('[data-action="panner"]');
+  
+    pannerControls.forEach((pannerControl) => {
+
+      pannerControl.addEventListener('input', (evt) => {
+        pannerControl = evt.target;
+        const i = [...pannerControls].indexOf(pannerControl, 0);
+        const lane = lanes[i]; 
+        lane.panner = evt.target.value;
+        console.log(lanes);
+      });
+    });
+}
+
+const addControlsHandlers = (lanes) => {
+  addVolumeControlsHandler(lanes);
+  addPannerControlsHandler(lanes)
+}
 
 
-// pannerControl.addEventListener('input', function() {
-// 	panner.pan.value = this.value;	
-// }, false);
-
-export {addVolumeControlsHandler}; 
+export {addControlsHandlers}; 

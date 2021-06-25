@@ -5,7 +5,7 @@ import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmInputHandler, setBpm, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
-import {addVolumeControlsHandler} from './controls.js';
+import {addControlsHandlers} from './controls.js';
 import {createProject} from './project.js';
 
 
@@ -76,10 +76,7 @@ addArrowsHandlers(); //стрелки слайдера
 
 addBpmInputHandler(); //bpm
 
-
-
-
-addVolumeControlsHandler(newLanes)
+addControlsHandlers(newLanes) //звук и панорама для дорожек
 
 
 
@@ -99,12 +96,18 @@ addVolumeControlsHandler(newLanes)
 
 
 
-const playSound = (audioData, playTime, volume) => {
+const playSound = (audioData, playTime, volume, pans) => {
   const source = context.createBufferSource();
   source.buffer = audioData;
+
   const gainNode= context.createGain();
   gainNode.gain.value = volume;
-  source.connect(gainNode).connect(context.destination);
+
+  const pannerOptions = {pan: 0};
+  const panner = new StereoPannerNode(context, pannerOptions);
+  panner.pan.value = pans;
+
+  source.connect(gainNode).connect(panner).connect(context.destination);
 
     source.start(playTime);
 }
@@ -191,17 +194,14 @@ function nextStep(lanes, callback) {
   nextStepTime += tempo;
 }
 
-
-// 
-
-
 function playStepAtTime(lanes, playTime, callback) {
 
     for(let i = 0; i < lanes.length; i++) {
         const lane = lanes[i];
-        const volume = lane.volume
+        const volume = lane.volume;
+        const panner = lane.panner;
         if (lane.cells[currentStep].checked != false) {
-          playSound(buffer.getSound(i), playTime, volume);
+          playSound(buffer.getSound(i), playTime, volume, panner);
         }
     }
     callback(cellsButtons, newLanes);

@@ -26,7 +26,7 @@ const createLanes = (sounds, cells) => {
       const clonedCell = Object.assign({}, cells[i]);
       steps.push(clonedCell)
     }
-    const obj = {sound: sound, cells: steps, volume: 1}
+    const obj = {sound: sound, cells: steps, volume: 1, panner: 0}
     lines.push(obj)
   })
   return lines

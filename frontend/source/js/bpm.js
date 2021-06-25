@@ -7,12 +7,15 @@ const addBpmInputHandler = () => {
   });
 };
 
+const setBpm = () => {
+  const bpm = bpmControl.value;
+  return bpm
+}
 
 const setTempo = () => {
     const bpm = bpmControl.value
     const tic = (60 / bpm) / 4;
-    console.log(tic)
-    return tic;  
+    return tic; 
   }
 
-export {addBpmInputHandler, setTempo};
+export {addBpmInputHandler, setBpm, setTempo};

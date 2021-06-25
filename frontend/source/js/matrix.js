@@ -42,9 +42,9 @@ const fillStep = (stepsList, steps) => {
   
   
 const generateMatrixLane = (lane) => {
-  const{line, cells} = lane
+  const{sound, cells} = lane
   const newSample = sampleTemplate.cloneNode(true);
-  newSample.querySelector('.button').textContent = line.replace(/^.*[\\\/]/, '').slice(0, -4);
+  newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
   sampleList.append(newSample);
 
   const stepsList = newSample.querySelectorAll('.sequencer__step-list');

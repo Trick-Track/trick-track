@@ -1,0 +1,17 @@
+.slider-tracker {
+    display: flex;
+}
+
+.slide {
+    width: 100%
+}
+  
+
+ .sequencer__step-list {
+     display: none
+ }
+
+
+ .sequencer__step-list.current-slide {
+     display: flex;
+ }

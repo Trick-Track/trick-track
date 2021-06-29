@@ -28,6 +28,7 @@ module.exports = {
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'build'),
+        publicPath: "/static/"
     },
      resolve: {
        extensions: ['.js', '.wav', 'woff2'],
@@ -36,15 +37,15 @@ module.exports = {
        },
        fallback: { "path": false },
       },
-    
-      
+
+
      devServer: {
        port: 4200,
        open: true,
      },
 
         module: {
-            rules: 
+            rules:
             [{
               test: /s[ac]ss$/,
               use: [
@@ -54,9 +55,9 @@ module.exports = {
               ]},
               // {
               //   test: /\.s[ac]ss/,
-               
+
               //   use: MiniCssExtractPlugin.loader({
-             
+
               //   use: ['style-loader', 'css-loader', 'sass-loader'],
               //   }),
               // },
@@ -67,14 +68,14 @@ module.exports = {
               // {
               //   test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
               //   use: ['file-loader'],
-              //   options: { 
+              //   options: {
               //     name: filename('wav'),
               //   },
-              // } 
+              // }
             ],
         },
-      
-       
+
+
           plugins: [
             new HTMLWebpackPlugin({
               template: './source/index.html',

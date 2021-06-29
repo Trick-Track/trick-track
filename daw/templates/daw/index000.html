@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html class="page" lang="ru">
   <head>
@@ -5,11 +6,13 @@
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>trick-track</title>
       <!-- <link rel="stylesheet" href="./style.css">  -->
-  <script defer src="main.1ad081f739733cfb0230.js"></script><link href="main.52d0451a5ece5184ab54.css" rel="stylesheet"></head>
+  <script defer src={% static "main.1ad081f739733cfb0230.js" %}></script><link href={% static "main.52d0451a5ece5184ab54.css" %} rel="stylesheet"></head>
   <body class="page__body">
     <main class="page-main" >
       <section class="app">
         <h1>trick-track</h1>
+        <h1>AAAAYYEEEEHHHHHHHH</h1>
+        <h1>рррррработаееееетттт</h1>
         <div class="">
           <label for="bpm">bpm</label>
           <input name="bpm" id="bpm" type="number" min="1" max="300" value="120" step="1"/>

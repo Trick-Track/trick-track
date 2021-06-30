@@ -7,6 +7,7 @@ digital audio workstation online
 ### Installation
 ```
 pip install requirements.txt
+(pip3 install -r requirments.txt)
 
 python manage.py makemigrations
 

@@ -1,5 +1,5 @@
 const createProject = (newLanes, bpm) => {
-    const project = {bpm: bpm, lanes: newLanes}
+    const project = {bpm: bpm, lanes: newLanes, isPlayed: false}
     return project;
 }
 

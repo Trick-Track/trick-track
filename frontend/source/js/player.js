@@ -1,14 +1,15 @@
-const player = document.querySelectorAll('.player')
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
 
-const playProject = (cb) => {
-    //isPlaying = true;
-    cb();
+const playProject = (project) => {
+   const {isPlayed} = project;
+   isPlayed = true; 
+   cb()
+
 }
 
-const stopPlayProject = (cb) => {
-    //isPlaying = false;
+const stopPlaybackProject = (project) => {
+    const {isPlayed} = false;
     cb();
 }
 

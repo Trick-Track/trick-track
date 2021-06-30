@@ -1,10 +1,31 @@
 .sequencer__wrapper {
-    width: 80%;
+    width: 70%;
     height: auto;
     background-color: rgb(255, 255, 255);
     position: fixed;
     margin-top: 200px;
     border: 1px solid $black;
+
+}
+
+.sequencer__playback {
+    float: right;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid $black;
+    height: 10px;
+
+}
+
+.sequencer__playback-element {
+   border: 1px solid $black;
+   width: 10px;
+   border-radius: 50%;
+
+    &--played {
+        background-color: red;
+    }
 
 }
 
@@ -34,6 +55,7 @@
 
 .sequencer__step-list {
     display: flex;
+    width: 80%;
     height: 50px;
     flex-direction: row;
     justify-content: space-between;

@@ -2,16 +2,7 @@ const nextArrow = document.querySelector('.slider__arrow--next');
 const previousArrow = document.querySelector('.slider__arrow--prev');
 let slideNumber = 1;
 
- 
-//  class slider {
-      
-//   constructor(selector) {  
-//     this.loop = false;
-//     this.autoplay = false;
-//     this.slide = selector;
-//     this.interval = 5000;
-
-const showSlide = (n) => {
+ const showSlide = (n) => {
   const slidesLists = document.querySelectorAll('.slider-tracker');
 
   slidesLists.forEach((slidesList) => {

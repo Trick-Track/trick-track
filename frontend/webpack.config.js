@@ -22,13 +22,15 @@ const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 
 module.exports = {
-    mode: 'development',
+    // mode: 'development',
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
-        filename: filename('js'),
+        // filename: filename('js'),
+        filename: "[name].js",
+        // chunkFilename: "[id]-[chunkhash].js",
         path: path.resolve(__dirname, 'build'),
-        publicPath: "/static/"
+        // publicPath: "/static/"
     },
      resolve: {
        extensions: ['.js', '.wav', 'woff2'],
@@ -90,7 +92,7 @@ module.exports = {
               }
             ]}),
             new MiniCssExtractPlugin({
-              filename: filename('css')
+              filename: "[name].css"
             }),
 
            ]

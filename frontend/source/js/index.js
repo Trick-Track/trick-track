@@ -1,6 +1,6 @@
 import {isEscEvent} from './util.js';
-import {initialCells, setCellCheckedColor, createLanes, setCellPlayedColor} from './cell.js';
-import {addButtonCellHandler, generateMatrix, createAllCellsArray, renderPlayedCells} from './matrix.js';
+import {initialCells, setCellCheckedColor, createLanes} from './cell.js';
+import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
 import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
 import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmInputHandler, setBpm, setTempo} from './bpm.js';
@@ -162,7 +162,7 @@ function scheduleSound() {
   while (nextStepTime < now + 0.2 ) {
 
     let pt = nextStepTime + startTime;
-    playStepAtTime(newLanes, pt, renderPlayedCells, fillCurrentPlaybackStep);
+    playStepAtTime(newLanes, pt, fillCurrentPlaybackStep);
     nextStep(newLanes, currentSlide);
   }
     const ti = setTimeout(scheduleSound, 0)
@@ -198,7 +198,7 @@ function nextStep(lanes, callback) {
   nextStepTime += tempo;
 }
 
-function playStepAtTime(lanes, playTime, callback, cb) {
+function playStepAtTime(lanes, playTime, cb) {
 
     for(let i = 0; i < lanes.length; i++) {
         const lane = lanes[i];
@@ -208,7 +208,6 @@ function playStepAtTime(lanes, playTime, callback, cb) {
           playSound(buffer.getSound(i), playTime, volume, panner);
         }
     }
-    callback(cellsButtons, newLanes);
     cb(currentStep)
     
 }

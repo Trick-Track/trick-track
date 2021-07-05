@@ -1,3 +1,4 @@
+const barsControl = document.querySelector('#bars');
 
 const initialCells = (steps) => {
     let cells = [];
@@ -46,22 +47,7 @@ const setCellCheckedColor = (cell) => {
   }
 }
 
-const setCellPlayedColor = (cell) => {
-  const {played} = cell;
-  switch(played) {
-    case true:
-      return "#ff00ff";
-    break;
-    case (!true): 
-      return ""
-    case false:
-      return "#ffffff";
-    break;
-    default:
-      return "#ffffff";
-  }
-}
 
 
 
-export {initialCells, createLanes, setCellCheckedColor, setCellPlayedColor}
+export {initialCells, createLanes, setCellCheckedColor}

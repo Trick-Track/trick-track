@@ -64,13 +64,13 @@ module.exports = {
                 test: /\.(ttf|woff|woff2|eot)$/,
                 use: ['file-loader']
               },
-              // {
-              //   test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
-              //   use: ['file-loader'],
-              //   options: { 
-              //     name: filename('wav'),
-              //   },
-              // } 
+              {
+                test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
+                use: ['file-loader'],
+                // options: { 
+                //   name: filename('wav'),
+                // },
+              } 
             ],
         },
       
@@ -86,7 +86,12 @@ module.exports = {
               {
               from: path.resolve(__dirname, 'source/samples'),
               to: path.resolve(__dirname, 'build/samples')
-              }
+              },
+              {
+              from: path.resolve(__dirname, 'source/static/image'),
+              to: path.resolve(__dirname, 'build/image')
+              },
+
             ]}),
             new MiniCssExtractPlugin({
               filename: filename('css')

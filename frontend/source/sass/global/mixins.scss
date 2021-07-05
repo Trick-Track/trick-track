@@ -1,0 +1,15 @@
+@mixin button-reset() {
+    padding: 0;
+    width: auto;
+    border: none;
+    cursor: pointer;
+    background: none;
+    outline: none;
+  }
+
+
+  @mixin backlight($color: color) {
+    outline: 5px solid $color;
+    outline-offset: -5px;
+  }
+  

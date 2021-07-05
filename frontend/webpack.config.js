@@ -97,7 +97,7 @@ module.exports = {
 
             ]}),
             new MiniCssExtractPlugin({
-              filename: filename('css')
+              filename: "[name].css",
             }),
 
            ]

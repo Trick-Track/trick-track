@@ -1,0 +1,30 @@
+.app__header {
+    display: flex;
+    flex-direction: row;
+    background-color: #414141;
+}
+
+.app__header-input {
+    display: flex;
+    
+}
+
+.player__button {
+    @include button-reset;
+}
+
+
+.app-counters {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.app__counter {
+    @include button-reset; 
+
+    &--increment {
+     transform: rotate(180deg);   
+    } 
+}
+

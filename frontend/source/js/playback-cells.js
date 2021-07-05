@@ -1,9 +1,12 @@
-const playbackWrapper = document.querySelector('.sequencer__playback');
+
 
 const renderPlaybackLine = () => {
+
+    const playbackWrapper = document.querySelector('.sequencer__playback');
+    
     const fragment = document.createDocumentFragment();
 
-    for(let i = 0; i < 16; i++) {
+    for(let i = 0; i < 32; i++) {
 
    
     const playbackStep = document.createElement('div');
@@ -14,6 +17,9 @@ const renderPlaybackLine = () => {
     }
     playbackWrapper.append(fragment);
 }
+
+
+
 
 const fillCurrentPlaybackStep = (currentStep) => {
     const playbackSteps = document.querySelectorAll('.sequencer__playback-element');

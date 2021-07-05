@@ -1,5 +1,3 @@
-import {setCellPlayedColor} from './cell.js';
-
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
 const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
@@ -39,6 +37,8 @@ const fillStep = (stepsList, steps) => {
     stepsList[0].append(fragment);
     stepsList[1].append(fragmentOne);
 };
+
+
   
   
 const generateMatrixLane = (lane) => {
@@ -92,22 +92,22 @@ const addButtonCellHandler = (cellsElements, lanes, cb) => {
   })
 };
 
-const renderPlayedCells = (cellsElements, lanes) => {
+// const renderPlayedCells = (cellsElements, lanes) => {
 
-  lanes.forEach((lane) => {
-    const {cells} = lane;
-    cells.forEach((cell) => {
-      const i = lanes.indexOf(lane);
-      const cellsOfLane = cellsElements[i];
-      const j = cells.indexOf(cell, 0);
+//   lanes.forEach((lane) => {
+//     const {cells} = lane;
+//     cells.forEach((cell) => {
+//       const i = lanes.indexOf(lane);
+//       const cellsOfLane = cellsElements[i];
+//       const j = cells.indexOf(cell, 0);
 
-      if (cell.played != false) {
-        cellsOfLane[j].style.borderColor = setCellPlayedColor(cell);
-      }
+//       if (cell.played != false) {
+//         cellsOfLane[j].style.borderColor = setCellPlayedColor(cell);
+//       }
       
-    })
-  })
-}
+//     })
+//   })
+// }
 
 
 //создание новой дорожки
@@ -130,4 +130,4 @@ const renderPlayedCells = (cellsElements, lanes) => {
 
 
   
-  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler, renderPlayedCells}
+  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler}

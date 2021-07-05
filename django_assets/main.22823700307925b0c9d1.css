@@ -1,0 +1,135 @@
+.button {
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  border: none;
+  letter-spacing: 2px;
+  background-color: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+.button:hover {
+  background-color: #ffffff;
+}
+
+.page {
+  width: 100%;
+  height: 100%;
+  font-family: "Montserrat", "Arial", sans-serif;
+}
+
+.page__body {
+  display: grid;
+  grid-template-rows: min-content 1fr min-content;
+  align-content: start;
+  min-height: 100%;
+  margin: 0;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.sequencer__wrapper {
+  width: 70%;
+  height: auto;
+  background-color: white;
+  position: fixed;
+  margin-top: 200px;
+  border: 1px solid #000000;
+}
+
+.sequencer__playback {
+  float: right;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #000000;
+  height: 10px;
+}
+
+.sequencer__playback-element {
+  border: 1px solid #000000;
+  width: 10px;
+  border-radius: 50%;
+}
+.sequencer__playback-element--played {
+  background-color: red;
+}
+
+.sequencer__samples-list {
+  width: 80%;
+  height: auto;
+  list-style: none;
+  margin: 0;
+  float: right;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  border: 1px solid #000000;
+}
+
+.sequencer__samples-item {
+  width: 100%;
+  min-height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin-bottom: 20px;
+}
+
+.sequencer__step-list {
+  display: flex;
+  width: 80%;
+  height: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 2;
+}
+
+.sequencer__cell {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  border: 2px solid grey;
+}
+
+.sample-button {
+  width: 70px;
+  max-height: 30px;
+}
+
+.slider-tracker {
+  display: flex;
+}
+
+.slide {
+  width: 100%;
+}
+
+.sequencer__step-list {
+  display: none;
+}
+
+.sequencer__step-list.current-slide {
+  display: flex;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../static/fonts/Montserrat-Regular.woff2") format("woff2"), url("../static/fonts/Montserrat-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../static/fonts/Montserrat-Bold.woff2") format("woff2"), url("../static/fonts/Montserrat-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*# sourceMappingURL=main.22823700307925b0c9d1.css.map*/

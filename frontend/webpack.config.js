@@ -26,7 +26,9 @@ module.exports = {
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
-        filename: filename('js'),
+        // filename: filename('js'),
+        publicPath: "/static/",
+        filename: "[name].js",
         path: path.resolve(__dirname, 'build'),
     },
      resolve: {
@@ -36,15 +38,15 @@ module.exports = {
        },
        fallback: { "path": false },
       },
-    
-      
+
+
      devServer: {
        port: 4200,
        open: true,
      },
 
         module: {
-            rules: 
+            rules:
             [{
               test: /s[ac]ss$/,
               use: [
@@ -54,9 +56,9 @@ module.exports = {
               ]},
               // {
               //   test: /\.s[ac]ss/,
-               
+
               //   use: MiniCssExtractPlugin.loader({
-             
+
               //   use: ['style-loader', 'css-loader', 'sass-loader'],
               //   }),
               // },
@@ -64,6 +66,7 @@ module.exports = {
                 test: /\.(ttf|woff|woff2|eot)$/,
                 use: ['file-loader']
               },
+
               {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
                 use: ['file-loader'],
@@ -73,8 +76,8 @@ module.exports = {
               } 
             ],
         },
-      
-       
+
+
           plugins: [
             new HTMLWebpackPlugin({
               template: './source/index.html',

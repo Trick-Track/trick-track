@@ -147,3 +147,5 @@ build/
 settings.ini
 
 assets/
+
+django_assets/

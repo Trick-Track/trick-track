@@ -21,12 +21,12 @@ const renderPlaybackLine = () => {
 
 
 
-const fillCurrentPlaybackStep = (currentStep) => {
+const fillCurrentPlaybackStep = (step) => {
     const playbackSteps = document.querySelectorAll('.sequencer__playback-element');
 
     [...playbackSteps].forEach((playbackStep) => {
-        const currentSte = playbackSteps[currentStep - 1];
-        if (playbackStep == currentSte) {
+        const currentStep = playbackSteps[step - 1];
+        if (playbackStep == currentStep) {
             playbackStep.classList.add('sequencer__playback-element--played')
         }    
         else {

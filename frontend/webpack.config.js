@@ -1,5 +1,5 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
+//const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -12,24 +12,20 @@ const isProd = !isDev;
 
 const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
-// const optimization = () => {
-//   const config = {
-//     splitChunks: {
-//       chunks: 'all',
-//     },
-//   }
-// }
-
-
 module.exports = {
     mode: 'development',
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
+<<<<<<< HEAD
         // filename: filename('js'),
         // publicPath: "/static/",
+=======
+        filename: filename('js'),
+       // publicPath: "/static/",
+>>>>>>> 13e610f1af584331068592b8d4baf223f66c3315
         filename: "[name].js",
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'build'), 
     },
      resolve: {
        extensions: ['.js', '.wav', 'woff2'],
@@ -64,14 +60,17 @@ module.exports = {
               // },
               {
                 test: /\.(ttf|woff|woff2|eot)$/,
-                use: ['file-loader']
+                use: ['file-loader'],
+              //   options: {
+              //     name: "[name].[ext]"
+              // }
               },
 
               {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
                 use: ['file-loader'],
                 // options: { 
-                //   name: filename('wav'),
+                //   name: "[name].ext"
                 // },
               } 
             ],
@@ -79,9 +78,9 @@ module.exports = {
 
 
           plugins: [
-            new HTMLWebpackPlugin({
-              template: './source/index.html',
-            }),
+            // new HTMLWebpackPlugin({
+            //   template: './source/index.html',
+            // }),
 
             new CleanWebpackPlugin(),
             new CopyWebpackPlugin({

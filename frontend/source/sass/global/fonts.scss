@@ -1,9 +1,9 @@
+
 @font-face {
-    font-family: 'Share Tech Mono';
+    font-family: "Share Tech Mono";
     src:
-      url("../static/fonts/share-tech-mono/ShareTechMono-Regular.ttf") format("ttf"),
-      url("../static/fonts/share-tech-mono/ShareTechMono-Regular.woff2") format("woff2"),
-      url("../static/fonts/share-tech-mono/ShareTechMono-Regular.woff") format("woff");
+      url("../static/fonts/ShareTechMono-Regular.woff2") format("woff2"),
+      url("../static/fonts/ShareTechMono-Regular.woff") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -12,8 +12,8 @@
   @font-face {
     font-family: "Tomorrow";
     src:
-      url("../static/fonts/tomorrow/Tomorrow-Regular.woff2") format("woff2"),
-      url("../static/fonts/tomorrow/Tomorrow-Regular.woff2") format("woff");
+      url("../static/fonts/Tomorrow-Regular.woff2") format("woff2"),
+      url("../static/fonts/Tomorrow-Regular.woff2") format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;

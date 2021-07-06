@@ -13,7 +13,7 @@ const isProd = !isDev;
 const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 module.exports = {
-    mode: 'development',
+    // mode: 'development',
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
@@ -60,7 +60,7 @@ module.exports = {
               //     name: "[name].[ext]"
               // }
               },
-
+             
               {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
                 use: ['file-loader'],

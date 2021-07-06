@@ -27,7 +27,7 @@ module.exports = {
     devtool: 'source-map',
     output: {
         // filename: filename('js'),
-        publicPath: "/static/",
+        // publicPath: "/static/",
         filename: "[name].js",
         path: path.resolve(__dirname, 'build'),
     },

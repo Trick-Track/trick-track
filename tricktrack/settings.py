@@ -163,8 +163,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'django_assets')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build'),]
+                    # os.path.join(BASE_DIR, 'frontend', 'source', 'static', 'fonts')]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 

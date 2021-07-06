@@ -1,14 +1,12 @@
 .sequencer__wrapper {
-    width: 80%;
+    width: 70%;
     height: auto;
-    background-color: rgb(255, 255, 255);
+    background-color: none;
     position: fixed;
     margin-top: 200px;
     border: 1px solid $black;
 
 }
-
-
 .sequencer__samples-list {
     width: 80%;
     height: auto;
@@ -34,6 +32,7 @@
 
 .sequencer__step-list {
     display: flex;
+    width: 80%;
     height: 50px;
     flex-direction: row;
     justify-content: space-between;
@@ -42,13 +41,11 @@
 
 
 .sequencer__cell {
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    display: flex;
+    width: 36px;
+    height: 36px;
     flex-direction: row;
-    border: 2px solid grey;
-
+    border: none;
+    border-radius: 6%;
 } 
 
 

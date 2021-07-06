@@ -1,6 +1,7 @@
 import {isEscEvent} from './util.js';
-import {initialCells, setCellCheckedColor, createLanes, setCellPlayedColor} from './cell.js';
-import {addButtonCellHandler, generateMatrix, createAllCellsArray, renderPlayedCells} from './matrix.js';
+import {initialCells, setCellCheckedColor, createLanes} from './cell.js';
+import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
+import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
 import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmInputHandler, setBpm, setTempo} from './bpm.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
@@ -68,6 +69,9 @@ const newCells = initialCells(STEPS);
 const newLanes = createLanes(buffer.urls, newCells); //дорожки
 generateMatrix(newLanes); // отрисовка дорожек
 
+renderPlaybackLine(STEPS);// 
+
+
 const cellsButtons = createAllCellsArray();
 
 addButtonCellHandler(cellsButtons, newLanes, setCellCheckedColor)
@@ -120,19 +124,20 @@ const playSound = (audioData, playTime, volume, pans) => {
 //////////////////////////////////////////////////
 
 
+
+
+const onButtonPlaySound = () => {
+
 let button = document.getElementsByClassName('button');
 var allSounds = [];
   allSounds.push.apply(allSounds, button);
 
 
-
-const onButtonPlaySound = () => {
-
   allSounds.forEach((btn) => btn.addEventListener('click', (evt) => {
       btn = evt.target;
       const i = allSounds.indexOf(btn, 0);
 
-    playSound(buffer.getSound(i), 0)
+    playSound(buffer.getSound(i), 0, 1, 0)
 
 }))
 }
@@ -147,7 +152,6 @@ onButtonPlaySound();
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
-let isPlaying = false;
 
 
 function scheduleSound() {
@@ -158,7 +162,7 @@ function scheduleSound() {
   while (nextStepTime < now + 0.2 ) {
 
     let pt = nextStepTime + startTime;
-    playStepAtTime(newLanes, pt, renderPlayedCells);
+    playStepAtTime(newLanes, pt, fillCurrentPlaybackStep);
     nextStep(newLanes, currentSlide);
   }
     const ti = setTimeout(scheduleSound, 0)
@@ -194,7 +198,7 @@ function nextStep(lanes, callback) {
   nextStepTime += tempo;
 }
 
-function playStepAtTime(lanes, playTime, callback) {
+function playStepAtTime(lanes, playTime, cb) {
 
     for(let i = 0; i < lanes.length; i++) {
         const lane = lanes[i];
@@ -204,7 +208,8 @@ function playStepAtTime(lanes, playTime, callback) {
           playSound(buffer.getSound(i), playTime, volume, panner);
         }
     }
-    callback(cellsButtons, newLanes);
+    cb(currentStep)
+    
 }
 
 // let bpm = setBpm();
@@ -213,9 +218,9 @@ function playStepAtTime(lanes, playTime, callback) {
 
 
 function play() {
-  isPlaying = true;
+  
   //nextStepTime = 0;
-  startTime = context.currentTime + 0.005;
+  //startTime = context.currentTime + 0.005;
   scheduleSound();
 
 }
@@ -280,7 +285,7 @@ document.addEventListener('keydown', (evt) => {
 
     if (isEscEvent(evt)) {
       evt.preventDefault();
-      isPlaying = !isPlaying
+    
       play()
     }
 });

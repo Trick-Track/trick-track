@@ -145,3 +145,7 @@ node_modules/
 build/
 
 settings.ini
+
+assets/
+
+django_assets/

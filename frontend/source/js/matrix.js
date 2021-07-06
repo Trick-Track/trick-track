@@ -1,5 +1,3 @@
-import {setCellPlayedColor} from './cell.js';
-
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
 const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
@@ -10,13 +8,41 @@ const sampleTemplate = document.querySelector('#matrix').content.querySelector('
 //   sampleList.append(newSample);
 // }
 
-const renderStep = () => {
+const renderCell = () => {
   const cellElement = document.createElement('button');
   cellElement.classList.add('sequencer__cell');
   cellElement.type = 'button';
-  cellElement.tabIndex = 0;
-
+  
   return cellElement;
+}
+
+// const setCellBackgroundColor = (cellElements) => {
+//   cellElements.forEach((cellElement) => {
+
+//     const cellIndex = [...cellElements].indexOf(cellElement, 0);
+//      if (Math.floor(cellIndex / 4) % 2) {
+//        cellElements[cellIndex].style.backgroundColor = '#62374e';
+//      }
+    
+//   })
+// }
+
+const setCellBackgroundColor = (lane) => {
+  const {cells} = lane;
+  cells.forEach((cell) => {
+    const cellIndex = cells.indexOf(cell, 0);
+
+  switch(Math.floor(cellIndex / 4) % 0) {
+    case 0:
+      return '#111222';
+    break
+    case 1:
+      return '#ffffff';
+    break;
+    default:
+      return '#ffffff';
+  }
+})
 }
 
 const fillStep = (stepsList, steps) => {
@@ -26,29 +52,29 @@ const fillStep = (stepsList, steps) => {
 
    steps.slice(0, 16).forEach((step) => {
     
-    const newStep = renderStep();
+    const newStep = renderCell();
   
     fragment.append(newStep);
     });
 
     steps.slice(16, 32).forEach((step) => {
-      const newStep = renderStep();
+      const newStep = renderCell();
       fragmentOne.append(newStep);
       });
   
     stepsList[0].append(fragment);
     stepsList[1].append(fragmentOne);
 };
-  
-  
-const generateMatrixLane = (lane) => {
+
+const generateMatrixLane = (lane, cb) => {
   const{sound, cells} = lane
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
   sampleList.append(newSample);
 
   const stepsList = newSample.querySelectorAll('.sequencer__step-list');
-  fillStep(stepsList, cells); 
+
+  fillStep(stepsList, cells);
 };
 
 
@@ -58,6 +84,8 @@ const generateMatrix = (lanes) => {
   })
 };
 
+
+
 const createCellsArray = (i) => {
   const slidesFirst = document.querySelectorAll('.slide-1');
   const slidesSecond = document.querySelectorAll('.slide-2');
@@ -65,6 +93,7 @@ const createCellsArray = (i) => {
   const cellsOfLane = [];
     cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
     cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);
+    
     return cellsOfLane;
 }
 
@@ -78,7 +107,7 @@ const createAllCellsArray = () => {
 }
 
 const addButtonCellHandler = (cellsElements, lanes, cb) => {
-  //const cellsButtonsArray = createAllCellsArray();
+
   cellsElements.forEach((cellsOfLane) => {
 
     cellsOfLane.forEach((cell) => cell.addEventListener('click', (evt) => {
@@ -92,22 +121,22 @@ const addButtonCellHandler = (cellsElements, lanes, cb) => {
   })
 };
 
-const renderPlayedCells = (cellsElements, lanes) => {
+// const renderPlayedCells = (cellsElements, lanes) => {
 
-  lanes.forEach((lane) => {
-    const {cells} = lane;
-    cells.forEach((cell) => {
-      const i = lanes.indexOf(lane);
-      const cellsOfLane = cellsElements[i];
-      const j = cells.indexOf(cell, 0);
+//   lanes.forEach((lane) => {
+//     const {cells} = lane;
+//     cells.forEach((cell) => {
+//       const i = lanes.indexOf(lane);
+//       const cellsOfLane = cellsElements[i];
+//       const j = cells.indexOf(cell, 0);
 
-      if (cell.played != false) {
-        cellsOfLane[j].style.borderColor = setCellPlayedColor(cell);
-      }
       
-    })
-  })
-}
+//         cellsOfLane[j].style.borderColor = setCellBackgroundColor(lane);
+      
+      
+//     })
+//   })
+// }
 
 
 //создание новой дорожки
@@ -130,4 +159,4 @@ const renderPlayedCells = (cellsElements, lanes) => {
 
 
   
-  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler, renderPlayedCells}
+  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler}

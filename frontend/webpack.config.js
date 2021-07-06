@@ -13,17 +13,12 @@ const isProd = !isDev;
 const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 module.exports = {
-    mode: 'development',
+    // mode: 'development',
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
-<<<<<<< HEAD
-        // filename: filename('js'),
-        // publicPath: "/static/",
-=======
         filename: filename('js'),
        // publicPath: "/static/",
->>>>>>> 13e610f1af584331068592b8d4baf223f66c3315
         filename: "[name].js",
         path: path.resolve(__dirname, 'build'), 
     },
@@ -65,7 +60,7 @@ module.exports = {
               //     name: "[name].[ext]"
               // }
               },
-
+             
               {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
                 use: ['file-loader'],

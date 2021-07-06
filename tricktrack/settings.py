@@ -163,8 +163,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build'),]
-                    # os.path.join(BASE_DIR, 'frontend', 'source', 'static', 'fonts')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build')]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
@@ -173,9 +172,6 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build'),] # new
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # new
-# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage' # new
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 
 # Default primary key field type

@@ -149,3 +149,5 @@ settings.ini
 assets/
 
 django_assets/
+
+staticfiles/

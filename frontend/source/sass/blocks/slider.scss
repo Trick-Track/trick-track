@@ -6,29 +6,7 @@
     width: 100%
 }
   
-.sequencer__playback {
-
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid $black;
-    height: 10px;
-
-}
-
-.sequencer__playback-element {
-   border: 1px solid $black;
-   width: 10px;
-   border-radius: 50%;
-
-    &--played {
-        background-color: red;
-    }
-
-}￼￼￼￼￼￼￼￼￼￼￼￼￼
-
-
- .sequencer__step-list {
+.sequencer__step-list {
      display: none
  }
 

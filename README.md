@@ -9,6 +9,12 @@ digital audio workstation online
 pip install requirements.txt
 (pip3 install -r requirments.txt)
 
+example of configuration file:
+
+(link here)
+
+[DJANGO SECRET KEY GENERATOR](https://djecrety.ir)
+
 python manage.py makemigrations
 
 python manage.py migrate

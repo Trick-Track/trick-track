@@ -153,3 +153,5 @@ django_assets/
 staticfiles/
 
 TrickTrackDB
+
+curl

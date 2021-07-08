@@ -4,9 +4,8 @@
     background-color: none;
     position: fixed;
     margin-top: 200px;
-    border: 1px solid $black;
-
 }
+
 .sequencer__samples-list {
     width: 80%;
     height: auto;
@@ -46,7 +45,26 @@
     flex-direction: row;
     border: none;
     border-radius: 6%;
-} 
+    background-color: $plum;
+
+    &:not(:nth-child(16n)) {
+        margin-right: 5px;
+    }
+
+    
+    &--even-quarter {
+        background-color: $red-wine;
+    }
+
+    &--checked {
+    background-color: $sandy;
+    box-shadow: 4px 0px 3px 0px #FFFFFF4A inset,
+                -1px -2px 2px 1px #0000001F inset,
+                3px 0px 4px 0px #00000033;
+    }
+
+
+}
 
 
 .sample-button {

@@ -17,8 +17,8 @@ module.exports = {
     entry: './source/js/index.js',
     devtool: 'source-map',
     output: {
-        filename: filename('js'),
-       // publicPath: "/static/",
+      //filename: filename('js'),
+      // publicPath: "/static/",
         filename: "[name].js",
         path: path.resolve(__dirname, 'build'), 
     },
@@ -54,15 +54,15 @@ module.exports = {
               //   }),
               // },
               {
-                test: /\.(ttf|woff|woff2|eot)$/,
+                test: /\.(woff|woff2)$/,
+                type: 'asset/resource',
                 use: ['file-loader'],
-              //   options: {
-              //     name: "[name].[ext]"
-              // }
+            
               },
              
               {
                 test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
+                type: 'asset/resource',
                 use: ['file-loader'],
                 // options: { 
                 //   name: "[name].ext"
@@ -85,7 +85,7 @@ module.exports = {
               to: path.resolve(__dirname, 'build/samples')
               },
               {
-              from: path.resolve(__dirname, 'source/static/image'),
+              from: path.resolve(__dirname, 'source/image'),
               to: path.resolve(__dirname, 'build/image')
               },
 

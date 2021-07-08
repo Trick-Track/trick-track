@@ -1,16 +1,23 @@
 .app__header {
+    position: relative;
     display: flex;
     background-color: #414141;
+    padding-top: 15px;
+}
+
+.app_logo {
+    position: absolute;
+    top: 0;
 }
 
 .app__header-input {
     display: flex;
+    height: 30px;
 }
 
 .app__header-fieldset {
     display: flex;
     flex-direction: column;
-
 }
 
 .player__button {
@@ -21,8 +28,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-//@include backlight(red);
-    
+    height: 30px;
 }
 
 .app__counter {

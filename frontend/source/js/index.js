@@ -67,7 +67,7 @@ const newCells = initialCells(STEPS);
 const newLanes = createLanes(buffer.urls, newCells); //дорожки
 generateMatrix(newLanes); // отрисовка дорожек
 
-renderPlaybackLine(STEPS);// 
+renderPlaybackLine();// 
 
 
 const cellsButtons = createAllCellsArray();
@@ -231,13 +231,3 @@ addButtonPlayHandler(scheduleSound)
 
 
 
-
-
-document.addEventListener('keydown', (evt) => {
-
-    if (isEscEvent(evt)) {
-      evt.preventDefault();
-    
-      play()
-    }
-});

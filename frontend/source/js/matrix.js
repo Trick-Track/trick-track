@@ -47,7 +47,7 @@ const fillStep = (stepsList, steps) => {
       });
   
     stepsList[0].append(fragment);
-    setCellBackgroundColor(stepsList[0].children)
+    //setCellBackgroundColor(stepsList[0].children)
     stepsList[1].append(fragmentOne);
 };
 
@@ -73,6 +73,7 @@ const createCellsArray = (i) => {
   const slidesFirst = document.querySelectorAll('.slide-1');
   const slidesSecond = document.querySelectorAll('.slide-2');
   
+  console.log(slidesFirst)
   const cellsOfLane = [];
     cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
     cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);

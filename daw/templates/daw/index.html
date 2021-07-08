@@ -41,7 +41,7 @@
           <div class="app__header-input app-bars">
            <div class="app__header-fieldset">
             <input name="bars" id="bars" type="number" min="1" max="32" value="16" step="1"/>
-            <label for="bars">bars</label>
+            <label for="bars">beats</label>
           </div>
             <div class="app-bars__buttons app-counters">
               <button type="button" class="app-bars__button  app-bars__button--increment app__counter app__counter--increment"><svg width="14" height="15"><use xlink:href="#counter"></use></svg></button>
@@ -51,15 +51,8 @@
           <div class="player">
             <button type="button" class="player__button player__button--play" id="play"><svg width="32" height="32"><use xlink:href="#play-button"></use></svg></button>
             <button type="button" class="player__button player__button--stop" id="stop"><svg width="32" height="32"><use xlink:href="#stop-button"></use></svg></button>
-
-<!-- strange indentation -->
-
-            <div class="player__slider">
-              <div class="player__control">
-              </div>
-              <div class="player__control-toggle control-toggle" tabindex="0"></div>
-              </div>
-            </div>
+          </div>
+        
 <!-- User section -->
           <div class="User">
             <button type="button" class="user__button user__button--logout" id="logout" value="logout"></button>
@@ -71,11 +64,11 @@
             <button type="button" class="slider__arrow slider__arrow--prev"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
             <button type="button" class="slider__arrow slider__arrow--next"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
           </div>
-          <div class="sequencer__playback"></div>
 
-            <ul class="sequencer__samples-list">
+          
+          <ul class="sequencer__samples-list"></ul>
+        
 
-            </ul>
             <div class="upload">
               <input type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
             </div>
@@ -115,17 +108,18 @@
           <div class="slider-tracker">
 
             <div class="sequencer__step-list slide-1 current-slide" id="slide-1">
-             </div>
-            <div class="sequencer__step-list slide-2" id="slide-2">
+              
             </div>
-
+            <div class="sequencer__step-list slide-2" id="slide-2">
+              
             </div>
           </div>
-
         </div>
+
 
       </li>
     </template>
+
 
 
   </body>

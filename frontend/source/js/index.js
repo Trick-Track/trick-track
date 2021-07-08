@@ -100,9 +100,12 @@ const playSound = (audioData, playTime, volume, pans) => {
   const panner = new StereoPannerNode(context, pannerOptions);
   panner.pan.value = pans;
 
+  //const defaults = {volume: 1, pans: 0};
+
   source.connect(gainNode).connect(panner).connect(context.destination);
 
     source.start(playTime);
+    //source.stop(stopTime);
 }
 
 
@@ -152,30 +155,30 @@ function scheduleSound() {
 
     let pt = nextStepTime + startTime;
     playStepAtTime(newLanes, pt, fillCurrentPlaybackStep);
-    nextStep(newLanes, currentSlide);
+    nextStep(currentSlide);
   }
     const ti = setTimeout(scheduleSound, 0)
     
 }
 
-function nextStep(lanes, callback) {
+function nextStep(callback) {
   currentStep++;
 
-  lanes.forEach((lane) => {
+  // lanes.forEach((lane) => {
 
-    const {cells} = lane;
-    cells.forEach((cell) => {
-      const currentCell = lane.cells[currentStep - 1];
+  //   const {cells} = lane;
+  //   cells.forEach((cell) => {
+  //     const currentCell = lane.cells[currentStep - 1];
 
-      if (cell = currentCell) {
-        cell.played == true;
-      }
-      else {
-        cell.played == false;
-      }; 
+  //     if (cell = currentCell) {
+  //       cell.played == true;
+  //     }
+  //     else {
+  //       cell.played == false;
+  //     }; 
 
-    });
-  });
+  //   });
+  // });
 
   currentStep > 16 ? callback(2)  : callback(1);
   let activeStep = setBars();
@@ -194,26 +197,22 @@ function playStepAtTime(lanes, playTime, cb) {
         const lane = lanes[i];
         const volume = lane.volume;
         const panner = lane.panner;
-        if (lane.cells[currentStep].checked != false) {
+      
+        if (lane.cells[currentStep].checked == true) {
           playSound(buffer.getSound(i), playTime, volume, panner);
         }
     }
     cb(currentStep)
     
 }
+addButtonPlayHandler(scheduleSound)
+//addButtonStopHandler(scheduleSound, playSound(stopTime = 0);
 
 // let bpm = setBpm();
 //     let project = createProject(newLanes, bpm);
 //     console.log(project)
 
 
-function play() {
-  
-  //nextStepTime = 0;
-  //startTime = context.currentTime + 0.005;
-  scheduleSound();
-
-}
 
 
 

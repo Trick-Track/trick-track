@@ -1,25 +1,17 @@
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
 
-const playProject = (project) => {
-   const {isPlayed} = project;
-   isPlayed = true; 
-   cb()
-
+const stopPlayback = (context, currentStep) => {
+    context.close();
+    currentStep = 0
 }
 
-const stopPlaybackProject = (project) => {
-    const {isPlayed} = false;
-    cb();
-}
-
-const addButtonPlayHandler = (callback, cb) => {
+const addButtonPlayHandler = (callback) => {
     playButton.addEventListener('click', (callback));
-    stopButton.removeEventListener('click', (cb))
 }
 
-const addButtonStopHandler = (cb, callback) => {
-    stopButton.addEventListener('click', (cb));
+const addButtonStopHandler = (callback, cb) => {
+    stopButton.addEventListener('click', cb);
     playButton.removeEventListener('click', callback)
 
 }

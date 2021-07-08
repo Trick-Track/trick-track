@@ -16,34 +16,18 @@ const renderCell = () => {
   return cellElement;
 }
 
-// const setCellBackgroundColor = (cellElements) => {
-//   cellElements.forEach((cellElement) => {
+const setCellBackgroundColor = (cellElements) => {
+  [...cellElements].forEach((cellElement) => {
 
-//     const cellIndex = [...cellElements].indexOf(cellElement, 0);
-//      if (Math.floor(cellIndex / 4) % 2) {
-//        cellElements[cellIndex].style.backgroundColor = '#62374e';
-//      }
+    const cellIndex = [...cellElements].indexOf(cellElement, 0);
+     if (Math.floor(cellIndex / 16) % 2 == 0) {
+       cellElements[cellIndex].classList.add('sequencer__cell--even-quarter')
+     }
     
-//   })
-// }
-
-const setCellBackgroundColor = (lane) => {
-  const {cells} = lane;
-  cells.forEach((cell) => {
-    const cellIndex = cells.indexOf(cell, 0);
-
-  switch(Math.floor(cellIndex / 4) % 0) {
-    case 0:
-      return '#111222';
-    break
-    case 1:
-      return '#ffffff';
-    break;
-    default:
-      return '#ffffff';
-  }
-})
+    
+  })
 }
+
 
 const fillStep = (stepsList, steps) => {
    
@@ -63,10 +47,11 @@ const fillStep = (stepsList, steps) => {
       });
   
     stepsList[0].append(fragment);
+    setCellBackgroundColor(stepsList[0].children)
     stepsList[1].append(fragmentOne);
 };
 
-const generateMatrixLane = (lane, cb) => {
+const generateMatrixLane = (lane) => {
   const{sound, cells} = lane
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
@@ -83,8 +68,6 @@ const generateMatrix = (lanes) => {
     generateMatrixLane(lane);
   })
 };
-
-
 
 const createCellsArray = (i) => {
   const slidesFirst = document.querySelectorAll('.slide-1');
@@ -106,7 +89,7 @@ const createAllCellsArray = () => {
   return allCellsLists
 }
 
-const addButtonCellHandler = (cellsElements, lanes, cb) => {
+const addButtonCellHandler = (cellsElements, lanes) => {
 
   cellsElements.forEach((cellsOfLane) => {
 
@@ -116,7 +99,7 @@ const addButtonCellHandler = (cellsElements, lanes, cb) => {
       const cell = evt.target;
       const j = cellsOfLane.indexOf(cell, 0);
       cells[j].checked = cells[j].checked ? false : true; 
-      cell.style.background = cb(cells[j]);
+      cells[j].checked ==true ? cell.classList.add('sequencer__cell--checked') : cell.classList.remove('sequencer__cell--checked')
     }))
   })
 };

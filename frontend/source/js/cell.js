@@ -1,5 +1,3 @@
-const barsControl = document.querySelector('#bars');
-
 const initialCells = (steps) => {
     let cells = [];
    
@@ -33,21 +31,22 @@ const createLanes = (sounds, cells) => {
   return lines
 }
 
-const setCellCheckedColor = (cell) => {
-  const {checked} = cell;
-  switch(checked) {
-    case true:
-      return '#000000';
-    break;
-    case false:
-      return '#ffffff';
-    break;
-    default:
-      return '#ffffff';
-  }
-}
+// const setCellCheckedColor = (cell) => {
+//   const {checked} = cell;
+
+//   switch(checked) {
+//     case true:
+//       return ''
+//     break;
+//     case false:
+//       return '#ffffff';
+//     break;
+//     default:
+//       return '#ffffff';
+//   }
+// }
 
 
 
 
-export {initialCells, createLanes, setCellCheckedColor}
+export {initialCells, createLanes}

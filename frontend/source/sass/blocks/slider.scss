@@ -14,3 +14,20 @@
  .sequencer__step-list.current-slide {
      display: flex;
  }
+
+ .slider__arrow {
+     @include button-reset;
+
+     & svg {
+         fill: $aquamarine;
+     }
+
+     &--prev svg {
+        transform: rotate(180deg);
+     }
+
+     &--disabled {
+         fill: $grey;
+     }
+ }
+ 

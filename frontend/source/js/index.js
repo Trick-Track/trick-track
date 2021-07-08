@@ -1,15 +1,14 @@
 import {isEscEvent} from './util.js';
-import {initialCells, setCellCheckedColor, createLanes} from './cell.js';
+import {initialCells, createLanes} from './cell.js';
 import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
 import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
 import {addArrowsHandlers, currentSlide} from './slider.js';
-import {addBpmInputHandler, setBpm, setTempo} from './bpm.js';
+import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
+import {addBarsHandlers, setBars} from './bars.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
 import {createProject} from './project.js';
-
-
 import '../sass/style.sass';
 
 
@@ -19,7 +18,6 @@ let sounds = ['./samples/bdsh.wav',
               ];
 
 const STEPS = 32;
-const activeStep = 30;
 
 let context = new (window.AudioContext || window.webkitAudioContext)();
 
@@ -74,22 +72,13 @@ renderPlaybackLine(STEPS);//
 
 const cellsButtons = createAllCellsArray();
 
-addButtonCellHandler(cellsButtons, newLanes, setCellCheckedColor)
+addButtonCellHandler(cellsButtons, newLanes)
 
 addArrowsHandlers(); //стрелки слайдера
-
-addBpmInputHandler(); //bpm
+addBarsHandlers(); //шаги
+addBpmHandlers(); //bpm
 
 addControlsHandlers(newLanes) //звук и панорама для дорожек
-
-
-
-
-
-
-// addFilterHandlers(
-//   debounce(renderOffersPin, DEBOUNCE_TIME));
-// })
 
 
 
@@ -179,21 +168,22 @@ function nextStep(lanes, callback) {
       const currentCell = lane.cells[currentStep - 1];
 
       if (cell = currentCell) {
-        cell.played = true;
+        cell.played == true;
       }
       else {
-        cell.played = false // не работает
-      };
+        cell.played == false;
+      }; 
 
     });
   });
 
   currentStep > 16 ? callback(2)  : callback(1);
-
-
-  if (currentStep === activeStep) {
+  let activeStep = setBars();
+  
+  if (currentStep == activeStep) {
     currentStep = 0;
   }
+
   let tempo = setTempo();
   nextStepTime += tempo;
 }
@@ -241,43 +231,6 @@ function play() {
 // addButtonStopHandler(stop, play)
 
 
-
-
-
-// const loop = () => {
-//   let spb = (60/120);
-//   let frames = 0;
-
-//    let currentC = 0;
-//    let lastStep = -1;
-
-//   if(!isPlaying) {
-//     frames++;
-
-//     let seconds = 60/frames;
-//     let beatTime = spb/seconds%activeStep;
-
-
-//     lastStep = currentC;
-//     currentC = Math.floor(beatTime*4);
-
-
-//     if(lastStep != currentC) {
-
-
-//      //for (let i = 0; i < activeStep; i++) {
-//       if(lastStep === i) {
-//         now = 0;
-//         playSound(buffer.getSound(1))
-//         playSound(buffer.getSound(2))
-//       }
-//     }
-//   }
-
-// }
-//   requestAnimationFrame(loop)
-
-// }
 
 
 

@@ -106,20 +106,29 @@ WSGI_APPLICATION = 'tricktrack.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+PostgresDB = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': config('DB_NAME'),
+    'USER': config('DB_USER'),
+    'PASSWORD': config('DB_PASSWORD'),
+    'HOST': config('DB_HOST'),
+    'PORT': config('DB_PORT')    
+}
+
+SQLiteDB = {
+    'ENGINE': 'django.db.backends.sqlite3',
+    'NAME': 'TrickTrackDB',    
+}
+
+available_databases = [PostgresDB, SQLiteDB]
+
+database_choose = int(config('DB_CHOOSE'))
+
+print(database_choose)
+print(available_databases[database_choose])
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT')
-    },
-    # {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': 'TrickTrackDB',
-    # }
+    'default': available_databases[database_choose]
 }
 
 

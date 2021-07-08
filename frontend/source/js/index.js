@@ -12,9 +12,9 @@ import {createProject} from './project.js';
 import '../sass/style.sass';
 
 
-let sounds = ['./samples/bdsh.wav',
-                './samples/boom.wav',
-                './samples/tsk.wav',
+let sounds = ['/static/samples/bdsh.wav',
+                '/static/samples/boom.wav',
+                '/static/samples/tsk.wav',
               ];
 
 const STEPS = 32;

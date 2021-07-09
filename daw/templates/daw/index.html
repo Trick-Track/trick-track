@@ -59,24 +59,28 @@
           </div>
         </div>
 
+        
         <div class="app__project">
           <h2 class="visually-hidden">Saving the project</h2>
-          <p class="app__heading">your new song!!!</p>
+          <p class="app__heading">your new song</p>
           <button type="submit" class="save-button">save</button>
         </div>
 
+        <article class="app__projects">
+          <h2 class="app__projects-heading">Your tracks</h2>
+        </article>
+        
+       
 
         <div class="sequencer__wrapper">
-          <div class="slider__buttons">
+          <div class="sequencer__slider-toggles slider__buttons">
             <button type="button" class="slider__arrow slider__arrow--prev"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
             <button type="button" class="slider__arrow slider__arrow--next"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
           </div>
-
-          
           <ul class="sequencer__samples-list"></ul>
         
 
-            <div class="upload">
+            <div class="sequencer__upload">
               <input type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
             </div>
 

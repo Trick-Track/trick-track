@@ -1,10 +1,11 @@
 .sequencer__wrapper {
     position: relative;
-    width: 70%;
     height: auto;
     background-color: none;
     position: fixed;
-    margin-top: 200px;
+    margin-left: 10%;
+    margin-top: 30px;
+
 }
 
 .sequencer__samples-list {
@@ -33,7 +34,6 @@
     height: 50px;
     flex-direction: row;
     justify-content: space-between;
-    //flex-grow: 2;
 } 
 
 .sequencer__cell {
@@ -48,9 +48,12 @@
         margin-right: 5px;
     }
 
-    
     &--even-quarter {
         background-color: $red-wine;
+    }
+
+    &:hover {
+        border: 1px solid $sandy;
     }
 
     &--checked {
@@ -63,7 +66,12 @@
 
 .sample-button {
     @include button-reset;
-    max-height: 30px;
+    width: 120px;
+    color: $grey;
+    font-family: 'Share Tech Mono', 'Arial', monospace;
+    font-size: 14px;
+    line-height: 16px;
+    
 
     &:hover {
         color: $red-wine

@@ -4,7 +4,6 @@ const initialCells = (steps) => {
     for (let i = 0; i < steps; i++) {
 
       const cell = {
-        played: false,
         checked: false,
         disabled: false
       };

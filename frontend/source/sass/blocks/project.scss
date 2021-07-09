@@ -1,7 +1,32 @@
+.app__project {
+    margin-left: 10%;
+    margin-top: 48px;
+    display: flex;
+}
+
 .app__heading {
-    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: $grey;
+    text-transform: capitalize;
+    font-size: 36px;
+
+    // &:hover {
+    //     text-shadow: 1px 1px 2px black, 0 0 1em $sandy;
+    // }
 }
 
 .save-button {
+    margin-left: 20px;
     background-color: $aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Share Tech Mono', 'Arial', monospace;
+    color: $white;
+    text-transform: capitalize;
+    height: 40px;
+    width: 98px;
+    border: none;
+    border-radius: 4px;
 }

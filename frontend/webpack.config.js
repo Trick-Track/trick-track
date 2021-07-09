@@ -88,6 +88,10 @@ module.exports = {
               from: path.resolve(__dirname, 'source/image'),
               to: path.resolve(__dirname, 'build/image')
               },
+              {
+                from: path.resolve(__dirname, 'source/fonts'),
+                to: path.resolve(__dirname, 'build/fonts')
+                },
 
             ]}),
             new MiniCssExtractPlugin({

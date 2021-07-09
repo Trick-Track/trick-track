@@ -42,7 +42,7 @@ img {
     }
   } 
 
-  input[type="range"] {
+  input[type=range] {
 
     &::-webkit-slider-runnable-track {
     width: 100%;
@@ -66,5 +66,16 @@ img {
     background-color: #e5e5e5;
     cursor: pointer;
     
+  }
+
+  &::-moz-range-thumb {
+    box-shadow: 1px 0px 2px 0px #00000033,
+                -1px -1px 1px 0px #00000040 inset;
+    height: 13px;
+    width: 5px;
+    border: 1px solid #000000;
+    border-radius: 3px;
+    background-color: #e5e5e5;
+    cursor: pointer;
   }
 }

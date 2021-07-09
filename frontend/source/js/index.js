@@ -4,7 +4,7 @@ import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matri
 import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
 import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
-import {addBarsHandlers, setBars} from './bars.js';
+import {addBeatsHandlers, setBeats} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
@@ -75,7 +75,7 @@ const cellsButtons = createAllCellsArray();
 addButtonCellHandler(cellsButtons, newLanes)
 
 addArrowsHandlers(); //стрелки слайдера
-addBarsHandlers(); //шаги
+addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
 
 addControlsHandlers(newLanes) //звук и панорама для дорожек
@@ -181,7 +181,7 @@ function nextStep(callback) {
   // });
 
   currentStep > 16 ? callback(2)  : callback(1);
-  let activeStep = setBars();
+  let activeStep = setBeats();
   
   if (currentStep == activeStep) {
     currentStep = 0;
@@ -205,8 +205,9 @@ function playStepAtTime(lanes, playTime, cb) {
     cb(currentStep)
     
 }
-addButtonPlayHandler(scheduleSound)
-//addButtonStopHandler(scheduleSound, playSound(stopTime = 0);
+addButtonPlayHandler(context, scheduleSound)
+
+addButtonStopHandler(context, scheduleSound)
 
 // let bpm = setBpm();
 //     let project = createProject(newLanes, bpm);

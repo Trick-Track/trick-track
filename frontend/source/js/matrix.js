@@ -73,7 +73,6 @@ const createCellsArray = (i) => {
   const slidesFirst = document.querySelectorAll('.slide-1');
   const slidesSecond = document.querySelectorAll('.slide-2');
   
-  console.log(slidesFirst)
   const cellsOfLane = [];
     cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
     cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);

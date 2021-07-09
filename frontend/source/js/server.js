@@ -1,6 +1,6 @@
 import {showError} from './messages.js';
 
-const BASE_URL = 'https://POST/projects/1';
+const BASE_URL = '/projects';
 
 const checkStatusRequest = (response) => {
     if (response.ok) {

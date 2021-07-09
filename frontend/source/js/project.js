@@ -12,6 +12,7 @@ const addSaveButtonHandler = (project, onSuccess) => {
      // evt.preventDefault();
       console.log('hey');
         sendProject(JSON.stringify(project), onSuccess);
+        console.log(JSON.stringify(project))
     });
   }
 

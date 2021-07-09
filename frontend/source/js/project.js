@@ -1,8 +1,19 @@
+import {sendProject} from './server.js';
+
+const saveButton = document.querySelector('.save-button');
+
 const createProject = (newLanes, bpm) => {
-    const project = {bpm: bpm, lanes: newLanes, name: name, isPlayed: false}
+    const project = {bpm: bpm, lanes: newLanes, name: name}
     return project;
 }
 
+const addSaveButtonHandler = (project, onSuccess) => {
+    saveButton.addEventListener('click', () => {
+     // evt.preventDefault();
+      console.log('hey');
+        sendProject(JSON.stringify(project), onSuccess);
+    });
+  }
 
 
 // export default class Project {
@@ -15,4 +26,4 @@ const createProject = (newLanes, bpm) => {
       
 // }
 
-export {createProject} 
+export {createProject, addSaveButtonHandler} 

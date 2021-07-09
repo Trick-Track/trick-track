@@ -34,4 +34,19 @@ const setBeats = () => {
     return beatsControl.value
 }
 
-  export {addBeatsHandlers, setBeats}
+const setBeatsInputDisabledState = (context) => {
+    if (context.state === 'running') {
+        beatsControl.disabled = true;
+    }
+    else {
+        beatsControl.disabled = false;
+    }
+}
+ 
+// const setCellDisabledState = (lanes) => {
+//     lanes.forEach((lane) => {
+        
+//     })
+// } 
+
+  export {addBeatsHandlers, setBeats, setBeatsInputDisabledState}

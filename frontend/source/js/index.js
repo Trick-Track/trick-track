@@ -1,14 +1,13 @@
-import {isEscEvent} from './util.js';
 import {initialCells, createLanes} from './cell.js';
 import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
 import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
 import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
-import {addBeatsHandlers, setBeats} from './beats.js';
+import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
-import {addInpytAddHandler} from './add.js';
+//import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
-import {createProject} from './project.js';
+import {addSaveButtonHandler, createProject} from './project.js';
 import '../sass/style.sass';
 
 
@@ -206,14 +205,20 @@ function playStepAtTime(lanes, playTime, cb) {
     
 }
 addButtonPlayHandler(context, scheduleSound)
-
 addButtonStopHandler(context, scheduleSound)
 
-// let bpm = setBpm();
-//     let project = createProject(newLanes, bpm);
-//     console.log(project)
+let bpm = setBpm();
+    let project = createProject(newLanes, bpm);
+    console.log(project)
+
+const onSuccess = () => {
+  console.log('yes')
+}
 
 
+
+
+addSaveButtonHandler(project, onSuccess)
 
 
 

@@ -2,9 +2,7 @@ const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
 
 const stopPlayback = (context) => {
-    console.log('yep')
     context.suspend();
-    console.log(context.state)
     //currentStep = 0;
     playButton.removeEventListener('click', playSequencer)
 }

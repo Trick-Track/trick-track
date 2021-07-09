@@ -59,6 +59,13 @@
           </div>
         </div>
 
+        <div class="app__project">
+          <h2 class="visually-hidden">Saving the project</h2>
+          <p class="app__heading">your new song!!!</p>
+          <button type="submit" class="save-button">save</button>
+        </div>
+
+
         <div class="sequencer__wrapper">
           <div class="slider__buttons">
             <button type="button" class="slider__arrow slider__arrow--prev"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
@@ -93,9 +100,7 @@
               <option value="0" label="min">
               <option value="2" label="max">
             </datalist>
-
-			    <label for="volume">volume</label>
-
+          <label for="volume">volume</label>
           <input type="range" id="panner" class="control-panner" list="pans" min="-1" max="1" value="0" step="0.01" data-action="panner" />
             <datalist id="pan-vals">
               <option value="-1" label="left">
@@ -106,20 +111,26 @@
         <button class="button sample-button"></button>
         <div class="sequencer__steps slider">
           <div class="slider-tracker">
-
-            <div class="sequencer__step-list slide-1 current-slide" id="slide-1">
-              
-            </div>
-            <div class="sequencer__step-list slide-2" id="slide-2">
-              
-            </div>
+            <div class="sequencer__step-list slide-1 current-slide" id="slide-1"></div>
+            <div class="sequencer__step-list slide-2" id="slide-2"></div>
           </div>
         </div>
-
-
       </li>
     </template>
 
+
+  <template id="success">
+    <div class="success">
+      <p class="success__message">Your project has been successfully saved</p>
+    </div>
+  </template>
+
+  <template id="error">
+    <div class="error">
+      <p class="error__message">Sorry, your project has not been saved</p>
+      <button type="button " class="error__button">x</button>
+    </div>
+  </template>
 
 
   </body>

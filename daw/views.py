@@ -16,6 +16,7 @@ def retrieve_user_projects(request):
 
 def user_projects(request):
     if request.method == 'POST':
+        print("Oh I've GOT SOMETHING")
         return HttpResponse('POST')
     elif request.method == 'GET':
         return HttpResponse('GET')

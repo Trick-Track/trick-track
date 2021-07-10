@@ -14,7 +14,13 @@ def retrieve_user_projects(request):
     # return index(request)
     return redirect('/')
 
-def user_projects(request, id=id):
+def user_projects(request):
+    if request.method == 'POST':
+        return HttpResponse('POST')
+    elif request.method == 'GET':
+        return HttpResponse('GET')
+
+def user_project(request, id=id):
     if request.method == 'POST':
         return HttpResponse('POST')
     elif request.method == 'GET':

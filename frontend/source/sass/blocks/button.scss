@@ -7,4 +7,12 @@
     text-decoration: none;
     box-sizing: border-box;
 }
+
+.button-close {
+    @include button-reset; 
+    font-family: 'Arial';
+    cursor: pointer;
+    font-size: 30px;
+    color: $close-red;
+}
   

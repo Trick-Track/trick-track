@@ -49,13 +49,17 @@
             </div>
           </div>
           <div class="player">
-            <button type="button" class="player__button player__button--play" id="play"><svg width="32" height="32"><use xlink:href="#play-button"></use></svg></button>
-            <button type="button" class="player__button player__button--stop" id="stop"><svg width="32" height="32"><use xlink:href="#stop-button"></use></svg></button>
+            <button type="button" class="player__button player__button--play" id="play" aria-label="play track"><svg width="32" height="32"><use xlink:href="#play-button"></use></svg></button>
+            <button type="button" class="player__button player__button--stop" id="stop"><svg width="32" height="32" aria-label="stop track"><use xlink:href="#stop-button"></use></svg></button>
           </div>
         
 <!-- User section -->
-          <div class="User">
-            <button type="button" class="user__button user__button--logout" id="logout" value="logout"></button>
+          <div class="app__user">
+            <a class="app__user-link" href="/accounts/login"> login
+            </a>
+            
+             
+            <!-- <button type="button" class="user__button user__button--logout" id="logout" value="logout"></button>  -->
           </div>
         </div>
 
@@ -132,9 +136,33 @@
   <template id="error">
     <div class="error">
       <p class="error__message">Sorry, your project has not been saved</p>
-      <button type="button " class="error__button">x</button>
+      <button type="button" class="error__button button-close" aria-label="Close">x</button>
     </div>
   </template>
+
+
+
+
+  <section class="modal-user modal">
+    <div class="modal-user__content">
+      <h2 class="modal-user__heading">Sign in</h2>
+
+      <form class="modal-user__form user-form" method="post" action="">
+        <div class="user-fields">
+          <label for="user-name">Your name<input class="form-name" type="text" id="user-name" name="user" placeholder="" required></label>
+          <label for="user-email">Your e-mail:<input class="form-email" id="user-email" type="email" name="user" placeholder="email@example.com" required></label>
+          <input type="password" id="user-password" class="form-password">
+          <label data-error="wrong" data-success="right" for="user-password">Your password</label>
+        </div>
+       
+        <div class="modal-button-block">        
+          <input class="button user-button" type="submit" value="Login">
+        </div>
+
+      </form>
+      <button class="modal-close" type="button button-close" aria-label="Close"></button>
+    </div>
+  </section>
 
 
   </body>

@@ -126,7 +126,7 @@ const addButtonCellHandler = (cellsElements, lanes) => {
 
   
 
-// const deleteLane = (lanes) => {
+// const addNewLane = (lanes) => {
   
 //   const before = lanes.slice(0, i);
 //   const after = lanes.slice(i, i + 1);

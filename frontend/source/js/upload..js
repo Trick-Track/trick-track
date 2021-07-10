@@ -24,8 +24,11 @@ const uploadSound = () => {
   uploadFile(inputAdd, generateMatrixLane)
 }
 
-const addInpytAddHandler = () => {
-  inputAdd.addEventListener('click', uploadSound)
+const addInpytAddHandler = (cb) => {
+  inputAdd.addEventListener('click', () => {
+    uploadSound();
+    cb();
+  })
 };
 
 export {addInpytAddHandler}

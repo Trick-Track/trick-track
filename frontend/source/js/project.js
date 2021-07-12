@@ -9,8 +9,6 @@ const createProject = (newLanes, bpm) => {
 
 const addSaveButtonHandler = (project, onSuccess) => {
     saveButton.addEventListener('click', () => {
-     // evt.preventDefault();
-      console.log('hey');
         sendProject(JSON.stringify(project), onSuccess);
         console.log(JSON.stringify(project))
     });

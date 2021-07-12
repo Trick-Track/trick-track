@@ -8,6 +8,7 @@ import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 //import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
 import {addSaveButtonHandler, createProject} from './project.js';
+import {showSuccess} from './messages.js';
 import '../sass/style.sass';
 
 
@@ -212,7 +213,7 @@ let bpm = setBpm();
     console.log(project)
 
 const onSuccess = () => {
-  console.log('yes')
+  showSuccess();
 }
 
 

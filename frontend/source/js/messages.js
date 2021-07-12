@@ -1,5 +1,7 @@
 import {isEscEvent, isMouseLeftEvent} from './util.js';
 
+const SHOW_SUCCESS_TIME = 2500;
+
 const MessageTypes = {
     success: 'success',
     error: 'error',
@@ -9,7 +11,7 @@ const MessageTypes = {
   const showMessage = (messageType) => {
     const resultTemplate = document.querySelector(`#${messageType}`)
       .content
-      .querySelector(`.${messageType}`)
+      .querySelector(`.${messageType}__wrapper`)
       .cloneNode(true);
   
     resultTemplate.style.zIndex = 500;
@@ -43,17 +45,23 @@ const MessageTypes = {
       }
     };
   
-    document.body.querySelector('main').appendChild(fragment);
+    document.body.appendChild(fragment);
     document.addEventListener('keydown', onDocumentEscapePressed);
   
     if (closeButton) {
       closeButton.addEventListener('click', onButtonCloseClick);
     }
+
+    if(messageType === 'success') {
+      setTimeout(() => {
+        resultTemplate.remove();
+      }, SHOW_SUCCESS_TIME);
+    }
   }
 
 
 const showSuccess = () => showMessage(MessageTypes.success);
-const showError = (message) => showMessage(MessageTypes.error, message);
+const showError = () => showMessage(MessageTypes.error);
 
 
   export {showSuccess, showError}

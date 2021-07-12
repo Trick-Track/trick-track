@@ -13,6 +13,24 @@ const deleteBeatsUnit = () => {
     }
    
 }
+const checkBeatsControlValidity = (cb) => {
+    const validity = beatsControl.value < 1 && beatsControl.value > 32 ?
+    beatsControl.setCustomValidity('beats 1 to 32'):
+    beatsControl.setCustomValidity('');
+  beatsControl.reportValidity(validity);
+  cb()
+}
+
+const changeBeatsControlValue = () => {
+    if (beatsControl.value > 32) {
+        beatsControl.value = 32;
+    }
+  
+    if (beatsControl.value < 1) {
+        beatsControl.value = 0;
+    }
+}
+
 
 const addBeatsButtonsClickHandlers = () => {
     incrementButton.addEventListener('click', addBeatsUnit);
@@ -23,7 +41,10 @@ const addBeatsInputHandler = () => {
     beatsControl.addEventListener('change', function() {
         beatsControl.value = this.value;
     });
-};
+    beatsControl.addEventListener('change', () => {
+        checkBeatsControlValidity(changeBeatsControlValue);
+    });
+}
 
 const addBeatsHandlers = () => {
     addBeatsButtonsClickHandlers();
@@ -42,6 +63,8 @@ const setBeatsInputDisabledState = (context) => {
         beatsControl.disabled = false;
     }
 }
+
+
  
 // const setCellDisabledState = (lanes) => {
 //     lanes.forEach((lane) => {

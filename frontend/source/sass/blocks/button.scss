@@ -13,6 +13,10 @@
     font-family: 'Arial';
     cursor: pointer;
     font-size: 30px;
-    color: $close-red;
+    color: $grey;
+
+    &:hover {
+        color: $close-red;
+    }
 }
   

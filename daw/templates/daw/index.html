@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <title>trick-track</title>
-      <!-- <link rel="stylesheet" href="./style.css">  -->
 
       <script defer src={% static "main.js" %}></script><link href={% static "main.css" %} rel="stylesheet"></head>
   </head>
@@ -57,40 +56,39 @@
           <div class="app__user">
             <a class="app__user-link" href="/accounts/login"> login
             </a>
-            
-             
-            <!-- <button type="button" class="user__button user__button--logout" id="logout" value="logout"></button>  -->
           </div>
+
+
         </div>
 
-        
-        <div class="app__project">
-          <h2 class="visually-hidden">Saving the project</h2>
-          <div class="app__project-name">
-            <input type="text" name="project-name" id="project-name" placeholder="You new song">
-          </div>
-          <button type="submit" class="save-button">save</button>
-        </div>
+        <div class="app__main">
+          <article class="app__projects">
+            <h2 class="app__projects-heading">Your&ensp;tracks</h2>
+            <a href="" class="app__projects-link">+&ensp;Create&ensp;new</a>
+          </article>
 
-        <article class="app__projects">
-          <h2 class="app__projects-heading">Your tracks</h2>
-        </article>
-        
-       
-
-        <div class="sequencer__wrapper">
-          <div class="sequencer__slider-toggles slider__buttons">
-            <button type="button" class="slider__arrow slider__arrow--prev"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
-            <button type="button" class="slider__arrow slider__arrow--next"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
-          </div>
-          <ul class="sequencer__samples-list"></ul>
-        
-
-            <div class="sequencer__upload">
-              <input type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
+          <div>
+            <div class="app__project">
+              <h2 class="visually-hidden">Saving the project</h2>
+              <div class="app__project-name">
+                <input type="text" name="project-name" id="project-name" placeholder="You new song">
+              </div>
+              <button type="submit" class="save-button">save</button>
             </div>
+            
+            <div class="sequencer__wrapper">
+              <div class="sequencer__slider-toggles slider__buttons">
+                <button type="button" class="slider__arrow slider__arrow--prev"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
+                <button type="button" class="slider__arrow slider__arrow--next"><svg width="15" height="30"><use xlink:href="#arrow-right"></use></svg></button>
+              </div>
+              <ul class="sequencer__samples-list"></ul>
+          
 
-           
+              <div class="sequencer__upload">
+                <input type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
+              </div>
+            </div>
+          </div>
         </div>
 
       </section>
@@ -127,24 +125,23 @@
         </div>
       </li>
     </template>
-
-
-  <template id="success">
-    <div class="success__wrapper">
-      <div class="success">
-        <p class="success__message">Your project has been successfully saved</p>
+    
+    <template id="success">
+      <div class="success__wrapper">
+        <div class="success">
+          <p class="success__message">Your&ensp;project&ensp;has&ensp;been&ensp;successfully&ensp;saved</p>
+        </div>
       </div>
-    </div>
-  </template>
+    </template>
 
-  <template id="error">
-    <div class="error__wrapper">
-      <div class="error">
-        <button type="button" class="error__button button-close" aria-label="Close">x</button>
-        <p class="error__message">Sorry, your project has not been saved</p>
-       </div>
-    </div>
-  </template>
+    <template id="error">
+      <div class="error__wrapper">
+        <div class="error">
+          <button type="button" class="error__button button-close" aria-label="Close">x</button>
+          <p class="error__message">Sorry, your project has not been saved</p>
+        </div>
+      </div>
+    </template>
 
 
 

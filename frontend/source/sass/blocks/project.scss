@@ -4,20 +4,10 @@
     display: flex;
 }
 
-.app__heading {
-    margin: 0;
-    padding: 0;
-    color: $grey;
-    text-transform: capitalize;
-    font-size: 36px;
-
-    // &:hover {
-    //     text-shadow: 1px 1px 2px black, 0 0 1em $sandy;
-    // }
-}
 
 .save-button {
     margin-left: 20px;
+    margin-top: 15px;
     background-color: $aquamarine;
     display: flex;
     justify-content: center;

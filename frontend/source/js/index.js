@@ -7,7 +7,7 @@ import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 //import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
-import {addSaveButtonHandler, createProject} from './project.js';
+import {addSaveButtonHandler, createProject, addProjectNameInputHandler} from './project.js';
 import {showSuccess} from './messages.js';
 import '../sass/style.sass';
 
@@ -77,6 +77,7 @@ addButtonCellHandler(cellsButtons, newLanes)
 addArrowsHandlers(); //стрелки слайдера
 addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
+addProjectNameInputHandler(); //нэйм проекта
 
 addControlsHandlers(newLanes) //звук и панорама для дорожек
 
@@ -210,14 +211,10 @@ addButtonStopHandler(context, scheduleSound)
 
 let bpm = setBpm();
     let project = createProject(newLanes, bpm);
-    console.log(project)
 
 const onSuccess = () => {
   showSuccess();
 }
-
-
-
 
 addSaveButtonHandler(project, onSuccess)
 

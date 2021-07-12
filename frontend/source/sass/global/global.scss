@@ -79,3 +79,33 @@ img {
     cursor: pointer;
   }
 }
+
+input[type=text] {
+  border: none;
+  background-color: transparent;
+  color: $grey;
+  font-size: 25px;
+  min-width: 250px;
+  height: 50px;
+  padding: 10px;
+
+
+
+  &::placeholder {
+    font-family: 'Share Tech Mono', 'Arial', monospace;
+    color: $grey;
+    text-transform: capitalize;
+    font-size: 36px;
+    padding-left: 10px;
+  }
+
+  &:hover {
+    border: 1px solid red;
+  }
+
+  
+  &:hover::placeholder,
+  &:focus::placeholder {
+    color: red;
+  }
+}

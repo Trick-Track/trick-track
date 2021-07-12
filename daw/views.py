@@ -1,6 +1,15 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.models import User, auth
+import json
 
+def json_decode(request):
+  if request.method == 'POST':
+    json.loads(request.body.decode("utf-8"))
+    json_data = json.loads(request.body)
+    print(json_data)
+    return HttpResponse('POST')
+
+    # do your thing
 
 def index(request):
     return render(request, 'daw/index.html')

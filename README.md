@@ -6,8 +6,8 @@ digital audio workstation online
 
 ### Installation
 ```
-pip install requirements.txt
-(pip3 install -r requirments.txt)
+
+pip[3] install -r requirments.txt)
 
 example of configuration file:
 

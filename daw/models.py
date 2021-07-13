@@ -4,9 +4,9 @@ from django.db.models import JSONField
 
 # Create your models here.
 class Project(models.Model):
-	name = models.CharField(max_length=20)
+	# name = models.CharField(max_length=20)
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
-	data = JSONField(default={'name': 'nonExi'})
+	data = JSONField(dict())
 	# data = models.TextField()
 
 	# class Meta:

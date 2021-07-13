@@ -13,6 +13,7 @@ def json_decode(request):
     # do your thing
 
 def index(request):
+    user = User()
     return render(request, 'daw/index.html')
 
 # def login(request):
@@ -25,11 +26,12 @@ def retrieve_user_projects(request):
     return redirect('/')
 
 def user_projects(request):
-    decoded_data = json_decode(request)
+    data = json_decode(request)
     if request.method == 'POST':
+        # if user.
         print("Oh I've GOT SOMETHING")
-        save = Project.data(name=decoded_data['name'], data=decoded_data)
-        save.save()
+        project = Project(user=user, data=data)
+        project.save()
         return HttpResponse('POST')
     elif request.method == 'GET':
         return HttpResponse('GET')

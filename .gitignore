@@ -157,3 +157,5 @@ TrickTrackDB
 curl
 test_request.py
 
+daw/migrations/
+

@@ -12,12 +12,13 @@ const addProjectNameInputHandler = () => {
     projectNameInput.addEventListener('change', onProjectNameInputChange);
 }
 
-// const setProjectName = () => {
-//     return projectNameInput.value;
-// }
+const getNameOfProject = () => {
+    return projectNameInput.value
+}
 
-const createProject = (newLanes, bpm) => {
-    let name = projectNameInput.value
+
+
+const createProject = (newLanes, bpm, name) => {
     const project = {bpm: bpm, lanes: newLanes, name: name}
     return project;
 }
@@ -43,4 +44,4 @@ const addSaveButtonHandler = (project, onSuccess) => {
       
 // }
 
-export {createProject, addProjectNameInputHandler, addSaveButtonHandler} 
+export {createProject, addProjectNameInputHandler, addSaveButtonHandler, getNameOfProject} 

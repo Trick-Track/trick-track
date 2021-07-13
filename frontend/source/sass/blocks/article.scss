@@ -1,10 +1,17 @@
 .app__projects  {
-    grid-column: 1;
-    grid-row-start: 1;
-    grid-row-end: -1;
-    height: 100vw;
+
+    @media (min-width: $mobile-width) {
+        grid-column: 1;
+        grid-row-start: 1;
+        grid-row-end: -1;
+        height: 100vw;
+       
+    }
+
     background-color: rgba(253, 197, 123, 0.79);
     color: $black;
+
+    
 }
 
 .app__projects-heading {
@@ -13,10 +20,13 @@
     font-size: 16px;
     margin-top: 50px;
     margin-left: 10px;
+    margin-bottom: 30px;
     line-height: 18px;
     text-transform: capitalize;
 }
 
 .app__projects-link {
     text-decoration: none;
+    margin-left: 10px;
+    color: $black;
 }

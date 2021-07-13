@@ -6,8 +6,8 @@ import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
 import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 //import {addInpytAddHandler} from './add.js';
-import {addControlsHandlers} from './controls.js';
-import {addSaveButtonHandler, createProject, addProjectNameInputHandler} from './project.js';
+import {addControlsHandlers, setControlAngle, addPannerControlsHandler} from './controls.js';
+import {addSaveButtonHandler, createProject, addProjectNameInputHandler, getNameOfProject} from './project.js';
 import {showSuccess} from './messages.js';
 import '../sass/style.sass';
 
@@ -209,8 +209,15 @@ function playStepAtTime(lanes, playTime, cb) {
 addButtonPlayHandler(context, scheduleSound)
 addButtonStopHandler(context, scheduleSound)
 
+
+
+setControlAngle()
+addPannerControlsHandler(newLanes)
+
 let bpm = setBpm();
-    let project = createProject(newLanes, bpm);
+let projectName = getNameOfProject();
+
+    let project = createProject(newLanes, bpm, projectName);
 
 const onSuccess = () => {
   showSuccess();
@@ -219,19 +226,6 @@ const onSuccess = () => {
 addSaveButtonHandler(project, onSuccess)
 
 
-
-
-// function stop() {
-//   isPlaying = false;
-//   scheduleSound()
-//   console.log('stop')
-//   console.log(isPlaying)
-// }
-
-
-
-// addButtonPlayHandler(play, stop);
-// addButtonStopHandler(stop, play)
 
 
 

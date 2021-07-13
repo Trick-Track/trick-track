@@ -3,6 +3,13 @@
     display: flex;
     background-color: #414141;
     padding-top: 15px;
+    padding-left: 15%;
+
+    @media (max-width: $mobile-width) {
+        padding-left: 5px;
+    }
+
+    
 
     &::before {
         content: "";
@@ -58,4 +65,3 @@
      transform: rotate(180deg);   
     } 
 }
-

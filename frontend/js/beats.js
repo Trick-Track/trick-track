@@ -14,7 +14,7 @@ const deleteBeatsUnit = () => {
    
 }
 const checkBeatsControlValidity = (cb) => {
-    const validity = beatsControl.value < 1 && beatsControl.value > 32 ?
+    const validity = beatsControl.value < 1 || beatsControl.value > 32 ?
     beatsControl.setCustomValidity('beats 1 to 32'):
     beatsControl.setCustomValidity('');
   beatsControl.reportValidity(validity);
@@ -27,7 +27,7 @@ const changeBeatsControlValue = () => {
     }
   
     if (beatsControl.value < 1) {
-        beatsControl.value = 0;
+        beatsControl.value = 1;
     }
 }
 

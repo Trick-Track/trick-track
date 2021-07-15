@@ -34,11 +34,18 @@ const checkBpmControlValidity = (cb) => {
   cb()
 }
 
+
+const changeBpmControlValue = () => {
+  if (bpmControl.value < 1) {
+      bpmControl.value = 1;
+  }
+}
+
 const addBpmHandlers = () => {
   addBpmInputHandler();
   addBpmButtonsClickHandlers();
   bpmControl.addEventListener('change', () => {
-    checkBpmControlValidity();
+    checkBpmControlValidity(changeBpmControlValue);
   })
 }
 

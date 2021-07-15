@@ -5,6 +5,7 @@ const SHOW_SUCCESS_TIME = 2500;
 const MessageTypes = {
     success: 'success',
     error: 'error',
+    //save: 'save',
   }
 
   

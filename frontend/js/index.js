@@ -5,10 +5,10 @@ import {addArrowsHandlers, currentSlide} from './slider.js';
 import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
 import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
-//import {addInpytAddHandler} from './add.js';
 import {addControlsHandlers} from './controls.js';
-import {addSaveButtonHandler, createProject, addProjectNameInputHandler, getNameOfProject} from './project.js';
+import {addSaveButtonHandler, createProject, addProjectNameInputHandler, addCreateProjectButtonHandler, Project, getProjectName} from './project.js';
 import {showSuccess} from './messages.js';
+import {resetPage} from './page.js';
 import '../sass/style.sass';
 
 
@@ -64,7 +64,9 @@ buffer.createBuffer();
 
 
 const newCells = initialCells(STEPS);
-const newLanes = createLanes(buffer.urls, newCells); //дорожки
+let newLanes = createLanes(buffer.urls, newCells); //дорожки
+
+
 generateMatrix(newLanes); // отрисовка дорожек
 
 renderPlaybackLine();// 
@@ -79,6 +81,7 @@ addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
 addProjectNameInputHandler(); //нэйм проекта
 addControlsHandlers(newLanes) //звук и панорама для дорожек
+
 
 
 
@@ -214,9 +217,14 @@ addButtonStopHandler(context, scheduleSound)
 
 
 let bpm = setBpm();
-let projectName = getNameOfProject();
+let projectName = getProjectName();
 
-    let project = createProject(newLanes, bpm, projectName);
+const project = new Project(bpm, newLanes, projectName)
+
+//project.initialDefaultProject(newCells)
+//console.log(project1)
+
+    //let project = createProject(newLanes, bpm);
 
 const onSuccess = () => {
   showSuccess();

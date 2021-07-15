@@ -33,7 +33,6 @@ const setPannerControlValue = (cb, lanes) => {
         pannerSpinner.style.transform = `rotate(${angle}rad)`;
         let angleDegree = (angle * 180) / Math.PI;
         pannerControl.value = (angleDegree / 180).toFixed(2);
-        console.log(pannerControl.value)
         cb(pannerControls, lanes)
     });
   });
@@ -52,6 +51,7 @@ const addControlsHandlers = (lanes) => {
   addVolumeControlsHandler(lanes);
   setPannerControlValue(addPannerControlsHandler, lanes)
 }
+
 
 
 export {addControlsHandlers}; 

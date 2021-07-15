@@ -69,7 +69,7 @@
         <div class="app__main">
           <article class="app__projects">
             <h2 class="app__projects-heading">Your&ensp;tracks</h2>
-            <a href="" class="app__projects-link">+&ensp;Create&ensp;new</a>
+            <button class="app__projects-link">+&ensp;Create&ensp;new</button>
           </article>
 
           <div>
@@ -108,22 +108,28 @@
     <template id="matrix">
       <li class="sequencer__samples-item">
         <div class="sequencer__controls">
-          <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" value="1" data-action="volume"/>
+           <div class="sequencer__controls-panner"> 
+            <label class="sequencer__controls-label sequencer__controls-label--panner" for="panner">
+              <svg class="sequencer__controls-label-img" width="40" height="40" tabindex="0"><use xlink:href="#switch"></use></svg>
+              <input class="sequencer__controls-input sequencer__controls-input--panner visually-hidden" type="range" id="panner" class="control-panner" list="pans" min="-1" max="1" value="0" step="0.01" data-action="panner"/>
+              <datalist id="pan-vals">
+                <option value="-1" label="left">
+                <option value="1" label="right">
+              </datalist>
+            </label>
+          </div>
 
-            <datalist id="volums-values">
-              <option value="0" label="min">
-              <option value="2" label="max">
-            </datalist>
-          <label for="volume"></label>
-         
-          <label class="sequencer__controls-label sequencer__controls-label--panner" for="panner">
-            <svg class="sequencer__controls-label-img" width="40" height="40" tabindex="0"><use xlink:href="#switch"></use></svg>
-            <input class="sequencer__controls-input sequencer__controls-input--panner visually-hidden" type="range" id="panner" class="control-panner" list="pans" min="-1" max="1" value="0" step="0.01" data-action="panner"/>
-            <datalist id="pan-vals">
-              <option value="-1" label="left">
-              <option value="1" label="right">
-            </datalist>
-          </label>
+          <div class="sequencer__controls-volume">
+            <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" value="1" data-action="volume"/>
+
+              <datalist id="volums-values">
+                <option value="0" label="min">
+                <option value="2" label="max">
+              </datalist>
+            <label for="volume"></label>
+          </div>
+          
+        
         </div>
         <button class="button sample-button"></button>
         <div class="sequencer__steps slider">
@@ -152,6 +158,18 @@
       </div>
     </template>
 
+    <template id="save">
+      <div class="save__wrapper">
+        <div class="save">
+          <p class="save__message">
+          <div class="save__buttons">
+            <button type="button" class="save__button sabe-button save-message__button--save" aria-label="save project">yes</button>
+            <button type="button" class="save__button save-message__button--nosave" aria-label="do not save projecr">no</button>
+          </div>
+        </div>
+      </div>
+    </template>
+
 
 
 
@@ -159,7 +177,6 @@
     <div class="modal-user__content">
       <button class="modal-close button-close" type="button" aria-label="Close">X</button>
       <h2 class="modal-user__heading">Sign in</h2>
-
       <form class="modal-user__form user-form" method="post" action="">
         <div class="user-field">
           <input class="form-name" type="text" id="user-name" name="user" placeholder="" required>
@@ -173,13 +190,10 @@
           <input type="password" id="user-password" class="form-password">
           <label data-error="wrong" data-success="right" for="user-password">Your password</label>
         </div>
-       
         <div class="modal-button-block">        
           <input class="button user-button" type="submit" value="Login">
         </div>
-
       </form>
-   
     </div>
   </section>
 

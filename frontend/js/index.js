@@ -6,7 +6,7 @@ import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
 import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 //import {addInpytAddHandler} from './add.js';
-import {addControlsHandlers, setControlAngle, addPannerControlsHandler} from './controls.js';
+import {addControlsHandlers} from './controls.js';
 import {addSaveButtonHandler, createProject, addProjectNameInputHandler, getNameOfProject} from './project.js';
 import {showSuccess} from './messages.js';
 import '../sass/style.sass';
@@ -78,8 +78,8 @@ addArrowsHandlers(); //стрелки слайдера
 addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
 addProjectNameInputHandler(); //нэйм проекта
-
 addControlsHandlers(newLanes) //звук и панорама для дорожек
+
 
 
 
@@ -211,8 +211,7 @@ addButtonStopHandler(context, scheduleSound)
 
 
 
-setControlAngle()
-addPannerControlsHandler(newLanes)
+
 
 let bpm = setBpm();
 let projectName = getNameOfProject();

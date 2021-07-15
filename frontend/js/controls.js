@@ -1,5 +1,3 @@
-
-
 const addVolumeControlsHandler = (lanes) => {
   const volumeControls = document.querySelectorAll('[data-action="volume"]');
 
@@ -19,8 +17,10 @@ const getCenter = (element) =>  {
   return {x: left + width / 2, y: top + height / 2}
 }
 
-const setControlAngle = () => {
-  const pannerLabels = document.querySelectorAll('.sequencer__controls-label--panner')
+
+const setPannerControlValue = (cb, lanes) => {
+  const pannerLabels = document.querySelectorAll('.sequencer__controls-label--panner');
+  const pannerControls = document.querySelectorAll('[data-action="panner"]');
   
   pannerLabels.forEach((pannerLabel) => {
     const pannerControl = pannerLabel.querySelector('[data-action="panner"]');
@@ -31,49 +31,27 @@ const setControlAngle = () => {
     pannerSpinner.addEventListener("mousemove", ({clientX, clientY}) => {
         const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
         pannerSpinner.style.transform = `rotate(${angle}rad)`;
-        pannerControl.value = angle / 2.2;
+        let angleDegree = (angle * 180) / Math.PI;
+        pannerControl.value = (angleDegree / 180).toFixed(2);
+        console.log(pannerControl.value)
+        cb(pannerControls, lanes)
     });
   });
-
-  
 }
 
-
-
-
-const addPannerControlsHandler = (lanes) => {
-  const pannerControls = document.querySelectorAll('[data-action="panner"]');
-  
-      pannerControls.forEach((pannerControl) => {
-          
-          const i = [...pannerControls].indexOf(pannerControl, 0);
-          const value = pannerControl.value;
-          const lane = lanes[i]; 
-          lane.panner = value;
-    
-        });
+const addPannerControlsHandler = (controls, lanes) => {
+  controls.forEach((control) => {
+    const i = [...controls].indexOf(control, 0);
+    const value = control.value;
+    const lane = lanes[i]; 
+    lane.panner = value;
+  });
 }
-
-
-// const addPannerControlsHandler = (lanes) => {
-//   const pannerControls = document.querySelectorAll('[data-action="panner"]');
-  
-//     pannerControls.forEach((pannerControl) => {
-
-//       pannerControl.addEventListener('input', (evt) => {
-//         pannerControl = evt.target;
-//         const i = [...pannerControls].indexOf(pannerControl, 0);
-//         const lane = lanes[i]; 
-//         lane.panner = evt.target.value;
-  
-//       });
-//     });
-// }
 
 const addControlsHandlers = (lanes) => {
   addVolumeControlsHandler(lanes);
-  //addPannerControlsHandler(lanes)
+  setPannerControlValue(addPannerControlsHandler, lanes)
 }
 
 
-export {addControlsHandlers, setControlAngle, addPannerControlsHandler}; 
+export {addControlsHandlers}; 

@@ -14,7 +14,7 @@ const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 module.exports = {
     // mode: 'development',
-    entry: './source/js/index.js',
+    entry: './js/index.js',
     devtool: 'source-map',
     output: {
       //filename: filename('js'),
@@ -81,15 +81,15 @@ module.exports = {
             new CopyWebpackPlugin({
               patterns: [
               {
-              from: path.resolve(__dirname, 'source/samples'),
+              from: path.resolve(__dirname, './samples'),
               to: path.resolve(__dirname, 'build/samples')
               },
               {
-              from: path.resolve(__dirname, 'source/image'),
+              from: path.resolve(__dirname, './image'),
               to: path.resolve(__dirname, 'build/image')
               },
               {
-                from: path.resolve(__dirname, 'source/fonts'),
+                from: path.resolve(__dirname, './fonts'),
                 to: path.resolve(__dirname, 'build/fonts')
                 },
 

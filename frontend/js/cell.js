@@ -30,18 +30,18 @@ const createLanes = (sounds, cells) => {
   return lines
 }
 
-const resetLanes = (lanes) => {
-  lanes.forEach((lane) => {
-    const {cells, volume, panner} = lane;
-      cells.forEach((cell) => {
-      cell.checked = false;
-    });
+// const resetLanes = (lanes) => {
+//   lanes.forEach((lane) => {
+//     const {cells, volume, panner} = lane;
+//       cells.forEach((cell) => {
+//       cell.checked = false;
+//     });
 
-    volume == 1;
-    panner == 1;
-  });
-  return lanes
-}
+//     volume == 1;
+//     panner == 1;
+//   });
+//   return lanes
+// }
 
 // const setCellCheckedColor = (cell) => {
 //   const {checked} = cell;
@@ -61,4 +61,4 @@ const resetLanes = (lanes) => {
 
 
 
-export {initialCells, createLanes, resetLanes}
+export {initialCells, createLanes}

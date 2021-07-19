@@ -63,7 +63,8 @@ const generateMatrixLane = (lane) => {
 };
 
 
-const generateMatrix = (lanes) => {
+const generateMatrix = (project) => {
+  const {lanes} = project;
     lanes.forEach((lane) => {
     generateMatrixLane(lane);
   })
@@ -80,9 +81,9 @@ const createCellsArray = (i) => {
     return cellsOfLane;
 }
 
-const createAllCellsArray = () => {
+const createAllCellsArray = (sounds) => {
   const allCellsLists = []
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < sounds.length; i++) {
     const cellsOfLane = createCellsArray(i);
     allCellsLists.push(cellsOfLane);
   }

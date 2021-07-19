@@ -5,7 +5,6 @@ const SHOW_SUCCESS_TIME = 2500;
 const MessageTypes = {
     success: 'success',
     error: 'error',
-    //save: 'save',
   }
 
   
@@ -20,7 +19,8 @@ const MessageTypes = {
     const fragment = document.createDocumentFragment();
     fragment.append(resultTemplate);
   
-    const closeButton = resultTemplate.querySelector('.error__button')
+    const closeButton = resultTemplate.querySelector('.error__button');
+   
   
     const removeTemplate = () => {
       resultTemplate.remove();
@@ -49,13 +49,16 @@ const MessageTypes = {
     document.body.appendChild(fragment);
     document.addEventListener('keydown', onDocumentEscapePressed);
   
+
+
     if (closeButton) {
       closeButton.addEventListener('click', onButtonCloseClick);
     }
 
+    
     if(messageType === 'success') {
       setTimeout(() => {
-        resultTemplate.remove();
+        removeTemplate();
       }, SHOW_SUCCESS_TIME);
     }
   }
@@ -64,6 +67,5 @@ const MessageTypes = {
 const showSuccess = () => showMessage(MessageTypes.success);
 const showError = () => showMessage(MessageTypes.error);
 
-
-  export {showSuccess, showError}
+export {showSuccess, showError}
   

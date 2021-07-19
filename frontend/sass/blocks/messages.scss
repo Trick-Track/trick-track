@@ -1,5 +1,6 @@
 .success__wrapper,
-.error__wrapper {
+.error__wrapper,
+.save__wrapper {
   position: fixed;
   overflow: auto;
   width: 100%;
@@ -10,7 +11,8 @@
 }
 
 .success,
-.error {
+.error,
+.save {
   margin-top: 10%;
   margin: 0 auto;
   margin-top: 10%;
@@ -27,8 +29,9 @@
   }
 }
 
-.success__message,
-.error__message {
+
+.error__message,
+.save__message {
   margin: 0;
   padding: 50px;
   font-size: 30px;
@@ -45,4 +48,29 @@
 
 .error__button {
   float: right;
+}
+
+.save__button {
+  font-family: 'Share Tech Mono', 'Arial', monospace;
+  width: 150px;
+  height: 50px;
+  color: $white;
+  border: none;
+  font-size: 15px;
+
+  &--save {
+    background-color: $aquamarine;
+  
+  }
+
+  &--nosave {
+    background-color: red;
+    margin-left: 20px;
+  }
+
+}
+
+.save__buttons {
+  display: flex;
+  justify-content: center;
 }

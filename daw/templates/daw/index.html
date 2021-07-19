@@ -69,7 +69,7 @@
         <div class="app__main">
           <article class="app__projects">
             <h2 class="app__projects-heading">Your&ensp;tracks</h2>
-            <button class="app__projects-link">+&ensp;Create&ensp;new</button>
+            <a href="" class="app__projects-link">+&ensp;Create&ensp;new</a>
           </article>
 
           <div>
@@ -157,21 +157,32 @@
         </div>
       </div>
     </template>
-
+<!-- 
     <template id="save">
       <div class="save__wrapper">
         <div class="save">
-          <p class="save__message">
+          <button type="button" class="error__button button-close" aria-label="Close">x</button>
+          <p class="save__message">Your project has not saved. Save it?</p>
           <div class="save__buttons">
-            <button type="button" class="save__button sabe-button save-message__button--save" aria-label="save project">yes</button>
-            <button type="button" class="save__button save-message__button--nosave" aria-label="do not save projecr">no</button>
+            <button type="button" class="save__button save__button--save" aria-label="save project">close for save</button>
+            <button type="button" class="save__button save__button--nosave" aria-label="do not save project">continue without saving</button>
+          </div>
+        </div>
+      </div> -->
+    
+
+
+    <section class="modal modal-new-project">
+      <div class="save__wrapper">
+        <div class="save">
+          <p class="save__message">Your project has not saved. Save it?</p>
+          <div class="save__buttons">
+            <button type="button" class="save__button save__button--save" aria-label="save project">close for save</button>
+            <button type="button" class="save__button save__button--nosave" aria-label="do not save project">continue without saving</button>
           </div>
         </div>
       </div>
-    </template>
-
-
-
+    </section>
 
   <section class="modal-user modal">
     <div class="modal-user__content">

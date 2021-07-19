@@ -1,3 +1,4 @@
+import {Buffer} from './buffer.js';
 import {initialCells, createLanes} from './cell.js';
 import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
 import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
@@ -6,7 +7,7 @@ import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
 import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addControlsHandlers} from './controls.js';
-import {addSaveButtonHandler, createProject, addProjectNameInputHandler, addCreateProjectButtonHandler, Project, getProjectName} from './project.js';
+import {addSaveButtonHandler,Project, getProjectName, addProjectsHandlers, addOpenModalButtonHandler} from './project.js';
 import {showSuccess} from './messages.js';
 import {resetPage} from './page.js';
 import '../sass/style.sass';
@@ -21,73 +22,33 @@ const STEPS = 32;
 
 let context = new (window.AudioContext || window.webkitAudioContext)();
 
-class Buffer {
-
-  constructor(context, urls) {
-    this.context = context;
-    this.urls = urls;
-    this.buffer = [];
-  }
-
-  loadSound(url, index) {
-    let request = new XMLHttpRequest();
-    request.open('get', url, true);
-    request.responseType = 'arraybuffer';
-    let thisBuffer = this;
-    request.onload = function() {
-
-      thisBuffer.context.decodeAudioData(request.response, function(data) {
-          thisBuffer.buffer[index] = data;
-      });
-
-     };
-    request.send();
-  };
-
-  createBuffer() {
-    this.urls.forEach((url, index) => {
-      this.loadSound(url, index);
-
-    })
-  }
-
- getSound(index) {
-    return this.buffer[index];
-  }
-
-}
-
 const buffer = new Buffer(context, sounds)
 buffer.createBuffer();
 
-/////////////////////////
+let bpm = setBpm();
+let projectName = getProjectName();
 
-
-const newCells = initialCells(STEPS);
+let newCells = initialCells(STEPS); //ячейки
 let newLanes = createLanes(buffer.urls, newCells); //дорожки
 
+const project = new Project(bpm, newLanes, projectName);
 
-generateMatrix(newLanes); // отрисовка дорожек
+
+
+generateMatrix(project); // отрисовка дорожек
 
 renderPlaybackLine();// 
 
 
-const cellsButtons = createAllCellsArray();
+const cellsButtons = createAllCellsArray(sounds);
 
 addButtonCellHandler(cellsButtons, newLanes)
 
 addArrowsHandlers(); //стрелки слайдера
 addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
-addProjectNameInputHandler(); //нэйм проекта
+
 addControlsHandlers(newLanes) //звук и панорама для дорожек
-
-
-
-
-
-////Bufer////////////////////////////////////////////////////////
-
 
 
 
@@ -115,13 +76,6 @@ const playSound = (audioData, playTime, volume, pans) => {
 
 
 
-
-
-//////////////////////////////////////////////////
-
-
-
-
 const onButtonPlaySound = () => {
 
 let button = document.getElementsByClassName('button');
@@ -144,7 +98,7 @@ onButtonPlaySound();
 
 //Sequencer
 
-
+ 
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
@@ -166,24 +120,8 @@ function scheduleSound() {
 }
 
 function nextStep(callback) {
+  
   currentStep++;
-
-  // lanes.forEach((lane) => {
-
-  //   const {cells} = lane;
-  //   cells.forEach((cell) => {
-  //     const currentCell = lane.cells[currentStep - 1];
-
-  //     if (cell = currentCell) {
-  //       cell.played == true;
-  //     }
-  //     else {
-  //       cell.played == false;
-  //     }; 
-
-  //   });
-  // });
-
   currentStep > 16 ? callback(2)  : callback(1);
   let activeStep = setBeats();
   
@@ -209,17 +147,14 @@ function playStepAtTime(lanes, playTime, cb) {
     cb(currentStep)
     
 }
+
 addButtonPlayHandler(context, scheduleSound)
 addButtonStopHandler(context, scheduleSound)
 
+addOpenModalButtonHandler(project, newLanes)
 
 
 
-
-let bpm = setBpm();
-let projectName = getProjectName();
-
-const project = new Project(bpm, newLanes, projectName)
 
 //project.initialDefaultProject(newCells)
 //console.log(project1)
@@ -231,6 +166,8 @@ const onSuccess = () => {
 }
 
 addSaveButtonHandler(project, onSuccess)
+addProjectsHandlers(project, newLanes)
+
 
 
 

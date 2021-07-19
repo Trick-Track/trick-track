@@ -1,9 +1,13 @@
 import {sendProject} from './server.js';
-import {resetLanes} from './cell.js';
-
+import {isEscEvent, isMouseLeftEvent} from './util.js';
 
 const projectNameInput = document.querySelector('#project-name');
 const saveButton = document.querySelector('.save-button');
+const openModalButton = document.querySelector('.app__projects-link');
+const modalNewProject = document.querySelector('.modal-new-project');
+const createNewProjectButton = document.querySelector('.save__button--nosave');
+const closeModalButton = document.querySelector('.save__button--save')
+
 
 const onProjectNameInputChange = () => {
   const projectName = projectNameInput.value;
@@ -15,14 +19,21 @@ const addProjectNameInputHandler = () => {
 };
 
 const getProjectName = () => {
+  console.log(projectNameInput.value)
   let projectName = projectNameInput.value;
   return projectName;
 }
 
-const createProject = (newLanes, bpm) => {
-  const project = {bpm: bpm, lanes: newLanes, name: name}
-  return project;
-}
+// const setFocusOnProjectNameInput = () => {
+//   projectNameInput.focus();
+// }
+
+// const createProject = (newLanes, bpm) => {
+//   const project = {bpm: bpm, lanes: newLanes, name: name}
+//   return project;
+// }
+
+
 
 const addSaveButtonHandler = (project, onSuccess) => {
   saveButton.addEventListener('click', () => {
@@ -31,34 +42,66 @@ const addSaveButtonHandler = (project, onSuccess) => {
   });
 }
 
-const addCreateProjectButtonHandler = (lanes, cb) => {
-    const createProjectButton = document.querySelector('.app__projects-link')
-    createProjectButton.addEventListener('click', () => {
-        const project = new Project
-        project.initialDefaultProject(lanes)
-        console.log(project)
-        cb()
-    })
+
+
+const closeModalNewProject = () => {
+  modalNewProject.classList.remove('modal__show')
+  closeModalButton.removeEventListener('click', closeModalNewProject);
+  createNewProjectButton.removeEventListener('click', onCreateNewProjectButtonClick);
+  document.removeEventListener('keydown', onDocumentEscapePressed);
+};
+
+
+const onDocumentEscapePressed = (evt) => {
+  if (isEscEvent(evt)) {
+    evt.preventDefault();
+    closeModalNewProject();
+  }
+};
+
+const onCreateNewProjectButtonClick = (project, lanes) => {
+  //closeModalNewProject();
+  createDefaultProject(project, lanes);
 }
 
+const addOpenModalButtonHandler = (project, lanes) => {
+  openModalButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    modalNewProject.classList.add('modal__show');
+    closeModalButton.addEventListener('click', closeModalNewProject);
+    createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick(project, lanes))
+    document.addEventListener('keydown', onDocumentEscapePressed);
+  })
+}
+
+const createDefaultProject = (project, lanes) => {
+  project = new Project
+  project.initialProject(lanes);
+  console.log(project)
+
+}
 
 
 export class Project {
 
         constructor (bpm, lanes, projectName) {
+  
           this.projectName = projectName;
           this.bpm = bpm;
           this.lanes = lanes;
         }
-
-        initialDefaultProject (defaultBPM, lanes) {
+        
+        initialProject(lanes) {
           this.projectName = "";
-          this.bpm = defaultBPM;
+          this.bpm = 120
           this.lanes = lanes;
-
-
         }
-      
 }
 
-export {createProject, addProjectNameInputHandler, addSaveButtonHandler, addCreateProjectButtonHandler, getProjectName} 
+const addProjectsHandlers = () => {
+  addProjectNameInputHandler();
+  //addOpenModalButtonHandler();
+
+}
+
+export {addSaveButtonHandler, addProjectsHandlers, getProjectName, addOpenModalButtonHandler} 

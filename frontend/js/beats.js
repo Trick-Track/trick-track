@@ -55,15 +55,17 @@ const setBeats = () => {
     return beatsControl.value
 }
 
-const setBeatsInputDisabledState = (context) => {
-    if (context.state === 'running') {
-        beatsControl.disabled = true;
-    }
-    else {
-        beatsControl.disabled = false;
-    }
+const setBeatsInputDisabledState = () => {
+    beatsControl.disabled = true;
+    incrementButton.disabled = true;
+    decrementButton.disabled = true;
 }
 
+const setBeatsInputEnabledState = () => {
+    beatsControl.disabled = false;
+    incrementButton.disabled = false;
+    decrementButton.disabled = false;
+}
 
  
 // const setCellDisabledState = (lanes) => {
@@ -72,4 +74,4 @@ const setBeatsInputDisabledState = (context) => {
 //     })
 // } 
 
-  export {addBeatsHandlers, setBeats, setBeatsInputDisabledState}
+  export {addBeatsHandlers, setBeats, setBeatsInputDisabledState, setBeatsInputEnabledState}

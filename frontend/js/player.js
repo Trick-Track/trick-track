@@ -1,16 +1,19 @@
+import {setBeatsInputDisabledState, setBeatsInputEnabledState} from './beats.js'
+
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
 
 const stopPlayback = (context) => {
     context.suspend();
-    console.log(context.state)
+    console.log(context.state);
+    setBeatsInputEnabledState();
     //currentStep = 0;
     playButton.removeEventListener('click', playSequencer)
 }
 
 const playSequencer = (context, callback) => {
     callback();
-    console.log(context.state)
+    setBeatsInputDisabledState();
     if (context.state === 'suspended') {
         context.resume();
     }

@@ -13,7 +13,7 @@ example of configuration file:
 
 (link here)
 
-[DJANGO SECRET KEY GENERATOR](https://djecrety.ir)
+[DJANGO SECRET KEY GENERATOR] (https://djecrety.ir)
 
 python manage.py makemigrations
 

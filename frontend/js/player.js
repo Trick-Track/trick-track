@@ -5,10 +5,9 @@ const stopButton = document.getElementById('stop');
 
 const stopPlayback = (context) => {
     context.suspend();
-    console.log(context.state);
     setBeatsInputEnabledState();
     //currentStep = 0;
-    playButton.removeEventListener('click', playSequencer)
+    playButton.removeEventListener('click', playSequencer);
 }
 
 const playSequencer = (context, callback) => {

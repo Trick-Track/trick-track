@@ -1,12 +1,13 @@
+
+import {isEscEvent} from './util.js';
 import {sendProject} from './server.js';
-import {isEscEvent, isMouseLeftEvent} from './util.js';
 
 const projectNameInput = document.querySelector('#project-name');
 const saveButton = document.querySelector('.save-button');
 const openModalButton = document.querySelector('.app__projects-link');
 const modalNewProject = document.querySelector('.modal-new-project');
 const createNewProjectButton = document.querySelector('.save__button--nosave');
-const closeModalButton = document.querySelector('.save__button--save')
+const closeModalButton = document.querySelector('.save__button--save');
 
 
 const onProjectNameInputChange = () => {
@@ -24,23 +25,7 @@ const getProjectName = () => {
   return projectName;
 }
 
-// const setFocusOnProjectNameInput = () => {
-//   projectNameInput.focus();
-// }
 
-// const createProject = (newLanes, bpm) => {
-//   const project = {bpm: bpm, lanes: newLanes, name: name}
-//   return project;
-// }
-
-
-
-const addSaveButtonHandler = (project, onSuccess) => {
-  saveButton.addEventListener('click', () => {
-    sendProject(JSON.stringify(project), onSuccess);
-    console.log(JSON.stringify(project))
-  });
-}
 
 
 
@@ -74,29 +59,7 @@ const addOpenModalButtonHandler = (project, lanes) => {
   })
 }
 
-const createDefaultProject = (project, lanes) => {
-  project = new Project
-  project.initialProject(lanes);
-  console.log(project)
 
-}
-
-
-export class Project {
-
-        constructor (bpm, lanes, projectName) {
-  
-          this.projectName = projectName;
-          this.bpm = bpm;
-          this.lanes = lanes;
-        }
-        
-        initialProject(lanes) {
-          this.projectName = "";
-          this.bpm = 120
-          this.lanes = lanes;
-        }
-}
 
 const addProjectsHandlers = () => {
   addProjectNameInputHandler();
@@ -104,4 +67,12 @@ const addProjectsHandlers = () => {
 
 }
 
-export {addSaveButtonHandler, addProjectsHandlers, getProjectName, addOpenModalButtonHandler} 
+
+const addSaveButtonHandler = (project, onSuccess) => {
+  saveButton.addEventListener('click', () => {
+    sendProject(JSON.stringify(project), onSuccess);
+    console.log(JSON.stringify(project))
+  });
+}
+
+export {addProjectsHandlers, getProjectName, addOpenModalButtonHandler, addSaveButtonHandler} 

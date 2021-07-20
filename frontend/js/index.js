@@ -1,15 +1,15 @@
-import {Buffer} from './buffer.js';
-import {initialCells, createLanes} from './cell.js';
-import {addButtonCellHandler, generateMatrix, createAllCellsArray} from './matrix.js';
-import {renderPlaybackLine, fillCurrentPlaybackStep} from './playback-cells.js'
+
+import {addButtonCellHandler, generateMatrix, createAllCellsArray, renderPlaybackLine, fillCurrentPlaybackStep} from './renderer.js';
 import {addArrowsHandlers, currentSlide} from './slider.js';
-import {addBpmHandlers, setBpm, setTempo} from './bpm.js';
+import {addBpmHandlers, setTempo} from './bpm.js';
 import {addBeatsHandlers, setBeats, setBeatsInputDisabledState} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addControlsHandlers} from './controls.js';
-import {addSaveButtonHandler,Project, getProjectName, addProjectsHandlers, addOpenModalButtonHandler} from './project.js';
+import {getProjectName, addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler} from './project.js';
+import {createDefaultProject, Project} from './build-project.js';
 import {showSuccess} from './messages.js';
-import {resetPage} from './page.js';
+import {Buffer} from './buffer.js'
+
 import '../sass/style.sass';
 
 
@@ -18,37 +18,30 @@ let sounds = ['/static/samples/bdsh.wav',
                 '/static/samples/tsk.wav',
               ];
 
-const STEPS = 32;
-
 let context = new (window.AudioContext || window.webkitAudioContext)();
 
-const buffer = new Buffer(context, sounds)
+const buffer = new Buffer(context, sounds);
 buffer.createBuffer();
 
-let bpm = setBpm();
-let projectName = getProjectName();
-
-let newCells = initialCells(STEPS); //ячейки
-let newLanes = createLanes(buffer.urls, newCells); //дорожки
-
-const project = new Project(bpm, newLanes, projectName);
+window.currentProject = new Project()
+currentProject.initialProject(buffer); 
 
 
 
-generateMatrix(project); // отрисовка дорожек
+generateMatrix(currentProject); // отрисовка дорожек
 
 renderPlaybackLine();// 
 
 
 const cellsButtons = createAllCellsArray(sounds);
 
-addButtonCellHandler(cellsButtons, newLanes)
+addButtonCellHandler(cellsButtons, currentProject)
 
 addArrowsHandlers(); //стрелки слайдера
 addBeatsHandlers(); //шаги
 addBpmHandlers(); //bpm
 
-addControlsHandlers(newLanes) //звук и панорама для дорожек
+addControlsHandlers(currentProject) //звук и панорама для дорожек
 
 
 
@@ -64,6 +57,9 @@ const playSound = (audioData, playTime, volume, pans) => {
   const pannerOptions = {pan: 0};
   const panner = new StereoPannerNode(context, pannerOptions);
   panner.pan.value = pans;
+  if (context.state === 'suspended') {
+    context.resume();
+}
 
   //const defaults = {volume: 1, pans: 0};
 
@@ -87,9 +83,8 @@ var allSounds = [];
       btn = evt.target;
       const i = allSounds.indexOf(btn, 0);
 
-    playSound(buffer.getSound(i), 0, 1, 0)
-
-}))
+    playSound(buffer.getSound(i), 0, 1, 0);
+  }))
 }
 
 onButtonPlaySound();
@@ -112,7 +107,7 @@ function scheduleSound() {
   while (nextStepTime < now + 0.2 ) {
 
     let pt = nextStepTime + startTime;
-    playStepAtTime(newLanes, pt, fillCurrentPlaybackStep);
+    playStepAtTime(currentProject, pt, fillCurrentPlaybackStep);
     nextStep(currentSlide);
   }
     const ti = setTimeout(scheduleSound, 0)
@@ -133,8 +128,8 @@ function nextStep(callback) {
   nextStepTime += tempo;
 }
 
-function playStepAtTime(lanes, playTime, cb) {
-
+function playStepAtTime(project, playTime, cb) {
+    const {lanes} = project;
     for(let i = 0; i < lanes.length; i++) {
         const lane = lanes[i];
         const volume = lane.volume;
@@ -151,22 +146,16 @@ function playStepAtTime(lanes, playTime, cb) {
 addButtonPlayHandler(context, scheduleSound)
 addButtonStopHandler(context, scheduleSound)
 
-addOpenModalButtonHandler(project, newLanes)
+//addOpenModalButtonHandler(currentProject)
 
 
 
 
-//project.initialDefaultProject(newCells)
-//console.log(project1)
-
-    //let project = createProject(newLanes, bpm);
-
-const onSuccess = () => {
+addSaveButtonHandler(currentProject, () => {
   showSuccess();
-}
+})
 
-addSaveButtonHandler(project, onSuccess)
-addProjectsHandlers(project, newLanes)
+
 
 
 

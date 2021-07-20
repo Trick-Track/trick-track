@@ -8,6 +8,8 @@ const sampleTemplate = document.querySelector('#matrix').content.querySelector('
 //   sampleList.append(newSample);
 // }
 
+
+
 const renderCell = () => {
   const cellElement = document.createElement('button');
   cellElement.classList.add('sequencer__cell');
@@ -20,13 +22,15 @@ const setCellBackgroundColor = (cellElements) => {
   [...cellElements].forEach((cellElement) => {
 
     const cellIndex = [...cellElements].indexOf(cellElement, 0);
-     if (Math.floor(cellIndex / 16) % 2 == 0) {
+     if (Math.floor(cellIndex / 4) == 0) {
        cellElements[cellIndex].classList.add('sequencer__cell--even-quarter')
      }
     
     
   })
 }
+
+
 
 
 const fillStep = (stepsList, steps) => {
@@ -47,7 +51,6 @@ const fillStep = (stepsList, steps) => {
       });
   
     stepsList[0].append(fragment);
-    //setCellBackgroundColor(stepsList[0].children)
     stepsList[1].append(fragmentOne);
 };
 
@@ -90,7 +93,8 @@ const createAllCellsArray = (sounds) => {
   return allCellsLists
 }
 
-const addButtonCellHandler = (cellsElements, lanes) => {
+const addButtonCellHandler = (cellsElements, project) => {
+  const {lanes} = project;
 
   cellsElements.forEach((cellsOfLane) => {
 
@@ -104,6 +108,54 @@ const addButtonCellHandler = (cellsElements, lanes) => {
     }))
   })
 };
+
+
+const createPlaybackElement = () => {
+    const playbackStep = document.createElement('div');
+    playbackStep.classList.add('sequencer__playback-element');
+    return playbackStep;
+}
+ 
+const createPlaybackElementsWrapper = (n) => {
+    const playbackList = document.createElement('div');
+    playbackList.classList.add('sequencer__playback-list');
+
+    for (let i = 0; i < n ; i++) {
+        const playbackStep = createPlaybackElement();
+        playbackList.append(playbackStep);
+    }
+    return playbackList;
+}
+
+const renderPlaybackLine = () => {
+    const playbackWrapperFirst = document.querySelector('.slide-1');
+    const playbackWrapperSecond = document.querySelector('.slide-2');
+
+    const fragment = document.createDocumentFragment();
+    const fragmentOne = document.createDocumentFragment();
+    
+    const playbackList = createPlaybackElementsWrapper(16); 
+    fragment.append(playbackList);
+
+    const playbackListOne = createPlaybackElementsWrapper(16); 
+    fragmentOne.append(playbackListOne);
+    
+    playbackWrapperFirst.append(fragment);
+    playbackWrapperSecond.append(fragmentOne);
+}
+
+
+const fillCurrentPlaybackStep = (step) => {
+    const playbackSteps = document.querySelectorAll('.sequencer__playback-element');
+
+    [...playbackSteps].forEach((playbackStep) => {
+        const currentStep = playbackSteps[step - 1];
+        playbackStep == currentStep ? playbackStep.classList.add('sequencer__playback-element--played') :
+        playbackStep.classList.remove('sequencer__playback-element--played');
+    })
+}
+
+
 
 // const renderPlayedCells = (cellsElements, lanes) => {
 
@@ -143,4 +195,4 @@ const addButtonCellHandler = (cellsElements, lanes) => {
 
 
   
-  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler}
+  export {generateMatrix, createAllCellsArray, generateMatrixLane, addButtonCellHandler, renderPlaybackLine, fillCurrentPlaybackStep}

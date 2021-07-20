@@ -1,8 +1,8 @@
-const addVolumeControlsHandler = (lanes) => {
+const addVolumeControlsHandler = (project) => {
+  const {lanes} = project;
   const volumeControls = document.querySelectorAll('[data-action="volume"]');
 
   volumeControls.forEach((volumeControl) => {
-        
         volumeControl.addEventListener('input', (evt) => {
           volumeControl = evt.target;
           const i = [...volumeControls].indexOf(volumeControl, 0);
@@ -18,7 +18,9 @@ const getCenter = (element) =>  {
 }
 
 
-const setPannerControlValue = (cb, lanes) => {
+const setPannerControlValue = (cb, project) => {
+
+
   const pannerLabels = document.querySelectorAll('.sequencer__controls-label--panner');
   const pannerControls = document.querySelectorAll('[data-action="panner"]');
   
@@ -33,12 +35,13 @@ const setPannerControlValue = (cb, lanes) => {
         pannerSpinner.style.transform = `rotate(${angle}rad)`;
         let angleDegree = (angle * 180) / Math.PI;
         pannerControl.value = (angleDegree / 180).toFixed(2);
-        cb(pannerControls, lanes)
+        cb(pannerControls, project);
     });
   });
 }
 
-const addPannerControlsHandler = (controls, lanes) => {
+const addPannerControlsHandler = (controls, project) => {
+  const {lanes} = project;
   controls.forEach((control) => {
     const i = [...controls].indexOf(control, 0);
     const value = control.value;
@@ -47,9 +50,9 @@ const addPannerControlsHandler = (controls, lanes) => {
   });
 }
 
-const addControlsHandlers = (lanes) => {
-  addVolumeControlsHandler(lanes);
-  setPannerControlValue(addPannerControlsHandler, lanes)
+const addControlsHandlers = (project) => {
+  addVolumeControlsHandler(project);
+  setPannerControlValue(addPannerControlsHandler, project)
 }
 
 

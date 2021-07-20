@@ -4,6 +4,7 @@ const inputAdd = document.getElementById('.#sample');
 
 const FILE_TYPES = ['mp3', 'wav'];
 
+
 const uploadFile = (evt, cb) => {
 
     const sound = evt.files;

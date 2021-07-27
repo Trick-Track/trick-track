@@ -1,9 +1,6 @@
-
-import {setBpm} from './bpm.js';
-import {getProjectName} from './project.js';
-
 const STEPS = 32;
 const defaultBpm = 120;
+const defaultName = 'noName';
 
 const initialCells = (steps) => {
     let cells = [];
@@ -12,17 +9,17 @@ const initialCells = (steps) => {
 
       const cell = {
         checked: false,
-        disabled: false
+        disabled: false,
       };
 
-      cells.push(cell);
-    }
+    cells.push(cell);
+  }
     
     return cells;
 }
 
 const createDefaultLanes = (sounds, cells) => {
-  const lines = []
+  const lanes = []
  
   sounds.map((sound) => {
     const steps = [];
@@ -32,57 +29,21 @@ const createDefaultLanes = (sounds, cells) => {
       steps.push(clonedCell)
     }
     const obj = {sound: sound, cells: steps, volume: 1, panner: 0}
-    lines.push(obj)
+    lanes.push(obj)
   })
-  return lines
+  return lanes;
 }
 
+let newCells = initialCells(STEPS); 
 
 
-              
-
-//let projectName = getProjectName();
-let newCells = initialCells(STEPS); //ячейки
-
-
-
-// const createProject = (newLanes, bpm) => {
-//   const project = {bpm: bpm, lanes: newLanes, name: name}
-//   return project;
-// }
-
-export class Project {
-  
-    constructor () {
-
-      this.projectName = getProjectName();
-      this.bpm = setBpm();
-      //this.lanes = createDefaultLanes(buffer.urls, newCells);
-    }
-    
-    initialProject(buffer) {
-      this.projectName = "no name";
-      this.bpm = defaultBpm;
-      this.lanes = createDefaultLanes(buffer.urls, newCells);
-    }
-}
-
-
-const createDefaultProject = (buffer) => {
+const createDefaultProject = (sounds) => {
+   
    return {
-     name: 'no name',
-     bpm: defaultBpm, 
-     lanes: createDefaultLanes(buffer.urls, newCells),
-     
-   }
-  
-  }
-  
+      projectName: defaultName,
+      bpm: defaultBpm, 
+      lanes: createDefaultLanes(sounds, newCells),
+     }
+ }
 
-
-
-
-
-
-  
-  export {createDefaultProject}
+export {createDefaultProject}

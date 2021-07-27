@@ -1,6 +1,10 @@
-
 import {isEscEvent} from './util.js';
 import {sendProject} from './server.js';
+import {setBpm} from './bpm.js';
+import {setBeats} from './beats.js';
+import {createDefaultProject} from './build-project.js'
+import {getSounds} from './data-store.js';
+
 
 const projectNameInput = document.querySelector('#project-name');
 const saveButton = document.querySelector('.save-button');
@@ -12,27 +16,39 @@ const closeModalButton = document.querySelector('.save__button--save');
 
 const onProjectNameInputChange = () => {
   const projectName = projectNameInput.value;
-  return projectName
+  return projectName;
 }
 
 const addProjectNameInputHandler = () => {
   projectNameInput.addEventListener('change', onProjectNameInputChange);
 };
 
-const getProjectName = () => {
-  console.log(projectNameInput.value)
-  let projectName = projectNameInput.value;
-  return projectName;
+
+const setProjectPannerValue = (controls, project) => {
+  const {lanes} = project
+    lanes.forEach((lane) => {
+    const i = lanes.indexOf(lane, 0);
+    let control = controls[i];
+    lanes[i].panner = control.value;
+  });
 }
 
-
-
-
+const setProjectVolumeValue = (controls, project) => {
+  const {lanes} = project
+  lanes.forEach((lane) => {
+    const i = lanes.indexOf(lane, 0);
+    let control = controls[i];
+    lanes[i].volume = control.value;
+  });
+};
 
 const closeModalNewProject = () => {
-  modalNewProject.classList.remove('modal__show')
+  modalNewProject.classList.remove('modal__show');
   closeModalButton.removeEventListener('click', closeModalNewProject);
-  createNewProjectButton.removeEventListener('click', onCreateNewProjectButtonClick);
+  // createNewProjectButton.removeEventListener('click', () => {
+  //   window.project = createDefaultProject(getSounds)
+  //   console.log(project)
+  // } );
   document.removeEventListener('keydown', onDocumentEscapePressed);
 };
 
@@ -44,17 +60,21 @@ const onDocumentEscapePressed = (evt) => {
   }
 };
 
-const onCreateNewProjectButtonClick = (project, lanes) => {
-  //closeModalNewProject();
-  createDefaultProject(project, lanes);
-}
+// const onCreateNewProjectButtonClick = () => {
+//   closeModalNewProject();
+//   project = createDefaultProject(getSounds)
+// }
 
-const addOpenModalButtonHandler = (project, lanes) => {
+const addOpenModalButtonHandler = (state, cb) => {
+
   openModalButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     modalNewProject.classList.add('modal__show');
     closeModalButton.addEventListener('click', closeModalNewProject);
-    createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick(project, lanes))
+    createNewProjectButton.addEventListener('click', () => {
+      
+      window.state = createDefaultProject(getSounds())
+      cb(state)})
     document.addEventListener('keydown', onDocumentEscapePressed);
   })
 }
@@ -64,15 +84,32 @@ const addOpenModalButtonHandler = (project, lanes) => {
 const addProjectsHandlers = () => {
   addProjectNameInputHandler();
   //addOpenModalButtonHandler();
-
 }
-
 
 const addSaveButtonHandler = (project, onSuccess) => {
   saveButton.addEventListener('click', () => {
+    project.projectName = onProjectNameInputChange();
+    project.bpm = setBpm();
     sendProject(JSON.stringify(project), onSuccess);
     console.log(JSON.stringify(project))
   });
 }
 
-export {addProjectsHandlers, getProjectName, addOpenModalButtonHandler, addSaveButtonHandler} 
+
+const setProjectDisabledSteps = (project, cb) => {
+  const {lanes} = project;
+  let activeStep = setBeats();
+  lanes.forEach((lane) => {
+    const {cells} = lane;
+    cells.forEach((cell) => {
+      const i = cells.indexOf(cell, 0);
+      i >= activeStep ? cells[i].disabled = true : cells[i].disabled = false;
+      cb(project);
+    });
+  });
+};
+
+
+
+
+export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue} 

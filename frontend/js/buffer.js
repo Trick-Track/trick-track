@@ -1,3 +1,4 @@
+
 export class Buffer {
 
     constructor(context, urls) {
@@ -26,6 +27,7 @@ export class Buffer {
         this.loadSound(url, index);
   
       })
+
     }
   
    getSound(index) {

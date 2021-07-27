@@ -2,7 +2,6 @@
     position: relative;
     height: auto;
     background-color: none;
-    position: fixed;
     margin-left: 10%;
     margin-top: 30px;
 
@@ -62,6 +61,10 @@
                 -1px -2px 2px 1px #0000001F inset,
                 3px 0px 4px 0px #00000033;
     }
+
+    &--disabled {
+        opacity: 0.4;
+    } 
 }
 
 .sample-button {

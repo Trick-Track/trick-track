@@ -1,36 +1,23 @@
-const addVolumeControlsHandler = (project) => {
-  const {lanes} = project;
-  const volumeControls = document.querySelectorAll('[data-action="volume"]');
+import {setProjectPannerValue, setProjectVolumeValue} from './project.js';
 
-  volumeControls.forEach((volumeControl) => {
-        volumeControl.addEventListener('input', (evt) => {
-          volumeControl = evt.target;
-          const i = [...volumeControls].indexOf(volumeControl, 0);
-          const lane = lanes[i]; 
-          lane.volume = evt.target.value;
-    })
-  })
-}
 
 const getCenter = (element) =>  {
   const {left, top, width, height} = element.getBoundingClientRect();
   return {x: left + width / 2, y: top + height / 2}
-}
+};
 
-
-const setPannerControlValue = (cb, project) => {
-
+const addPannerControlsHandler = (cb, project) => {
 
   const pannerLabels = document.querySelectorAll('.sequencer__controls-label--panner');
   const pannerControls = document.querySelectorAll('[data-action="panner"]');
-  
+
   pannerLabels.forEach((pannerLabel) => {
     const pannerControl = pannerLabel.querySelector('[data-action="panner"]');
     const pannerSpinner = pannerLabel.querySelector('.sequencer__controls-label-img');
   
-
-    const imgCenter = getCenter(pannerSpinner);
+ 
     pannerSpinner.addEventListener("mousemove", ({clientX, clientY}) => {
+        const imgCenter = getCenter(pannerSpinner);
         const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
         pannerSpinner.style.transform = `rotate(${angle}rad)`;
         let angleDegree = (angle * 180) / Math.PI;
@@ -38,22 +25,24 @@ const setPannerControlValue = (cb, project) => {
         cb(pannerControls, project);
     });
   });
-}
+};
 
-const addPannerControlsHandler = (controls, project) => {
-  const {lanes} = project;
-  controls.forEach((control) => {
-    const i = [...controls].indexOf(control, 0);
-    const value = control.value;
-    const lane = lanes[i]; 
-    lane.panner = value;
+const addVolumeControlsHandler = (cb, project) => {
+  const volumeControls = document.querySelectorAll('[data-action="volume"]');
+  volumeControls.forEach((volumeControl) => {
+    volumeControl.addEventListener('input', (evt) => {
+      volumeControl.value = evt.target.value;
+      cb(volumeControls, project)
+    });
   });
-}
+};
+
+
 
 const addControlsHandlers = (project) => {
-  addVolumeControlsHandler(project);
-  setPannerControlValue(addPannerControlsHandler, project)
-}
+  addVolumeControlsHandler(setProjectVolumeValue, project);
+  addPannerControlsHandler(setProjectPannerValue, project)
+};
 
 
 

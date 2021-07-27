@@ -2,6 +2,11 @@ const bpmControl = document.querySelector('#bpm');
 const incrementButton = document.querySelector('.app-bpm__button--increment');
 const decrementButton = document.querySelector('.app-bpm__button--decrement');
 
+const initialBpm = (project) => {
+  const {bpm} = project;
+  bpmControl.value = bpm;
+}
+
 const addBpmUnit = () => {
   bpmControl.value = Number(bpmControl.value) + 1;
 }
@@ -50,8 +55,8 @@ const addBpmHandlers = () => {
 }
 
 const setBpm = () => {
-  const bpm = bpmControl.value;
-  return bpm
+  return bpmControl.value;
+  
 }
 
 const setTempo = () => {
@@ -60,4 +65,4 @@ const setTempo = () => {
     return tic; 
   }
 
-export {addBpmHandlers, setBpm, setTempo};
+export {initialBpm, addBpmHandlers, setBpm, setTempo};

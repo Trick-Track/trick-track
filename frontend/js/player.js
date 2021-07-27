@@ -1,32 +1,119 @@
-import {setBeatsInputDisabledState, setBeatsInputEnabledState} from './beats.js'
+import {setBeatsInputDisabledState, setBeatsInputEnabledState} from './beats.js';
+import {fillCurrentPlaybackStep} from './renderer.js';
+import {currentSlide} from './slider.js';
+import {setTempo} from './bpm.js';
+import {setBeats} from './beats.js';
 
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
 
-const stopPlayback = (context) => {
-    context.suspend();
-    setBeatsInputEnabledState();
-    //currentStep = 0;
-    playButton.removeEventListener('click', playSequencer);
+let startTime = 0;
+let nextStepTime = 0.0;
+let currentStep = 0;
+
+const playSound = (audioData, playTime, project) => {
+
+  const source = context.createBufferSource();
+  const gainNode = context.createGain();
+
+
+  const pannerOptions = {pan: 0};
+  const panner = new StereoPannerNode(context, pannerOptions);
+
+  source.buffer = audioData;
+
+  const {lanes} = project;
+  lanes.forEach((lane) => {
+    const i = lanes.indexOf(lane, 0);
+    if (audioData == buffer.getSound(i)) {
+      gainNode.gain.value = lane.volume;
+      panner.pan.value = lane.panner;
+    }
+  })
+
+    if (context.state === 'suspended') {
+      context.resume();
+    }
+
+  source.connect(gainNode).connect(panner).connect(context.destination);
+  source.start(playTime);
 }
 
-const playSequencer = (context, callback) => {
-    callback();
+
+
+
+
+
+function scheduleSound() {
+  let now = context.currentTime;
+  now -= startTime;
+ 
+  while (nextStepTime < now + 0.2 ) {
+
+    let pt = nextStepTime + startTime;
+    playStepAtTime(currentProject, pt, fillCurrentPlaybackStep);
+    nextStep(currentSlide);
+  }
+    const timer = setTimeout(scheduleSound, 0)
+}
+
+function nextStep(callback) {
+  currentStep++;
+  currentStep > 16 ? callback(2)  : callback(1);
+  let activeStep = setBeats();
+  
+  if (currentStep == activeStep) {
+    currentStep = 0;
+  }
+
+  let tempo = setTempo();
+  nextStepTime += tempo;
+}
+
+function playStepAtTime(project, playTime, cb) {
+    const {lanes} = project;
+    for(let i = 0; i < lanes.length; i++) {
+        const lane = lanes[i];
+  
+       if (lane.cells[currentStep].checked == true) {
+          playSound(buffer.getSound(i), playTime, project);
+        }
+    }
+    cb(currentStep)
+    
+}
+
+
+const stopPlayback = (cb) => {
+    context.suspend();
+    setBeatsInputEnabledState();
+    playButton.removeEventListener('click', playSequencer);
+    cb()
+}
+
+const setStep = () => {
+  currentStep = 0;
+}
+
+const playSequencer = () => {
+    scheduleSound()
     setBeatsInputDisabledState();
     if (context.state === 'suspended') {
         context.resume();
     }
 }
 
-const addButtonPlayHandler = (context, callback) => {
+
+
+const addButtonPlayHandler = () => {
     playButton.addEventListener('click', () => {
-        playSequencer(context, callback)
+        playSequencer()
     });
 }
 
-const addButtonStopHandler = (context) => {
-    stopButton.addEventListener('click', () => {stopPlayback(context)
+const addButtonStopHandler = () => {
+    stopButton.addEventListener('click', () => {stopPlayback(setStep)
     });
 }
 
-export {addButtonPlayHandler, addButtonStopHandler}
+export {addButtonPlayHandler, addButtonStopHandler, playSound}

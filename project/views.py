@@ -8,15 +8,7 @@ def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
 
-def index(request):
-    user = User()
-    return render(request, 'daw/index.html')
-
-def retrieve_user_projects(request):
-    return redirect('/')
-
-# @login_required
-def user_projects(request):
+def projects(request):
     data = json_decode(request)
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -30,8 +22,7 @@ def user_projects(request):
         else:
             print('something is wrong')
 
-# @login_required
-def user_project(request, id=id):
+def project(request, id=id):
     if request.method == 'PATCH':
         return HttpResponse('POST')
     elif request.method == 'GET':

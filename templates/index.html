@@ -59,7 +59,11 @@
         
 <!-- User section -->
           <div class="app__user">
-            <a class="app__user-link" href="/accounts/login"> login
+            {% if user.is_authenticated %}
+              <a class="app__user-link" href="/accounts/logout"> logout
+              {% else %}
+              <a class="app__user-link" href="/accounts/login"> login
+              {% endif %}
             </a>
           </div>
 

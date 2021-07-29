@@ -7,9 +7,7 @@ import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js'
 import {setSounds} from './data-store.js';
-
-
-import '../sass/style.sass';
+import './frontend/sass/style.sass';
 
 
 let sounds = ['/static/samples/bdsh.wav',

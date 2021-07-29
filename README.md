@@ -6,7 +6,7 @@ digital audio workstation online
 
 ### Installation
 ```
-pip[3] install -r requirments.txt
+pip[3] install -r requirements.txt
 ```
 example of configuration file:
 
@@ -29,4 +29,11 @@ python manage.py runserver
 ```
 
 http://127.0.0.1:8000/
+
+
+### Installation frontend
+
+Download and install Node: https://nodejs.org/
+Install project dependancies: npm install
+Run build: npm run build
 

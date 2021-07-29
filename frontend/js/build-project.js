@@ -37,13 +37,18 @@ const createDefaultLanes = (sounds, cells) => {
 let newCells = initialCells(STEPS); 
 
 
-const createDefaultProject = (sounds) => {
+const createDefaultProject = (sounds, cb) => {
    
-   return {
-      projectName: defaultName,
+   const project = {
+      name: defaultName,
       bpm: defaultBpm, 
       lanes: createDefaultLanes(sounds, newCells),
      }
+     return project
+   
+  
+
+  
  }
 
 export {createDefaultProject}

@@ -1,15 +1,12 @@
-
-import {addButtonCellHandler, renderProject, renderStateCellElement, addSoundsButtonHandlers, renderPlaybackLine, createAllCellsArray, setCellBackgroundColor} from './renderer.js';
+import {renderInitialProject} from './renderer.js';
 import {addArrowsHandlers} from './slider.js';
-import {addBpmHandlers} from './bpm.js';
-import {addBeatsHandlers} from './beats.js';
 import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
 import {addControlsHandlers} from './controls.js';
-import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps} from './project.js';
+import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js'
-import {setSounds, getSounds} from './data-store.js';
+import {setSounds} from './data-store.js';
 
 
 import '../sass/style.sass';
@@ -29,29 +26,17 @@ buffer.createBuffer(() =>  {
   setSounds(buffer.urls)
 })
 
-window.currentProject = createDefaultProject(buffer.urls)
-renderProject(currentProject); // отрисовка проекта
+window.currentProject = createDefaultProject(buffer.urls); // отрисовка проекта
 
-console.log(getSounds()[1])
-renderPlaybackLine();// 
-window.cellsButtons = createAllCellsArray(buffer.urls)
+//window.cellsButtons = createAllCellsArray(buffer.urls)
+renderInitialProject(currentProject)
 
-
-//addOpenModalButtonHandler(project, currentProject, renderProject)
-
-addSoundsButtonHandlers(currentProject)
-
-//setCellBackgroundColor()
-
-
-addButtonCellHandler(currentProject, renderStateCellElement)
-
-
+addOpenModalButtonHandler(currentProject, renderInitialProject)
 
 
 addArrowsHandlers(); //стрелки слайдера
-addBeatsHandlers(() => setProjectDisabledSteps(currentProject, renderStateCellElement)); //шаги
-addBpmHandlers(); //bpm
+
+
 
 
 

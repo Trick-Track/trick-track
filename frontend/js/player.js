@@ -39,11 +39,6 @@ const playSound = (audioData, playTime, project) => {
   source.start(playTime);
 }
 
-
-
-
-
-
 function scheduleSound() {
   let now = context.currentTime;
   now -= startTime;

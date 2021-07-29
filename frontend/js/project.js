@@ -25,7 +25,7 @@ const addProjectNameInputHandler = () => {
 
 
 const setProjectPannerValue = (controls, project) => {
-  const {lanes} = project
+  const {lanes} = project;
     lanes.forEach((lane) => {
     const i = lanes.indexOf(lane, 0);
     let control = controls[i];
@@ -73,7 +73,7 @@ const addOpenModalButtonHandler = (state, cb) => {
     closeModalButton.addEventListener('click', closeModalNewProject);
     createNewProjectButton.addEventListener('click', () => {
       
-      window.state = createDefaultProject(getSounds())
+      window.currentProject = createDefaultProject(getSounds())
       cb(state)})
     document.addEventListener('keydown', onDocumentEscapePressed);
   })
@@ -88,7 +88,7 @@ const addProjectsHandlers = () => {
 
 const addSaveButtonHandler = (project, onSuccess) => {
   saveButton.addEventListener('click', () => {
-    project.projectName = onProjectNameInputChange();
+    project.name = onProjectNameInputChange();
     project.bpm = setBpm();
     sendProject(JSON.stringify(project), onSuccess);
     console.log(JSON.stringify(project))
@@ -103,8 +103,8 @@ const setProjectDisabledSteps = (project, cb) => {
     const {cells} = lane;
     cells.forEach((cell) => {
       const i = cells.indexOf(cell, 0);
-      i >= activeStep ? cells[i].disabled = true : cells[i].disabled = false;
-      cb(project);
+      cells[i].disabled = i >= activeStep ? true : false;
+      cb();
     });
   });
 };

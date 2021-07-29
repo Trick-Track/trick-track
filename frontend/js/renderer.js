@@ -1,6 +1,7 @@
-import {initialBpm} from './bpm.js';
-import {initialBeats} from './beats.js';
+import {initialBpm, addBpmHandlers} from './bpm.js';
+import {initialBeats, addBeatsHandlers} from './beats.js';
 import {playSound} from './player.js';
+import {setProjectDisabledSteps} from './project.js'
 
 
 const sequencer = document.querySelector('.sequencer__wrapper');
@@ -28,8 +29,6 @@ const setCellBackgroundColor = (cellElements) => {
      if (Math.floor(cellIndex / 16) % 2 == 0) {
        cellElements[cellIndex].classList.add('sequencer__cell--even-quarter')
      }
-    
-    
   })
 }
 
@@ -66,12 +65,13 @@ const generateMatrixLane = (lane) => {
 };
 
 
-const renderProject = (project) => {
+const renderProject = (project, cb) => {
   initialBeats(project);
   let {lanes, bpm} = project;
     bpm = initialBpm(project);
     lanes.forEach((lane) => {
     generateMatrixLane(lane);
+    cb()
   })
 };
 
@@ -86,17 +86,21 @@ const createCellsArray = (i) => {
     return cellsOfLane;
 }
 
-const createAllCellsArray = (sounds) => {
-  const allCellsLists = []
-  for (let i = 0; i < sounds.length; i++) {
+const createAllCellsArray = (project, cb) => {
+  const {lanes} = project;
+  const allCellsLists = [];
+  lanes.forEach((lane) => {
+    const i = lanes.indexOf(lane, 0);
     const cellsOfLane = createCellsArray(i);
     allCellsLists.push(cellsOfLane);
-  }
-  return allCellsLists
+  }) 
+  cb(project, allCellsLists)
 }
 
-const addButtonCellHandler = (project, cb) => {
-  const {lanes} = project
+
+
+const addButtonCellHandler = (project, cellsButtons, callback) => {
+  const {lanes} = project;
   cellsButtons.forEach((cellsButtonsOfLane) => {
     const i = cellsButtons.indexOf(cellsButtonsOfLane, 0);
     const {cells} = lanes[i];
@@ -104,24 +108,24 @@ const addButtonCellHandler = (project, cb) => {
       const cellElement = evt.target;
       const j = cellsButtonsOfLane.indexOf(cellElement, 0);
       cells[j].checked = cells[j].checked ? false : true; 
-      cb(project)
-    }))
+      callback(project, cellsButtons);
+    }));
   });
 };
 
-const renderStateCellElement = (project) => {
-  const {lanes} = project
+const renderStateCellElement = (project, cellsButtons) => {
+  const {lanes} = project;
   for (let i = 0; i < lanes.length; i++) {
     const {cells} = lanes[i]
     for (let j = 0; j < cells.length; j++) {  
       cells[j].disabled == true ? cellsButtons[i][j].classList.add('sequencer__cell--disabled') && cellsButtons[i][j].disabled == true :
-      cellsButtons[i][j].classList.remove('sequencer__cell--disabled');
+      cellsButtons[i][j].classList.remove('sequencer__cell--disabled') && cellsButtons[i][j].disabled == false;
       cells[j].checked == true ? cellsButtons[i][j].classList.add('sequencer__cell--checked') : cellsButtons[i][j].classList.remove('sequencer__cell--checked') 
     }
   }
 }
 
-
+ 
 const createPlaybackElement = () => {
     const playbackStep = document.createElement('div');
     playbackStep.classList.add('sequencer__playback-element');
@@ -179,15 +183,27 @@ const getAllSoundsButtons = () => {
 const addSoundsButtonHandlers = (project) => {
   let allSoundsButtons = getAllSoundsButtons();
 
-  allSoundsButtons.forEach((btn) => {btn.addEventListener('click', (evt) => {
-    btn = evt.target;
-    const i = allSoundsButtons.indexOf(btn, 0)
-    playSound(buffer.getSound(i), 0.1, project);
+  allSoundsButtons.forEach((btn) => {
+    btn.addEventListener('click', (evt) => {
+      btn = evt.target;
+      const i = allSoundsButtons.indexOf(btn, 0)
+      playSound(buffer.getSound(i), 0, project);
+    });
   });
-});
+};
 
+const addButtonCellHandlers = (project, cellsButtons) => {
+  addButtonCellHandler(project, cellsButtons, renderStateCellElement);
+  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons)}))
 }
 
+
+const renderInitialProject = (project) => {
+  addBpmHandlers();
+  renderProject(project, renderPlaybackLine);
+  createAllCellsArray(project, addButtonCellHandlers) ;
+  addSoundsButtonHandlers(project);
+}
 
 //создание newlane
 
@@ -209,4 +225,4 @@ const addSoundsButtonHandlers = (project) => {
 
 
   
-  export {renderProject, createAllCellsArray, generateMatrixLane, addButtonCellHandler, addSoundsButtonHandlers, renderPlaybackLine, fillCurrentPlaybackStep, renderStateCellElement, setCellBackgroundColor}
+  export {renderInitialProject, generateMatrixLane, fillCurrentPlaybackStep, setCellBackgroundColor}

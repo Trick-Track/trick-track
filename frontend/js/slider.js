@@ -3,7 +3,7 @@ const previousArrow = document.querySelector('.slider__arrow--prev');
 let slideNumber = 1;
 
  const showSlide = (n) => {
-  const slidesLists = document.querySelectorAll('.slider-tracker');
+  const slidesLists = document.querySelectorAll('.slider');
 
   slidesLists.forEach((slidesList) => {
       const slides = slidesList.children
@@ -16,10 +16,10 @@ let slideNumber = 1;
         slideNumber = slides.length;
       }
       for (i = 0; i < slides.length; i++) {
-        slides[i].classList.remove("current-slide");
+        slides[i].classList.remove('slide--current');
       }
 
-      slides[slideNumber-1].classList.add("current-slide");
+      slides[slideNumber-1].classList.add('slide--current');
     });
     }
 

@@ -46,9 +46,6 @@ const createDefaultProject = (sounds, cb) => {
      }
      return project
    
-  
-
-  
- }
+}
 
 export {createDefaultProject}

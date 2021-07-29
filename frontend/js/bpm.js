@@ -60,9 +60,9 @@ const setBpm = () => {
 }
 
 const setTempo = () => {
-    const bpm = bpmControl.value
-    const tic = (60 / bpm) / 4;
-    return tic; 
-  }
+  const bpm = bpmControl.value
+  const tic = (60 / bpm) / 4;
+  return tic; 
+}
 
 export {initialBpm, addBpmHandlers, setBpm, setTempo};

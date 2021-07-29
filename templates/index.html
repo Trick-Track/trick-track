@@ -137,9 +137,11 @@
         </div>
         <button class="button sample-button"></button>
         <div class="sequencer__steps slider">
-          <div class="slider-tracker">
-            <div class="sequencer__step-list slide-1 current-slide" id="slide-1"></div>
-            <div class="sequencer__step-list slide-2" id="slide-2"></div>
+          <div class="slide slide-1 slide--current" id="slide-1">
+            <div class="sequencer__steps-list sequencer__steps-list--first"></div>
+          </div>
+          <div class="slide slide-2" id="slide-2">
+            <div class="sequencer__steps-list sequencer__steps-list--second"></div>
           </div>
         </div>
       </li>
@@ -161,19 +163,7 @@
         </div>
       </div>
     </template>
-<!-- 
-    <template id="save">
-      <div class="save__wrapper">
-        <div class="save">
-          <button type="button" class="error__button button-close" aria-label="Close">x</button>
-          <p class="save__message">Your project has not saved. Save it?</p>
-          <div class="save__buttons">
-            <button type="button" class="save__button save__button--save" aria-label="save project">close for save</button>
-            <button type="button" class="save__button save__button--nosave" aria-label="do not save project">continue without saving</button>
-          </div>
-        </div>
-      </div> -->
-    
+
 
 
     <section class="modal modal-new-project">

@@ -22,16 +22,6 @@ const renderCell = () => {
   return cellElement;
 }
 
-const setCellBackgroundColor = (cellElements) => {
-  [...cellElements].forEach((cellElement) => {
-
-    const cellIndex = [...cellElements].indexOf(cellElement, 0);
-     if (Math.floor(cellIndex / 16) % 2 == 0) {
-       cellElements[cellIndex].classList.add('sequencer__cell--even-quarter')
-     }
-  })
-}
-
 const fillStep = (stepsList, steps) => {
    
    const fragment = document.createDocumentFragment();
@@ -59,7 +49,7 @@ const generateMatrixLane = (lane) => {
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
   sampleList.append(newSample);
 
-  const stepsList = newSample.querySelectorAll('.sequencer__step-list');
+  const stepsList = newSample.querySelectorAll('.sequencer__steps-list');
 
   fillStep(stepsList, cells);
 };
@@ -76,8 +66,8 @@ const renderProject = (project, cb) => {
 };
 
 const createCellsArray = (i) => {
-  const slidesFirst = document.querySelectorAll('.slide-1');
-  const slidesSecond = document.querySelectorAll('.slide-2');
+  const slidesFirst = document.querySelectorAll('.sequencer__steps-list--first');
+  const slidesSecond = document.querySelectorAll('.sequencer__steps-list--second');
   
   const cellsOfLane = [];
     cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
@@ -93,8 +83,20 @@ const createAllCellsArray = (project, cb) => {
     const i = lanes.indexOf(lane, 0);
     const cellsOfLane = createCellsArray(i);
     allCellsLists.push(cellsOfLane);
+    setCellBackgroundColor(allCellsLists)
   }) 
   cb(project, allCellsLists)
+}
+
+const setCellBackgroundColor = (cellsButtons) => {
+  cellsButtons.forEach((cellsButtonsOfLane) => {
+    for (let i = 0; i < cellsButtonsOfLane.length; i++) {
+      if (Math.floor((i / 4) % 2) == 0) {
+       cellsButtonsOfLane[i].style.backgroundColor = 'rgba(98, 55, 78, 0.73)'
+      }
+      else {cellsButtonsOfLane[i].style.backgroundColor = '#62374e'}
+    };
+  });
 }
 
 
@@ -146,32 +148,31 @@ const createPlaybackElementsWrapper = (n) => {
 
 
 const renderPlaybackLine = () => {
-    const playbackWrapperFirst = document.querySelector('.slide-1');
-    const playbackWrapperSecond = document.querySelector('.slide-2');
+  const playbackWrapperFirst = document.querySelector('.slide-1');
+  const playbackWrapperSecond = document.querySelector('.slide-2');
 
-    const fragment = document.createDocumentFragment();
-    const fragmentOne = document.createDocumentFragment();
-    
-    const playbackList = createPlaybackElementsWrapper(16); 
-    fragment.append(playbackList);
+  const fragment = document.createDocumentFragment();
+  const fragmentOne = document.createDocumentFragment();
+  
+  const playbackList = createPlaybackElementsWrapper(16); 
+  fragment.append(playbackList);
 
-    const playbackListOne = createPlaybackElementsWrapper(16); 
-    fragmentOne.append(playbackListOne);
-    
-    playbackWrapperFirst.append(fragment);
-    playbackWrapperSecond.append(fragmentOne);
-}
+  const playbackListOne = createPlaybackElementsWrapper(16); 
+  fragmentOne.append(playbackListOne);
+  
+  playbackWrapperFirst.append(fragment);
+  playbackWrapperSecond.append(fragmentOne);
+};
 
 
 const fillCurrentPlaybackStep = (step) => {
-    const playbackSteps = document.querySelectorAll('.sequencer__playback-element');
-
-    [...playbackSteps].forEach((playbackStep) => {
-        const currentStep = playbackSteps[step];
-        playbackStep == currentStep ? playbackStep.classList.add('sequencer__playback-element--played') :
-        playbackStep.classList.remove('sequencer__playback-element--played');
-    })
-}
+  const playbackSteps = document.querySelectorAll('.sequencer__playback-element');
+  [...playbackSteps].forEach((playbackStep) => {
+      const currentStep = playbackSteps[step];
+      playbackStep == currentStep ? playbackStep.classList.add('sequencer__playback-element--played') :
+      playbackStep.classList.remove('sequencer__playback-element--played');
+  })
+};
 
 const getAllSoundsButtons = () => {
   let button = document.getElementsByClassName('button');

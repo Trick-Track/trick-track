@@ -1,97 +1,99 @@
 .sequencer__wrapper {
-    position: relative;
-    height: auto;
-    background-color: none;
-    margin-left: 10%;
-    margin-top: 30px;
-
-}
+  grid-column: 1 / 2;
+  grid-row: 2;
+  position: relative;
+  height: auto;
+  background-color: none;
+  margin-top: 30px;
+};
 
 .sequencer__samples-list {
-    height: auto;
-    list-style: none;
-    margin: 0;
-    float: right;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-}
-
+  height: auto;
+  list-style: none; 
+  margin: 0;
+  float: right;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+};
 
 .sequencer__samples-item {
-    min-height: 70px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    margin-bottom: 20px;
+  min-height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin-bottom: 20px;
 }
 
 .sequencer__steps-list {
-    display: flex;
-    width: 100%;
-    height: 50px;
-    flex-direction: row;
-    justify-content: space-between;
+  display: flex;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  justify-content: space-between;
 } 
 
 .sequencer__cell {
-    width: 36px;
-    height: 36px;
-    flex-direction: row;
-    border: none;
-    border-radius: 10%;
+  width: 36px;
+  height: 36px;
+  flex-direction: row;
+  border: none;
+  border-radius: 10%;
 
 
-    &:not(:nth-child(16n)) {
-        margin-right: 5px;
-    }
+  &:not(:nth-child(16n)) {
+    margin-right: 5px;
+  }
 
-    &--odd-quarter {
-        background-color: $plum;
-    }
+  &--odd-quarter {
+    background-color: $plum;
+  }
 
-    &--even-quarter {
-        background-color: $red-wine;
-    }
+  &--even-quarter {
+    background-color: $red-wine;
+  }
 
+  &:hover,
+  &:focus {
+    border: 1px solid $sandy;
+    outline: none;
+  }
 
+  &:active {
+    box-shadow: 0 0 3px 2px $sandy;
+  }
 
-    &:hover {
-        border: 1px solid $sandy;
-    }
-
-    &--checked {
+  &--checked {
     background-color: $sandy;
     box-shadow: 4px 0px 3px 0px #FFFFFF4A inset,
-                -1px -2px 2px 1px #0000001F inset,
-                3px 0px 4px 0px #00000033;
-    }
+            -1px -2px 2px 1px #0000001F inset,
+            3px 0px 4px 0px #00000033;
+  }
 
-    &--disabled {
-        opacity: 0.4;
-    } 
-}
+  &--disabled {
+    opacity: 0.4;
+  } 
+};
 
 .sample-button {
-    @include button-reset;
-    width: 120px;
-    color: $grey;
-    font-family: 'Share Tech Mono', 'Arial', monospace;
-    font-size: 14px;
-    line-height: 16px;
-    
+  @include button-reset;
+  width: 120px;
+  color: $grey;
+  font-family: 'Share Tech Mono', 'Arial', monospace;
+  font-size: 14px;
+  line-height: 16px;
 
-    &:hover {
-        color: $red-wine
-    }
+
+  &:hover {
+    color: $red-wine
+  }
 }
 
 
 .sequencer__playback-list {
   position: absolute;
-  right: 0;
-  top: 5px;
+  top: -25px;
   width: 650px;
   display: flex;
   flex-direction: row;

@@ -98,17 +98,13 @@ const playSequencer = () => {
     }
 }
 
-
-
-const addButtonPlayHandler = () => {
-    playButton.addEventListener('click', () => {
-        playSequencer()
-    });
+const addPlayerButtonsHandlers = () => {
+  playButton.addEventListener('click', () => {
+    playSequencer()
+  });
+  stopButton.addEventListener('click', () => {
+    stopPlayback(setStep);
+  })
 }
 
-const addButtonStopHandler = () => {
-    stopButton.addEventListener('click', () => {stopPlayback(setStep)
-    });
-}
-
-export {addButtonPlayHandler, addButtonStopHandler, playSound}
+export {addPlayerButtonsHandlers, playSound}

@@ -1,23 +1,42 @@
 .app__project {
-    margin-left: 11%;
-    margin-top: 48px;
-    display: flex;
+  padding: 0 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100px;
+  margin-top: 50px;
+}
+
+.app__save-project {
+  display: flex;
 }
 
 
 .save-button {
-    margin-left: 10px;
-    margin-top: 15px;
-    background-color: $aquamarine;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Share Tech Mono', 'Arial', monospace;
-    color: $white;
-    text-transform: capitalize;
-    height: 40px;
-    width: 98px;
-    border: none;
-    border-radius: 4px;
+  margin-left: 10px;
+  margin-top: 15px;
+  background-color: $aquamarine;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Share Tech Mono', 'Arial', monospace;
+  color: $white;
+  text-transform: capitalize;
+  height: 40px;
+  width: 98px;
+  border: none;
+  border-radius: 4px;
+
+  &:hover, 
+  &:focus {
+    background-color: lighten($aquamarine, 7%);
+    box-shadow: 0 0 3px 2px $sandy;
+    color: $black;
+    outline: none;
+  }
+
+  &:active {
+    background-color: darken($aquamarine, 5%);
+    box-shadow: 0 0 5px 5px $sandy;
+  }
 }
 

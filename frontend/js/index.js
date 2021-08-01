@@ -1,6 +1,6 @@
 import {renderInitialProject} from './renderer.js';
 import {addArrowsHandlers} from './slider.js';
-import {addButtonPlayHandler, addButtonStopHandler} from './player.js';
+import {addPlayerButtonsHandlers} from './player.js';
 import {addControlsHandlers} from './controls.js';
 import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
@@ -25,35 +25,14 @@ buffer.createBuffer(() =>  {
 })
 
 window.currentProject = createDefaultProject(buffer.urls); // отрисовка проекта
-
-//window.cellsButtons = createAllCellsArray(buffer.urls)
-renderInitialProject(currentProject)
-
-addOpenModalButtonHandler(currentProject, renderInitialProject)
+renderInitialProject(currentProject);
+addOpenModalButtonHandler(currentProject, renderInitialProject);
 
 
 addArrowsHandlers(); //стрелки слайдера
 
-
-
-
-
-
-
 addControlsHandlers(currentProject) //звук и панорама для дорожек
-
-
-
-
-
-
-
-
-
- 
-
-addButtonPlayHandler()
-addButtonStopHandler()
+addPlayerButtonsHandlers();
 
 
 

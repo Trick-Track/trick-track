@@ -164,7 +164,6 @@ const renderPlaybackLine = () => {
   
   playbackWrapperFirst.append(fragment);
   playbackWrapperSecond.append(fragmentOne);
-  console.log(playbackWrapperFirst)
 };
 
 

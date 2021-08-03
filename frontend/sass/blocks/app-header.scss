@@ -1,7 +1,6 @@
 .app__header {
   position: relative;
   background-color: #414141;
-  padding: 0 50px;
   width: 100%;
 
   &::before {
@@ -26,6 +25,7 @@
 };
 
 .app__header-wrapper {
+  padding: 0 70px;
   margin: 0 auto;
   height: auto;
   display: flex;

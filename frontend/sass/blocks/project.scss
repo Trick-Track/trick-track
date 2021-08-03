@@ -1,13 +1,23 @@
 .app__project {
-  padding: 0 100px;
+  margin-top: 50px;
+}
+
+.app__project-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100px;
-  margin-top: 50px;
+  padding: 0 70px;
 }
 
 .app__save-project {
   display: flex;
+}
+
+.app__project-toggles {
+  display: flex;
+  flex-wrap: none;
+  justify-content: space-between;
+  width: 50px;
 }
 
 

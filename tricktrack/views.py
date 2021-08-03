@@ -4,4 +4,5 @@ def index(request):
     return render(request, 'index.html')
 
 def profile(request):
-    return redirect('/')
+    print('redirecting from main')
+    return redirect('/projects')

@@ -49,7 +49,7 @@ def projects(request):
     if request.user.is_authenticated:
         user = request.user
         if request.method == 'GET':
-            retrieve_all(user)
+            return render(request, 'index.html', {'projects':retrieve_all(user)})
         elif request.method == 'POST':
             project = json_decode(request)
             save(project, user)
@@ -57,8 +57,8 @@ def projects(request):
         elif request.method == 'DELETE':
             delete_all(user)
     else:
-        print('something is wrong')
-    return HttpResponse('OK')
+        print('redirecting from projects func')
+        return redirect('accounts/login/')
 
 def project(request, id=id):
     if request.method == 'GET':

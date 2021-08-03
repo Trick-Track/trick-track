@@ -75,6 +75,11 @@
         <div class="app__main">
           <article class="app__user-projects">
             <h2 class="app__projects-heading">Your&ensp;tracks</h2>
+            {% if user.is_authenticated %}
+            {% for project in projects %}
+            <h1>{{project.name}}</h1>
+            {% endfor %}
+            {% endif %}
             <button class="app__projects-link">+&ensp;Create&ensp;new</button>
           </article>
 

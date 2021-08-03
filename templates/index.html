@@ -78,6 +78,7 @@
             {% if user.is_authenticated %}
             {% for project in projects %}
             <h1>{{project.name}}</h1>
+            <h1>{{project.pk}}</h1>
             {% endfor %}
             {% endif %}
             <button class="app__projects-link">+&ensp;Create&ensp;new</button>

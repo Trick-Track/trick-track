@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User, auth
 from django.db.models import JSONField
+from django.core import validators
 
 # Create your models here.
 class Project(models.Model):

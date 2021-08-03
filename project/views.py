@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
+from django.core.serializers import serialize, deserialize
 from .models import Project
 import json
 
@@ -8,7 +10,11 @@ def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
 
-def serialize_db_entry(project):
+def serialize(project):
+    data = serialize('json', project)
+    return data
+
+def validate(project):
     pass
 
 def save(data, user):
@@ -26,7 +32,7 @@ def update():
 
 def retrieve(user, project_name):
     project = Project.objects.get(user=user, name=project_name)
-    response = serialize_db_entry(project)
+    response = serialize(project)
     return response
 
 def retrieve_all(user):
@@ -47,6 +53,7 @@ def projects(request):
         elif request.method == 'POST':
             project = json_decode(request)
             save(project, user)
+            return JsonResponse()
         elif request.method == 'DELETE':
             delete_all(user)
     else:

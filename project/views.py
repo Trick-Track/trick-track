@@ -8,21 +8,29 @@ def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
 
+def serialize_db_entry(project):
+    pass
+
 def save(data, user):
     name = data['name']
     bpm = data['bpm']
     lanes = data['lanes']
-    project = Project(name=name, bpm=bpm, user=user, lanes=lanes)
-    project.save()
+    if not Project.objects.filter(user=user, name=name).exists():
+        project = Project(name=name, bpm=bpm, user=user, lanes=lanes)
+        project.save()
+    else:
+        print('EXISTS! throw an exception, Bro!')
 
 def update():
     pass
 
-def retrieve():
-    pass
+def retrieve(user, project_name):
+    project = Project.objects.get(user=user, name=project_name)
+    response = serialize_db_entry(project)
+    return response
 
-def retrieve_all():
-    pass
+def retrieve_all(user):
+    return Project.objects.filter(user=user)
 
 def delete():
     pass
@@ -34,14 +42,12 @@ def projects(request):
     print('in projects')
     if request.user.is_authenticated:
         user = request.user
-        print(user)
         if request.method == 'GET':
             retrieve_all(user)
         elif request.method == 'POST':
             project = json_decode(request)
             save(project, user)
         elif request.method == 'DELETE':
-            print('I am IN')
             delete_all(user)
     else:
         print('something is wrong')

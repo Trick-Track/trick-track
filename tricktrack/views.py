@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 
 def index(request):
-    return render(request, 'index.html')
+    if request.user.is_authenticated:
+        return redirect('/projects')
+    else:
+        return render(request, 'index.html')
 
 def profile(request):
-    return redirect('/')
+    return redirect('/projects')

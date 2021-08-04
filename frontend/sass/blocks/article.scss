@@ -23,7 +23,30 @@
 }
 
 .app__projects-link {
-  text-decoration: none;
+  @include button-reset;
+  font-size: 16px;
   margin-left: 10px;
   color: $black;
+
+  &:hover,
+  &:focus {
+    color: red;
+  }
+}
+
+.app__project-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-left: 10px;
+}
+
+.app__project-link {
+  text-decoration: none;
+  color: $black;
+
+  &:hover,
+  &:focus {
+    text-shadow: 0 0 1px $black;
+  }
 }

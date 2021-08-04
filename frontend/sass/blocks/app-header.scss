@@ -2,6 +2,7 @@
   position: relative;
   background-color: #414141;
   width: 100%;
+  font-family: 'Share Tech Mono', 'Arial', monospace;
 
   &::before {
     content: "";
@@ -92,14 +93,52 @@
   margin-left: auto;
 };
 
+
+.app__user-link {
+  position: relative;
+  text-decoration: none;
+  font-size: 14px;
+  color: $grey;
+  text-transform: uppercase;
+
+  & svg {
+    position: absolute;
+    top: -15px;
+    fill: $grey;
+  }
+
+  &:hover,
+  &:focus {
+    text-shadow: 0 4px 5px $close-red;
+
+    & svg {
+      fill: $plum;
+    }
+  }
+
+  &:active {
+    text-shadow: 6px 6px 8px $sandy;
+
+    & svg {
+      fill: $sandy;
+    }
+  }
+};
+
 .player {
   margin-top: -10px;
   margin-left: 20px;
 
   &__button {
 
-    &:hover svg {
+    &:hover svg,
+    &:focus svg {
       fill: $aquamarine;
+    }
+
+    &:active svg{
+      fill: darken($aquamarine, 5%);
+      transform: scale(0.8);
     }
   }
 }

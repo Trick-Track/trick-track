@@ -41,5 +41,10 @@
     color: $black;
     outline: none;
   }
+
+  &:active svg {
+    fill: darken($aquamarine, 10%);
+    stroke: darken($aquamarine, 10%);
+  }
 }
  

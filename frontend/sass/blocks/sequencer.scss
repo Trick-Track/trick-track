@@ -19,11 +19,11 @@
 };
 
 .sequencer__samples-item {
-  min-height: 70px;
+  //@include backlight(red);
   display: flex;
   flex-direction: row;
   justify-content: start;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 
 .sequencer__steps-list {
@@ -78,7 +78,9 @@
 
 .sample-button {
   @include button-reset;
-  width: 120px;
+  margin-right: 10px;
+  width: 130px;
+  height: 20px;
   color: $grey;
   font-family: 'Share Tech Mono', 'Arial', monospace;
   font-size: 14px;

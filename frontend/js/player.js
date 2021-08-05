@@ -31,12 +31,13 @@ const playSound = (audioData, playTime, project) => {
     }
   })
 
-    if (context.state === 'suspended') {
-      context.resume();
-    }
-
+  
   source.connect(gainNode).connect(panner).connect(context.destination);
   source.start(playTime);
+  if (context.state === 'suspended') {
+    context.resume().then(source.start(playTime)).then(context.suspend())
+  }
+
 }
 
 function scheduleSound() {

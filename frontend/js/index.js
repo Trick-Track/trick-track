@@ -2,11 +2,12 @@ import {renderInitialProject} from './renderer.js';
 import {addArrowsHandlers} from './slider.js';
 import {addPlayerButtonsHandlers} from './player.js';
 import {addControlsHandlers} from './controls.js';
-import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler} from './project.js';
+import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js'
 import {setSounds} from './data-store.js';
+
 import '../sass/style.sass';
 
 
@@ -16,17 +17,20 @@ let sounds = ['/static/samples/bdsh.wav',
               ];
 
 window.context = new (window.AudioContext || window.webkitAudioContext)();
-
-
 window.buffer = new Buffer(context, sounds);
 
 buffer.createBuffer(() =>  {
   setSounds(buffer.urls)
 })
 
-window.currentProject = createDefaultProject(buffer.urls); // отрисовка проекта
+const project = createDefaultProject(buffer.urls);
+
+window.currentProject = project;
 renderInitialProject(currentProject);
-addOpenModalButtonHandler(currentProject, renderInitialProject);
+
+
+addProjectsHandlers()
+addOpenModalButtonHandler();
 
 
 addArrowsHandlers(); //стрелки слайдера
@@ -37,10 +41,13 @@ addPlayerButtonsHandlers();
 
 
 addSaveButtonHandler(currentProject, () => {
+  //project.parse(currentProject)
   showSuccess();
+  changeProjectUpdateButton();
+
 })
 
-
+console.log(currentProject)
 
 
 

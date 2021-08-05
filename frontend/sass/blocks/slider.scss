@@ -16,10 +16,13 @@
  
 .slider__arrow {
   @include button-reset;
-  margin-top: 10px;
 
   & svg {
     fill: $aquamarine;
+
+    @media (max-width: $mobile-width) {
+      width: 10px;
+    }
   }
 
   &--prev svg {
@@ -44,7 +47,7 @@
 
   &:active svg {
     fill: darken($aquamarine, 10%);
-    stroke: darken($aquamarine, 10%);
+  
   }
 }
  

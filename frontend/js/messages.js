@@ -65,7 +65,7 @@ const MessageTypes = {
 
 
 const showSuccess = () => showMessage(MessageTypes.success);
-const showError = () => showMessage(MessageTypes.error);
+const showError = (message) => showMessage(MessageTypes.error, message);
 
 export {showSuccess, showError}
   

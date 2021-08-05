@@ -6,8 +6,9 @@ const checkStatusRequest = (response) => {
     if (response.ok) {
       return response;
     }
-  
+   
     const { statusText, status } = response;
+   
     const error = new Error (`${status} (${statusText})`);
     throw error;
   }
@@ -17,13 +18,38 @@ const sendProject = (body, onSuccess) => {
     fetch(BASE_URL,
       {
         method: 'POST',
-        body,
+        body: JSON.stringify(body)
       },
     )
-  
       .then(checkStatusRequest)
-      .then((result) => onSuccess(result))
+      .then((response) => {const project = response.json();
+      return project})
+      .then((project) => console.log(project))
+      //project.parseJSON(body))
+      .then(onSuccess())
+
       .catch((error) => showError(error))
   };
 
-export {sendProject}
+  // const getProject = () => {
+  //   fetch(BASE_URL)
+  //   .then((response) => response.json)
+  //   .then(console.log(response.json))
+  // }
+
+
+const loadProject = (onSuccess) => {
+  fetch(`${BASE_URL/id}`)
+
+    .then(checkStatusRequest)
+    .then((response) => response.json())
+
+    .then((project) => {
+      onSuccess(project);
+    })
+
+    .catch((error) => showError(error));
+}
+
+
+export {sendProject, loadProject}

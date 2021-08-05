@@ -1,3 +1,5 @@
+
+
 const STEPS = 32;
 const defaultBpm = 120;
 const defaultName = 'noName';
@@ -37,15 +39,15 @@ const createDefaultLanes = (sounds, cells) => {
 let newCells = initialCells(STEPS); 
 
 
-const createDefaultProject = (sounds, cb) => {
+const createDefaultProject = (sounds) => {
    
-   const project = {
-      name: defaultName,
-      bpm: defaultBpm, 
-      lanes: createDefaultLanes(sounds, newCells),
-     }
-     return project
-   
+  const project = {
+   name: defaultName,
+   bpm: defaultBpm, 
+   lanes: createDefaultLanes(sounds, newCells),
+   }
+
+  return project
 }
 
 export {createDefaultProject}

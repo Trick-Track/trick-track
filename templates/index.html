@@ -10,7 +10,7 @@
   </head>
   <body class="page__body">
     <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
-      <symbol viewBox="0 0 32 32" id="switch" ><path d="M15.5 16a3.5 3.5 0 01-3.5-3.5v-8a3.5 3.5 0 117 0v8a3.5 3.5 0 01-3.5 3.5zm0-13A1.5 1.5 0 0014 4.5v8a1.5 1.5 0 003 0v-8A1.5 1.5 0 0015.5 3z fill="none"/><path d="M15.52 32h-.74a15.47 15.47 0 01-6.2-29.32 1 1 0 011.42.89v7.5a1 1 0 01-.23.64 7.48 7.48 0 1013.14 5.9 7.41 7.41 0 00-1.65-5.89 1 1 0 01-.23-.64V3.57a1 1 0 011.45-.89 15.46 15.46 0 013.75 25A15.35 15.35 0 0115.52 32zM8 5.31a13.47 13.47 0 1015 0v5.42a9.34 9.34 0 011.86 7.16A9.48 9.48 0 118 10.72z"/></symbol>
+      <symbol viewBox="0 0 32 32" id="switch" ><path d="M15.5 16a3.5 3.5 0 01-3.5-3.5v-8a3.5 3.5 0 117 0v8a3.5 3.5 0 01-3.5 3.5zm0-13A1.5 1.5 0 0014 4.5v8a1.5 1.5 0 003 0v-8A1.5 1.5 0 0015.5 3z"/><path d="M15.52 32h-.74a15.47 15.47 0 01-6.2-29.32 1 1 0 011.42.89v7.5a1 1 0 01-.23.64 7.48 7.48 0 1013.14 5.9 7.41 7.41 0 00-1.65-5.89 1 1 0 01-.23-.64V3.57a1 1 0 011.45-.89 15.46 15.46 0 013.75 25A15.35 15.35 0 0115.52 32zM8 5.31a13.47 13.47 0 1015 0v5.42a9.34 9.34 0 011.86 7.16A9.48 9.48 0 118 10.72z"/></symbol>
       <!-- <symbol viewBox="0 0 92 70" fill="none">
         <path d="M1.98198 17.2065L39.6084 65.058C42.9046 70.8353 48.2486 70.8353 51.5464 65.058L89.1776 17.2C89.9124 16.1527 90.7044 14.2859 90.8648 13.0154C91.3814 8.90308 91.7902 0.687683 86.8036 0.687683H4.35249C-0.634092 0.687683 -0.223414 8.9078 0.294716 13.0217C0.455108 14.2904 1.24737 16.159 1.98198 17.2065Z" fill="black"/>
       </symbol> -->
@@ -75,20 +75,22 @@
         </div>
 
         <div class="app__main">
+          {% if user.is_authenticated %}
           <article class="app__user-projects">
             <h2 class="app__projects-heading">Your&ensp;tracks</h2>
+            <ul class="app__project-list">
             {% if user.is_authenticated %}
             {% for project in projects %}
-            <ul class="app__project-list">
               <li class="app__project-item">
                 <a  class="app__project-link app__project-button" href="#">{{project.name}}</a>
                 <p>{{project.pk}}</p>
               </li>
-            </ul>
             {% endfor %}
             {% endif %}
+          </ul>
             <button class="app__projects-link">+&ensp;Create&ensp;new</button>
           </article>
+          {% endif %}
 
           <div class="app__project">
             <div class="app__project-wrapper">
@@ -97,7 +99,8 @@
               <div class="app__project-name">
                 <input type="text" name="project-name" id="project-name" placeholder="You new song">
               </div>
-              <button type="submit" class="save-button">save</button>
+              <button type="submit" class="project-button save-button">save</button>
+              <button type="submit" class="project-button update-button visually-hidden">update</button>
             </div>
 
             <div class="app__project-toggles slider__buttons">

@@ -1,5 +1,5 @@
 import {isEscEvent} from './util.js';
-import {sendProject} from './server.js';
+import {sendProject, loadProject} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js'
@@ -8,14 +8,19 @@ import {getSounds} from './data-store.js';
 
 const projectNameInput = document.querySelector('#project-name');
 const saveButton = document.querySelector('.save-button');
+const updateProjectButton = document.querySelector('.update-button');
 const openModalButton = document.querySelector('.app__projects-link');
 const modalNewProject = document.querySelector('.modal-new-project');
 const createNewProjectButton = document.querySelector('.save__button--nosave');
 const closeModalButton = document.querySelector('.save__button--save');
+const projectIdLink = document.querySelectorAll('.app__project-button');
 
 
 const onProjectNameInputChange = () => {
   const projectName = projectNameInput.value;
+  if (projectNameInput.value = null) {
+    projectName = "noName";
+  }
   return projectName;
 }
 
@@ -65,16 +70,16 @@ const onDocumentEscapePressed = (evt) => {
 //   project = createDefaultProject(getSounds)
 // }
 
-const addOpenModalButtonHandler = (state, cb) => {
+const addOpenModalButtonHandler = () => {
 
   openModalButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     modalNewProject.classList.add('modal__show');
     closeModalButton.addEventListener('click', closeModalNewProject);
     createNewProjectButton.addEventListener('click', () => {
-      
-      window.currentProject = createDefaultProject(getSounds())
-      cb(state)})
+     currentProject = null;
+
+    })
     document.addEventListener('keydown', onDocumentEscapePressed);
   })
 }
@@ -90,8 +95,8 @@ const addSaveButtonHandler = (project, onSuccess) => {
   saveButton.addEventListener('click', () => {
     project.name = onProjectNameInputChange();
     project.bpm = setBpm();
-    sendProject(JSON.stringify(project), onSuccess);
-    console.log(JSON.stringify(project))
+    sendProject(project, onSuccess);
+    //console.log(JSON.stringify(project))
   });
 }
 
@@ -109,7 +114,19 @@ const setProjectDisabledSteps = (project, cb) => {
   });
 };
 
+const changeProjectUpdateButton = () => {
+  saveButton.classList.add('visually-hidden');
+  updateProjectButton.classList.remove('visually-hidden');
+};
+
+const resetProject = (project) => {
+  
+} 
 
 
 
-export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue} 
+
+
+
+
+export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue, changeProjectUpdateButton} 

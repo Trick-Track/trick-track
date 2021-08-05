@@ -5,11 +5,19 @@
 
 .sequencer__controls-panner {
   margin-right: 20px;
+
+  @media (max-width: $mobile-width) {
+    margin-right: 10px;
+  }
 }
 
 .sequencer__controls-volume {
   margin-right: -130px;
   margin-top: 20px;
+
+  @media (max-width: $mobile-width) {
+    margin-top: 10px;
+  }
 }
 
 .sequencer__controls-input--volume {

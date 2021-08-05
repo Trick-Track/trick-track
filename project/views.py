@@ -11,8 +11,8 @@ def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
 
-def serialize(project):
-    return serializers.serialize('json', [project, ])[1:-1]
+def serialize(projects):
+    return serializers.serialize('json', projects)
 
 def validate(project):
     pass
@@ -36,7 +36,8 @@ def retrieve(user, project_name):
     return response
 
 def retrieve_all(user):
-    return Project.objects.filter(user=user)
+    user_projects = Project.objects.filter(user=user)
+    return user_projects
 
 def delete():
     pass
@@ -48,11 +49,15 @@ def projects(request):
     if request.user.is_authenticated:
         user = request.user
         if request.method == 'GET':
-            return render(request, 'index.html', {'projects':retrieve_all(user)})
+            projects_list = retrieve_all(user)
+            serialized_list = serialize(projects_list)
+            return JsonResponse(serialized_list, encoder=DjangoJSONEncoder, safe=False)
+            # return render(request, 'index.html', {'projects':retrieve_all(user)})
         elif request.method == 'POST':
             project = json_decode(request)
-            saved = serialize(save(project, user))
-            return JsonResponse(saved, encoder=DjangoJSONEncoder, safe=False)
+            saved = save(project, user)
+            serialized = serialize([saved, ])
+            return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
     else:

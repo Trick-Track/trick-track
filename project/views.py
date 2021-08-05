@@ -5,7 +5,6 @@ from django.contrib.auth.models import User, auth
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import Project
-# from django.forms.models import model_to_dict
 import json
 
 def json_decode(request):

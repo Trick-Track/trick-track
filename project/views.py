@@ -30,17 +30,17 @@ def save(data, user):
 def update():
     pass
 
-def retrieve(user, project_name):
-    project = Project.objects.get(user=user, name=project_name)
-    response = serialize(project)
-    return response
+def retrieve(id):
+    project = Project.objects.get(pk=id)
+    return project
 
 def retrieve_all(user):
     user_projects = Project.objects.filter(user=user)
     return user_projects
 
-def delete():
-    pass
+def delete(id):
+    project = Project.objects.get(pk=id)
+    project.delete()
 
 def delete_all(user):
     Project.objects.filter(user=user).delete()
@@ -64,11 +64,13 @@ def projects(request):
 
 def project(request, id=id):
     if request.method == 'GET':
-        return JsonResponse(retrieve(project), encoder=DjangoJSONEncoder, safe=False)
+        project = retrieve(id)
+        serialized = serialize([project, ])
+        return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
     elif request.method == 'PUT':
         project = json_decode(request)
         update()
     elif request.method == 'DELETE':
-        delete(project, user)
+        delete(id)
         return HttpResponse('DELETED')
     return HttpResponse('OK')

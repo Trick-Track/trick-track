@@ -51,7 +51,7 @@ def projects(request):
             project = json_decode(request)
             saved = save(project, user)
             data = serializers.serialize('json', [saved, ])[1:-1]
-            return JsonResponse(data, encoder=DjangoJSONEncoder, safe=True)
+            return JsonResponse(data, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
     else:

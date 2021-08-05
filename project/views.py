@@ -52,7 +52,6 @@ def projects(request):
             projects_list = retrieve_all(user)
             serialized_list = serialize(projects_list)
             return JsonResponse(serialized_list, encoder=DjangoJSONEncoder, safe=False)
-            # return render(request, 'index.html', {'projects':retrieve_all(user)})
         elif request.method == 'POST':
             project = json_decode(request)
             saved = save(project, user)

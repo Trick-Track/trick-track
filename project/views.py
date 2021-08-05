@@ -12,6 +12,9 @@ def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
 
+def serialize(project):
+    return serializers.serialize('json', [project, ])[1:-1]
+
 def validate(project):
     pass
 
@@ -49,9 +52,8 @@ def projects(request):
             return render(request, 'index.html', {'projects':retrieve_all(user)})
         elif request.method == 'POST':
             project = json_decode(request)
-            saved = save(project, user)
-            data = serializers.serialize('json', [saved, ])[1:-1]
-            return JsonResponse(data, encoder=DjangoJSONEncoder, safe=False)
+            saved = serialize(save(project, user))
+            return JsonResponse(saved, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
     else:
@@ -59,10 +61,11 @@ def projects(request):
 
 def project(request, id=id):
     if request.method == 'GET':
-        retrieve(project)
+        return JsonResponse(retrieve(project), encoder=DjangoJSONEncoder, safe=False)
     elif request.method == 'PUT':
         project = json_decode(request)
         update()
-    elif request.method == 'GET':
-        return HttpResponse('GET')
+    elif request.method == 'DELETE':
+        delete(project, user)
+        return HttpResponse('DELETED')
     return HttpResponse('OK')

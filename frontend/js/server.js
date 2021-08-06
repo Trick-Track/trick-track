@@ -39,6 +39,19 @@ const sendProject = (body, onSuccess) => {
   //   .then(console.log(response.json))
   // }
 
+  const updateProject = (body, onSuccess) => {
+    fetch(`/projects/${currentProject.pk}`,
+      {
+        method: 'PUT',
+        body: JSON.stringify(body)
+      },
+    )
+
+    .then(checkStatusRequest)
+    .then((response) => onSuccess(response))
+
+
+  };
 
 const loadProject = (onSuccess) => {
   fetch(`${BASE_URL/id}`)
@@ -54,4 +67,4 @@ const loadProject = (onSuccess) => {
 }
 
 
-export {sendProject, loadProject}
+export {sendProject, loadProject, updateProject}

@@ -1,5 +1,5 @@
 import {isEscEvent} from './util.js';
-import {sendProject, loadProject} from './server.js';
+import {sendProject, loadProject, updateProject} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js'
@@ -97,6 +97,14 @@ const addSaveButtonHandler = (project, onSuccess) => {
   });
 }
 
+const addUpdateButtonHandler = (project, onSuccess) => {
+  updateProjectButton.addEventListener('click', () => {
+  updateProject(project, onSuccess);
+    console.log(JSON.stringify(project))
+  });
+}
+
+
 
 const setProjectDisabledSteps = (project, cb) => {
   const {lanes} = project;
@@ -128,4 +136,4 @@ const resetProject = (project) => {
 
 
 
-export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue, changeProjectUpdateButton} 
+export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton} 

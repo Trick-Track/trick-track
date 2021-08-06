@@ -2,7 +2,7 @@ import {renderInitialProject} from './renderer.js';
 import {addArrowsHandlers} from './slider.js';
 import {addPlayerButtonsHandlers} from './player.js';
 import {addControlsHandlers} from './controls.js';
-import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton} from './project.js';
+import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js'
@@ -43,9 +43,12 @@ addPlayerButtonsHandlers();
 addSaveButtonHandler(currentProject, () => {
   showSuccess();
   changeProjectUpdateButton();
-  console.log(currentProject)
+  console.log(currentProject.pk)
 })
 
+addUpdateButtonHandler(currentProject, () => {
+  console.log('ok')
+})
 
 
 

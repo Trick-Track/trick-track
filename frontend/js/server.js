@@ -40,7 +40,7 @@ const sendProject = (body, onSuccess) => {
   // }
 
   const updateProject = (body, onSuccess) => {
-    fetch(`/projects/${currentProject.pk}`,
+    fetch(`${BASE_URL}/${body.pk}`,
       {
         method: 'PUT',
         body: JSON.stringify(body)
@@ -49,6 +49,7 @@ const sendProject = (body, onSuccess) => {
 
     .then(checkStatusRequest)
     .then((response) => onSuccess(response))
+    .catch((error) => showError(error))
 
 
   };

@@ -30,8 +30,15 @@ def save(from_frontend, user):
     return project
     
 
-def update():
-    pass
+def update(from_frontend, id):
+    print(from_frontend)
+    bpm = from_frontend['bpm']
+    print(bpm)
+    lanes = from_frontend['lanes']
+    project = Project.objects.get(pk=id)
+    project.bpm = bpm
+    project.lanes = lanes
+    project.save()
 
 def retrieve(id):
     project = Project.objects.get(pk=id)
@@ -51,17 +58,14 @@ def delete_all(user):
 def projects(request):
     if request.user.is_authenticated:
         user = request.user
-        # print(user)
         if request.method == 'GET':
             projects_list = retrieve_all(user)
             serialized_list = serialize(projects_list)
             return JsonResponse(serialized_list, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'POST':
             project = json_decode(request)
-            print(project)
             saved_project = save(project, user)
             serialized = serialize([saved_project, ])
-            # print(serialized)
             return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
@@ -75,7 +79,7 @@ def project(request, id=id):
         return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
     elif request.method == 'PUT':
         project = json_decode(request)
-        update()
+        update(project, id)
     elif request.method == 'DELETE':
         delete(id)
         return HttpResponse('DELETED')

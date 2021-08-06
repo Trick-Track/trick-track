@@ -30,14 +30,15 @@ def save(from_frontend, user):
     return project
     
 def update(from_frontend, id):
-    print(from_frontend)
+    # print(from_frontend)
     bpm = from_frontend['bpm']
-    print(bpm)
+    # print(bpm)
     lanes = from_frontend['lanes']
     project = Project.objects.get(pk=id)
     project.bpm = bpm
     project.lanes = lanes
     project.save()
+    return project
 
 def retrieve(id):
     project = Project.objects.get(pk=id)
@@ -58,9 +59,8 @@ def projects(request):
     if request.user.is_authenticated:
         user = request.user
         if request.method == 'GET':
-            projects_list = retrieve_all(user)
-            serialized_list = serialize(projects_list)
-            return JsonResponse(serialized_list, encoder=DjangoJSONEncoder, safe=False)
+            all_projects = serialize(retrieve_all(user))
+            return JsonResponse(all_projects, encoder=DjangoJSONEncoder, safe=False)
         elif request.method == 'POST':
             project = json_decode(request)
             saved_project = save(project, user)
@@ -72,19 +72,27 @@ def projects(request):
         return redirect('accounts/login/')
 
 def project(request, id=id):
-    if request.method == 'GET':
-        project = retrieve(id)
-        serialized = serialize([project, ])
-        return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
-    elif request.method == 'PUT':
-        project = json_decode(request)
-        update(project, id)
-    elif request.method == 'DELETE':
-        delete(id)
-        return HttpResponse('DELETED')
-    return HttpResponse('OK')
+    if request.user.is_authenticated:
+        user = request.user
+        if request.method == 'GET':
+            project = retrieve(id)
+            serialized = serialize([project, ])
+            return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
+        elif request.method == 'PUT':
+            project = json_decode(request)
+            updated_project = update(project, id)
+            serialized = serialize([updated_project, ])
+            return JsonResponse(serialized, encoder=DjangoJSONEncoder, safe=False)
+        elif request.method == 'DELETE':
+            delete(id)
+            all_projects = serialize(retrieve_all(user))
+            return JsonResponse(all_projects, encoder=DjangoJSONEncoder, safe=False)
+    else:
+        return redirect('accounts/login/')
 
-    # function to delete all projects of current user in response to url 'projects/delete_everything'
+    # function to delete all projects of current user 
+    # in response to url 'projects/delete_everything'
+
 def delete_everything(request):
     user = request.user
     delete_all(user)

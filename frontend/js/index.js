@@ -29,7 +29,7 @@ window.currentProject = project;
 renderInitialProject(currentProject);
 
 
-addProjectsHandlers()
+//addProjectsHandlers()
 addOpenModalButtonHandler();
 
 
@@ -41,13 +41,11 @@ addPlayerButtonsHandlers();
 
 
 addSaveButtonHandler(currentProject, () => {
-  //project.parse(currentProject)
   showSuccess();
   changeProjectUpdateButton();
-
+  console.log(currentProject)
 })
 
-console.log(currentProject)
 
 
 

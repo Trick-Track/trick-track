@@ -18,9 +18,6 @@ const projectIdLink = document.querySelectorAll('.app__project-button');
 
 const onProjectNameInputChange = () => {
   const projectName = projectNameInput.value;
-  if (projectNameInput.value = null) {
-    projectName = "noName";
-  }
   return projectName;
 }
 
@@ -117,6 +114,8 @@ const setProjectDisabledSteps = (project, cb) => {
 const changeProjectUpdateButton = () => {
   saveButton.classList.add('visually-hidden');
   updateProjectButton.classList.remove('visually-hidden');
+   
+  //projectNameInput.placeholder = project.name;
 };
 
 const resetProject = (project) => {

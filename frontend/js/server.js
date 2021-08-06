@@ -1,4 +1,5 @@
 import {showError} from './messages.js';
+import {createSavedProject} from './build-project.js';
 
 const BASE_URL = '/projects';
 
@@ -23,11 +24,12 @@ const sendProject = (body, onSuccess) => {
     )
       .then(checkStatusRequest)
       .then((response) => {const project = response.json();
-      return project})
-      .then((project) => console.log(project))
-      //project.parseJSON(body))
-      .then(onSuccess())
-
+        return project})
+      .then((project) => {
+        const json = JSON.parse(project)
+        const id = json[0].pk;
+        createSavedProject(id)}) 
+      .then(onSuccess(currentProject))
       .catch((error) => showError(error))
   };
 

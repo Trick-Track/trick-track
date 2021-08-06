@@ -1,4 +1,4 @@
-import {generateMatrixLane} from './matrix.js';
+ import {generateMatrixLane} from './matrix.js';
 
 const inputAdd = document.getElementById('.#sample');
 

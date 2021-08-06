@@ -50,4 +50,11 @@ const createDefaultProject = (sounds) => {
   return project
 }
 
-export {createDefaultProject}
+const createSavedProject = (id) => {
+  const newKey = 'pk';
+  const newId = id;
+  window.currentProject[newKey] = newId;
+  return currentProject;
+}
+
+export {createDefaultProject, createSavedProject}

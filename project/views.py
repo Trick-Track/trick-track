@@ -29,7 +29,6 @@ def save(from_frontend, user):
         project = Project.objects.get(user=user, name=name)
     return project
     
-
 def update(from_frontend, id):
     print(from_frontend)
     bpm = from_frontend['bpm']
@@ -84,3 +83,9 @@ def project(request, id=id):
         delete(id)
         return HttpResponse('DELETED')
     return HttpResponse('OK')
+
+    # function to delete all projects of current user in response to url 'projects/delete_everything'
+def delete_everything(request):
+    user = request.user
+    delete_all(user)
+    return redirect('/')

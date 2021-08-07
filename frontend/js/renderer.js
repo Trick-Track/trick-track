@@ -1,8 +1,7 @@
-import {initialBpm, addBpmHandlers} from './bpm.js';
+import {initialBpm} from './bpm.js';
 import {initialBeats, addBeatsHandlers} from './beats.js';
 import {playSound} from './player.js';
-import {setProjectDisabledSteps} from './project.js'
-
+import {setProjectDisabledSteps} from './project.js';
 
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
@@ -22,37 +21,47 @@ const renderCell = () => {
   return cellElement;
 }
 
-const fillStep = (stepsList, steps) => {
+const fillSlideByCellsElements = (fragment) => {
+  const cellElement = renderCell();
+  fragment.append(cellElement);
+}
+
+
+const fillStep = (stepsList, cells) => {
    
-   const fragment = document.createDocumentFragment();
-   const fragmentOne = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
+  const fragmentOne = document.createDocumentFragment();
+  cells.slice(0, 16).forEach((cell) => {
+    fillSlideByCellsElements(fragment);
+  });
 
-   steps.slice(0, 16).forEach((step) => {
-    
-    const newStep = renderCell();
-  
-    fragment.append(newStep);
-    });
-
-    steps.slice(16, 32).forEach((step) => {
-      const newStep = renderCell();
-      fragmentOne.append(newStep);
-      });
-  
-    stepsList[0].append(fragment);
-    stepsList[1].append(fragmentOne);
+  cells.slice(16, 32).forEach((cell) => {
+    fillSlideByCellsElements(fragmentOne)
+  });
+  stepsList[0].append(fragment);
+  stepsList[1].append(fragmentOne);
 };
 
-const generateMatrixLane = (lane) => {
-  const{sound, cells} = lane
+
+
+const renderLane = (lane) => {
+  const{sound, cells, panner, volume} = lane
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
+  newSample.querySelector('[data-action="panner"]').value = panner;
+  newSample.querySelector('[data-action="volume"]').value = volume;
+
+
+
   sampleList.append(newSample);
 
   const stepsList = newSample.querySelectorAll('.sequencer__steps-list');
 
+
   fillStep(stepsList, cells);
 };
+
+
 
 
 const renderProject = (project) => {
@@ -60,7 +69,7 @@ const renderProject = (project) => {
   let {lanes, bpm} = project;
     bpm = initialBpm(project);
     lanes.forEach((lane) => {
-    generateMatrixLane(lane);
+    renderLane(lane);
   })
 };
 
@@ -115,6 +124,11 @@ const addButtonCellHandler = (project, cellsButtons, callback) => {
   });
 };
 
+// const removeButtonCellHandlers = () => {
+//   const cellsButtons  = document.querySelectorAll('.sequencer__cell');
+
+// }
+
 const renderStateCellElement = (project, cellsButtons) => {
   const {lanes} = project;
   for (let i = 0; i < lanes.length; i++) {
@@ -127,7 +141,6 @@ const renderStateCellElement = (project, cellsButtons) => {
   }
 }
 
- 
 const createPlaybackElement = () => {
     const playbackStep = document.createElement('div');
     playbackStep.classList.add('sequencer__playback-element');
@@ -201,13 +214,15 @@ const addButtonCellHandlers = (project, cellsButtons) => {
 }
 
 
-const renderInitialProject = (project) => {
-  addBpmHandlers();
-  renderProject(project);
-  renderPlaybackLine();
-  createAllCellsArray(project, addButtonCellHandlers) ;
-  addSoundsButtonHandlers(project);
-}
+
+
+// const renderInitialProject = (project) => {
+//   // addBpmHandlers();
+//   // renderProject(project);
+//   // renderPlaybackLine();
+//   // createAllCellsArray(project, addButtonCellHandlers) ;
+//   // addSoundsButtonHandlers(project);
+// }
 
 //создание newlane
 
@@ -229,4 +244,4 @@ const renderInitialProject = (project) => {
 
 
   
-  export {renderInitialProject, generateMatrixLane, fillCurrentPlaybackStep, setCellBackgroundColor}
+  export {fillCurrentPlaybackStep, setCellBackgroundColor, createAllCellsArray, addSoundsButtonHandlers, renderProject, renderPlaybackLine, addButtonCellHandlers}

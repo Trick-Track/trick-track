@@ -7,7 +7,15 @@ const initialBeats = (project) => {
   const {lanes} = project;
   lanes.forEach((lane) => {
     const {cells} = lane;
-    beatsControl.value = cells.length;
+   // cells.every((cell => cell.disabled = false))
+   //const cellDisabled = (cell) => cell.disabled = true;
+   
+   const l = cells.find(cell => cell.disabled == true)
+   const i = cells.indexOf(l, 0);
+
+  
+   i < 0 ? beatsControl.value = 32 : beatsControl.value = i;
+  
   });
 };
 

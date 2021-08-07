@@ -1,11 +1,11 @@
 .app__user-projects {
 
-  @media (min-width: $mobile-width) {
     grid-column: 1;
     grid-row-start: 1;
-    grid-row-end: -1;
-    height: 100vw;
-  }
+    //grid-row-end: -1;
+    min-height: 100vw;
+    padding-bottom: 50px;
+  
 
   background-color: rgba(253, 197, 123, 0.79);
   color: $black;
@@ -39,6 +39,7 @@
   padding: 0;
   list-style: none;
   margin-left: 10px;
+  margin-bottom: 50px;
 }
 
 .app__project-item {

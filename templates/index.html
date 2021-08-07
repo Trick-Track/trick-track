@@ -82,8 +82,8 @@
             {% if user.is_authenticated %}
             {% for project in projects %}
               <li class="app__project-item">
-                <a  class="app__project-link app__project-button" href="#">{{project.name}}</a>
-                <p>{{project.pk}}</p>
+                <a  class="app__project-link app__project-button" href="#" data-pk="{{project.pk}}">{{project.name}}</a>
+                <!-- <p>{{project.pk}}</p> -->
               </li>
             {% endfor %}
             {% endif %}
@@ -94,24 +94,25 @@
 
           <div class="app__project">
             <div class="app__project-wrapper">
-            <div class="app__save-project">
-              <h2 class="visually-hidden">Saving the project</h2>
-              <div class="app__project-name">
-                <input type="text" name="project-name" id="project-name" placeholder="You new song">
+              <div class="app__save-project">
+                <h2 class="visually-hidden">Saving the project</h2>
+                <div class="app__project-name">
+                  <input type="text" name="project-name" id="project-name" placeholder="You new song">
+                </div>
+                <button type="submit" class="project-button save-button">save</button>
+                <button type="submit" class="project-button update-button visually-hidden">update</button>
               </div>
-              <button type="submit" class="project-button save-button">save</button>
-              <button type="submit" class="project-button update-button visually-hidden">update</button>
-            </div>
 
-            <div class="app__project-toggles slider__buttons">
-              <button type="button" class="slider__arrow slider__arrow--prev"><svg width="20" height="35"><use xlink:href="#arrow-right"></use></svg></button>
-              <button type="button" class="slider__arrow slider__arrow--next"><svg width="20" height="35"><use xlink:href="#arrow-right"></use></svg></button>
+              <div class="app__project-toggles slider__buttons">
+                <button type="button" class="slider__arrow slider__arrow--prev"><svg width="20" height="35"><use xlink:href="#arrow-right"></use></svg></button>
+                <button type="button" class="slider__arrow slider__arrow--next"><svg width="20" height="35"><use xlink:href="#arrow-right"></use></svg></button>
+              </div>
+                
+              <div class="sequencer__wrapper">
+                <ul class="sequencer__samples-list"></ul>
+              </div>
             </div>
-              
-            <div class="sequencer__wrapper">
-              <ul class="sequencer__samples-list"></ul>
-            </div>
-          </div>
+            <button type="submit" class="project-button project-button--delete delete-button visually-hidden">delete project</button>
         </div>
       </div>
       </section>
@@ -119,7 +120,7 @@
 
 
     <footer>
-      <div></div>
+      <div>rr</div>
     </footer>
 
     <template id="matrix">
@@ -137,7 +138,7 @@
           </div>
 
           <div class="sequencer__controls-volume">
-            <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" value="1" data-action="volume"/>
+            <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" data-action="volume"/>
               <datalist id="volums-values">
                 <option value="0" label="min">
                 <option value="2" label="max">

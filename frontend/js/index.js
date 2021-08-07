@@ -1,12 +1,11 @@
-import {renderInitialProject} from './renderer.js';
-import {addArrowsHandlers} from './slider.js';
 import {addPlayerButtonsHandlers} from './player.js';
-import {addControlsHandlers} from './controls.js';
-import {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler} from './project.js';
+import {getPkByProjectLink, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
-import {Buffer} from './buffer.js'
+import {Buffer} from './buffer.js';
 import {setSounds} from './data-store.js';
+import {renderInitialProject} from './initial-project.js';
+import {renderProject} from './renderer.js'
 
 import '../sass/style.sass';
 
@@ -23,35 +22,31 @@ buffer.createBuffer(() =>  {
   setSounds(buffer.urls)
 })
 
-const project = createDefaultProject(buffer.urls);
 
-window.currentProject = project;
+
+
+  const project = createDefaultProject(buffer.urls);
+
+window.currentProject = project
 renderInitialProject(currentProject);
 
+ 
+addProjectsHandlers();
+addOpenModalButtonHandler(project);
 
-//addProjectsHandlers()
-addOpenModalButtonHandler();
-
-
-addArrowsHandlers(); //стрелки слайдера
-
-addControlsHandlers(currentProject) //звук и панорама для дорожек
 addPlayerButtonsHandlers();
-
 
 
 addSaveButtonHandler(currentProject, () => {
   showSuccess();
   changeProjectUpdateButton();
-  console.log(currentProject.pk)
-})
+});
 
 addUpdateButtonHandler(currentProject, () => {
   console.log('ok')
-})
+});
 
-
-
+getPkByProjectLink(renderProject)
 
 
 

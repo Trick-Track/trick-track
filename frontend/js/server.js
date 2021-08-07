@@ -1,5 +1,6 @@
 import {showError} from './messages.js';
 import {createSavedProject} from './build-project.js';
+import { currentSlide } from './slider.js';
 
 const BASE_URL = '/projects';
 
@@ -16,54 +17,59 @@ const checkStatusRequest = (response) => {
 
 
 const sendProject = (body, onSuccess) => {
-    fetch(BASE_URL,
-      {
-        method: 'POST',
-        body: JSON.stringify(body)
-      },
-    )
-      .then(checkStatusRequest)
-      .then((response) => {const project = response.json();
-        return project})
-      .then((project) => {
-        const json = JSON.parse(project)
-        const id = json[0].pk;
-        createSavedProject(id)}) 
-      .then(onSuccess(currentProject))
-      .catch((error) => showError(error))
-  };
-
-  // const getProject = () => {
-  //   fetch(BASE_URL)
-  //   .then((response) => response.json)
-  //   .then(console.log(response.json))
-  // }
-
-  const updateProject = (body, onSuccess) => {
-    fetch(`${BASE_URL}/${body.pk}/`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(body)
-      },
-    )
-
+  fetch(BASE_URL,
+    {
+      method: 'POST',
+      body: JSON.stringify(body)
+    },
+  )
     .then(checkStatusRequest)
-    .then((response) => onSuccess(response))
+    .then((response) => {
+      const projectData = response.json();
+      return projectData})
+    .then((projectData) => {
+      const project = JSON.parse(projectData)
+      const id = project[0].pk;
+      createSavedProject(id)}) 
+    .then(onSuccess(currentProject))
     .catch((error) => showError(error))
-  };
+};
 
-const loadProject = (onSuccess) => {
-  fetch(`${BASE_URL/id}`)
+
+ 
+const updateProject = (body, onSuccess) => {
+  fetch(`${BASE_URL}/${body.pk}/`,
+    {
+      method: 'PUT',
+      body: JSON.stringify(body)
+    },
+  )
+
+  .then(checkStatusRequest)
+  .then((response) => onSuccess(response))
+  .catch((error) => showError(error))
+};
+
+
+
+const getProject = (pk, onSuccess) => {
+  fetch(`${BASE_URL}/${pk}`)
 
     .then(checkStatusRequest)
     .then((response) => response.json())
+    .then((projectData) => {
+      const project = JSON.parse(projectData);
+     
+      window.currentProject = project[0]
+      return currentProject
+      })
+    .then((currentProject) => {
+      let m = currentProject.fields; 
+      onSuccess(m)})
 
-    .then((project) => {
-      onSuccess(project);
-    })
+    .catch((error) => console.log(error))
 
-    .catch((error) => showError(error));
 }
 
 
-export {sendProject, loadProject, updateProject}
+export {sendProject, getProject, updateProject}

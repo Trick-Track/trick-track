@@ -1,8 +1,9 @@
-
+import {renderInitialProject} from './initial-project.js';
 
 const STEPS = 32;
 const defaultBpm = 120;
 const defaultName = 'noName';
+
 
 const initialCells = (steps) => {
     let cells = [];
@@ -18,7 +19,8 @@ const initialCells = (steps) => {
   }
     
     return cells;
-}
+};
+
 
 const createDefaultLanes = (sounds, cells) => {
   const lanes = []
@@ -34,7 +36,7 @@ const createDefaultLanes = (sounds, cells) => {
     lanes.push(obj)
   })
   return lanes;
-}
+};
 
 let newCells = initialCells(STEPS); 
 
@@ -46,15 +48,19 @@ const createDefaultProject = (sounds) => {
    bpm: defaultBpm, 
    lanes: createDefaultLanes(sounds, newCells),
    }
-
+  //renderInitialProject(currentProject)
   return project
-}
+};
+
+
 
 const createSavedProject = (id) => {
   const newKey = 'pk';
   const newId = id;
   window.currentProject[newKey] = newId;
   return currentProject;
-}
+};
+
+
 
 export {createDefaultProject, createSavedProject}

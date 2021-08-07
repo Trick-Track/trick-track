@@ -1,7 +1,7 @@
 import {setBeatsInputDisabledState, setBeatsInputEnabledState} from './beats.js';
 import {fillCurrentPlaybackStep} from './renderer.js';
 import {currentSlide} from './slider.js';
-import {setTempo} from './bpm.js';
+import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 
 const playButton = document.getElementById('play');
@@ -29,15 +29,19 @@ const playSound = (audioData, playTime, project) => {
       gainNode.gain.value = lane.volume;
       panner.pan.value = lane.panner;
     }
-  })
+  });
 
-  
   source.connect(gainNode).connect(panner).connect(context.destination);
   source.start(playTime);
   if (context.state === 'suspended') {
     context.resume().then(source.start(playTime)).then(context.suspend())
   }
+};
 
+const setTempo = () => {
+  const bpm = setBpm();
+  const tic = (60 / bpm) / 4;
+  return tic; 
 }
 
 function scheduleSound() {
@@ -51,7 +55,7 @@ function scheduleSound() {
     nextStep(currentSlide);
   }
     const timer = setTimeout(scheduleSound, 0)
-}
+};
 
 function nextStep(callback) {
   currentStep++;
@@ -64,7 +68,7 @@ function nextStep(callback) {
 
   let tempo = setTempo();
   nextStepTime += tempo;
-}
+};
 
 function playStepAtTime(project, playTime, cb) {
     const {lanes} = project;
@@ -76,8 +80,7 @@ function playStepAtTime(project, playTime, cb) {
         }
     }
     cb(currentStep)
-    
-}
+};
 
 
 const stopPlayback = (cb) => {

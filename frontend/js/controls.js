@@ -6,8 +6,10 @@ const getCenter = (element) =>  {
   return {x: left + width / 2, y: top + height / 2}
 };
 
-const addPannerControlsHandler = (cb, project) => {
 
+
+
+const addPannerControlsHandler = (cb, project) => {
   const pannerLabels = document.querySelectorAll('.sequencer__controls-label--panner');
   const pannerControls = document.querySelectorAll('[data-action="panner"]');
 
@@ -25,7 +27,8 @@ const addPannerControlsHandler = (cb, project) => {
         cb(pannerControls, project);
     });
   });
-};
+} 
+
 
 const addVolumeControlsHandler = (cb, project) => {
   const volumeControls = document.querySelectorAll('[data-action="volume"]');
@@ -37,13 +40,23 @@ const addVolumeControlsHandler = (cb, project) => {
   });
 };
 
-
+const removeVolumeControlsHandler = () => {
+  const volumeControls = document.querySelectorAll('[data-action="volume"]');
+  volumeControls.forEach((volumeControl) => {
+    volumeControl.removeEventListener('input', (evt) => {
+      volumeControl.value = evt.target.value;
+    })
+  })
+}
 
 const addControlsHandlers = (project) => {
   addVolumeControlsHandler(setProjectVolumeValue, project);
-  addPannerControlsHandler(setProjectPannerValue, project)
+  addPannerControlsHandler(setProjectPannerValue, project);
 };
 
+const removeControlsHandlers = () => {
+  removeVolumeControlsHandler();
+}
 
-
-export {addControlsHandlers}; 
+ 
+export {addControlsHandlers, removeControlsHandlers}; 

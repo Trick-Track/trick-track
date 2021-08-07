@@ -1,4 +1,4 @@
- import {generateMatrixLane} from './matrix.js';
+ import {renderLane} from './matrix.js';
 
 const inputAdd = document.getElementById('.#sample');
 
@@ -22,7 +22,7 @@ const uploadFile = (evt, cb) => {
   };
   
 const uploadSound = () => {
-  uploadFile(inputAdd, generateMatrixLane)
+  uploadFile(inputAdd, render)
 }
 
 const addInpytAddHandler = (cb) => {

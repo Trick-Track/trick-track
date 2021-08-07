@@ -1,9 +1,12 @@
 import {isEscEvent} from './util.js';
-import {sendProject, loadProject, updateProject} from './server.js';
+import {sendProject, getProject, updateProject} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js'
 import {getSounds} from './data-store.js';
+import {renderInitialProject, removeOldEventListeners} from './initial-project.js';
+import {renderProject} from './renderer.js';
+
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -13,7 +16,8 @@ const openModalButton = document.querySelector('.app__projects-link');
 const modalNewProject = document.querySelector('.modal-new-project');
 const createNewProjectButton = document.querySelector('.save__button--nosave');
 const closeModalButton = document.querySelector('.save__button--save');
-const projectIdLink = document.querySelectorAll('.app__project-button');
+const deleteProjectButton = document.querySelector('.delete-button');
+const projectLinks = document.querySelectorAll('.app__project-link');
 
 
 const onProjectNameInputChange = () => {
@@ -67,16 +71,22 @@ const onDocumentEscapePressed = (evt) => {
 //   project = createDefaultProject(getSounds)
 // }
 
-const addOpenModalButtonHandler = () => {
+const addOpenModalButtonHandler = (project) => {
 
   openModalButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     modalNewProject.classList.add('modal__show');
     closeModalButton.addEventListener('click', closeModalNewProject);
     createNewProjectButton.addEventListener('click', () => {
-     currentProject = null;
-
-    })
+      resetProject(project, () => {
+        const newProject = createDefaultProject(buffer.urls);
+        project = newProject;
+        currentProject = project;
+      })
+      // => {renderProject(project = createDefaultProject(buffer.urls);});
+    //currentProject = createDefaultProject(getSounds());
+    closeModalNewProject()
+   })
     document.addEventListener('keydown', onDocumentEscapePressed);
   })
 }
@@ -100,11 +110,9 @@ const addSaveButtonHandler = (project, onSuccess) => {
 const addUpdateButtonHandler = (project, onSuccess) => {
   updateProjectButton.addEventListener('click', () => {
   updateProject(project, onSuccess);
-    console.log(JSON.stringify(project))
+  console.log(JSON.stringify(project))
   });
 }
-
-
 
 const setProjectDisabledSteps = (project, cb) => {
   const {lanes} = project;
@@ -122,12 +130,34 @@ const setProjectDisabledSteps = (project, cb) => {
 const changeProjectUpdateButton = () => {
   saveButton.classList.add('visually-hidden');
   updateProjectButton.classList.remove('visually-hidden');
+  deleteProjectButton.classList.remove('visually-hidden');
    
   //projectNameInput.placeholder = project.name;
 };
 
-const resetProject = (project) => {
+
+const getPkByProjectLink = (onSuccess) => {
+  projectLinks.forEach((projectLink) => {
+    projectLink.addEventListener('click', (evt) => {
+      evt.preventDefault();
+      const pk = evt.target.dataset.pk;
+      getProject(pk, onSuccess)
+    })
+  })
+}
+
+
+
+
+
+const resetProject = (project, cb) => {
+  removeOldEventListeners()
+  for (let prop in project) 
+    {if (project.hasOwnProperty(prop)) { delete project[prop];}};
+
+    cb(project)
   
+
 } 
 
 
@@ -136,4 +166,5 @@ const resetProject = (project) => {
 
 
 
-export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton} 
+
+export {addProjectsHandlers, addOpenModalButtonHandler, addSaveButtonHandler, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton} 

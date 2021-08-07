@@ -17,19 +17,12 @@ const deleteBpmUnit = () => {
 
 const addBpmButtonsClickHandlers = () => {
   incrementButton.addEventListener('click', addBpmUnit);
-  // incrementButton.addEventListener('mousedown', () => {
-  
-  //   let timeout = setTimeout(addBpmUnit, 1)
-    
-  // })
   decrementButton.addEventListener('click', deleteBpmUnit)
 }
 
-const addBpmInputHandler = () => {
-    bpmControl.addEventListener('change', function() {
-     bpmControl.value = this.value;
-  });
-};
+function onBpmInputChange () {
+  bpmControl.value = this.value;
+}
 
 const checkBpmControlValidity = (cb) => {
   const validity = bpmControl.value < 1 ?
@@ -47,22 +40,26 @@ const changeBpmControlValue = () => {
 }
 
 const addBpmHandlers = () => {
-  addBpmInputHandler();
+  bpmControl.addEventListener('change', onBpmInputChange);
   addBpmButtonsClickHandlers();
   bpmControl.addEventListener('change', () => {
     checkBpmControlValidity(changeBpmControlValue);
   })
 }
 
+// const removeBpmHandlers = () => {
+//   bpmControl.removeEventListener('change', onBpmInputChange);
+//   incrementButton.removeEventListener('click', addBpmUnit);
+//   decrementButton.removeEventListener('click', deleteBpmUnit);
+//   bpmControl.removeEventListener('change', () => {
+//     checkBpmControlValidity(changeBpmControlValue);
+// })
+
+
 const setBpm = () => {
   return bpmControl.value;
-  
 }
 
-const setTempo = () => {
-  const bpm = bpmControl.value
-  const tic = (60 / bpm) / 4;
-  return tic; 
-}
 
-export {initialBpm, addBpmHandlers, setBpm, setTempo};
+
+export {initialBpm, addBpmHandlers, setBpm};

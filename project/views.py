@@ -6,17 +6,51 @@ from .models import Project
 import json
 
 
+def projects(request):
+    if request.user.is_authenticated:
+        user = request.user
+        if request.method == 'GET':
+            return JsonResponse(serialize(retrieve_all(user)), 
+                                encoder=DjangoJSONEncoder, 
+                                safe=False)
+        elif request.method == 'POST':
+            return JsonResponse(serialize([new(request, user), ]),
+                                encoder=DjangoJSONEncoder, 
+                                safe=False)
+        elif request.method == 'DELETE':
+            delete_all(user)
+    else:
+        return redirect('accounts/login/')
+
+
+def project(request, id=id):
+    if request.user.is_authenticated:
+        user = request.user
+        if request.method == 'GET':
+            project = retrieve(id)
+            serialized = serialize([project, ])
+            print(serialized)
+            return JsonResponse(serialized, 
+                                encoder=DjangoJSONEncoder, 
+                                safe=False)
+        elif request.method == 'PUT':
+            updated_project = update(request, id)
+            serialized_project = serialize([updated_project, ])
+            return JsonResponse(serialized_project, 
+                                encoder=DjangoJSONEncoder, 
+                                safe=False)
+        elif request.method == 'DELETE':
+            delete(id)
+            return JsonResponse(serialize(retrieve_all(user)), 
+                                encoder=DjangoJSONEncoder, 
+                                safe=False)
+    else:
+        return redirect('accounts/login/')
+
+
 def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
     return json_data
-
-
-def serialize(projects):
-    return serializers.serialize('json', projects)
-
-
-def valid(project):
-    return project
 
 
 def new(request, user):
@@ -63,50 +97,17 @@ def delete_all(user):
     Project.objects.filter(user=user).delete()
 
 
-def projects(request):
-    if request.user.is_authenticated:
-        user = request.user
-        if request.method == 'GET':
-            return JsonResponse(serialize(retrieve_all(user)), 
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
-        elif request.method == 'POST':
-            return JsonResponse(serialize([new(request, user), ]),
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
-        elif request.method == 'DELETE':
-            delete_all(user)
-    else:
-        return redirect('accounts/login/')
-
-
-def project(request, id=id):
-    if request.user.is_authenticated:
-        user = request.user
-        if request.method == 'GET':
-            project = retrieve(id)
-            serialized = serialize([project, ])
-            return JsonResponse(serialized, 
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
-        elif request.method == 'PUT':
-            updated_project = update(request, id)
-            serialized_project = serialize([updated_project, ])
-            return JsonResponse(serialized_project, 
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
-        elif request.method == 'DELETE':
-            delete(id)
-            return JsonResponse(serialize(retrieve_all(user)), 
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
-    else:
-        return redirect('accounts/login/')
-
-
 # function to delete all projects of current user 
 # in response to url 'projects/delete_everything'
 def delete_everything(request):
     user = request.user
     delete_all(user)
     return redirect('/')
+
+
+def serialize(projects):
+    return serializers.serialize('json', projects)
+
+
+def valid(project):
+    return project

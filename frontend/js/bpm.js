@@ -30,14 +30,14 @@ const checkBpmControlValidity = (cb) => {
   bpmControl.setCustomValidity('');
   bpmControl.reportValidity(validity);
   cb()
-}
+};
 
 
 const changeBpmControlValue = () => {
   if (bpmControl.value < 1) {
       bpmControl.value = 1;
   }
-}
+};
 
 const addBpmHandlers = () => {
   bpmControl.addEventListener('change', onBpmInputChange);
@@ -45,21 +45,22 @@ const addBpmHandlers = () => {
   bpmControl.addEventListener('change', () => {
     checkBpmControlValidity(changeBpmControlValue);
   })
-}
+};
 
-// const removeBpmHandlers = () => {
-//   bpmControl.removeEventListener('change', onBpmInputChange);
-//   incrementButton.removeEventListener('click', addBpmUnit);
-//   decrementButton.removeEventListener('click', deleteBpmUnit);
-//   bpmControl.removeEventListener('change', () => {
-//     checkBpmControlValidity(changeBpmControlValue);
-// })
+const removeBpmHandlers = () => {
+  bpmControl.removeEventListener('change', onBpmInputChange);
+  incrementButton.removeEventListener('click', addBpmUnit);
+  decrementButton.removeEventListener('click', deleteBpmUnit);
+  bpmControl.removeEventListener('change', () => {
+    checkBpmControlValidity(changeBpmControlValue);
+  });
+};
 
 
 const setBpm = () => {
   return bpmControl.value;
-}
+};
 
 
 
-export {initialBpm, addBpmHandlers, setBpm};
+export {initialBpm, addBpmHandlers, setBpm, removeBpmHandlers};

@@ -4,8 +4,7 @@ import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js';
 import {setSounds} from './data-store.js';
-import {renderInitialProject} from './initial-project.js';
-import {renderProject} from './renderer.js'
+import {renderInitialProject} from './renderer.js'
 
 import '../sass/style.sass';
 
@@ -22,17 +21,12 @@ buffer.createBuffer(() =>  {
   setSounds(buffer.urls)
 })
 
+window.currentProject = createDefaultProject(buffer.urls);
 
-
-
-  const project = createDefaultProject(buffer.urls);
-
-window.currentProject = project
-renderInitialProject(currentProject);
 
  
 addProjectsHandlers();
-addOpenModalButtonHandler(project);
+addOpenModalButtonHandler(currentProject, renderInitialProject);
 
 addPlayerButtonsHandlers();
 
@@ -46,7 +40,9 @@ addUpdateButtonHandler(currentProject, () => {
   console.log('ok')
 });
 
-getPkByProjectLink(renderProject)
+getPkByProjectLink(changeProjectUpdateButton)
+
+
 
 
 

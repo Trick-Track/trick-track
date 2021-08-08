@@ -1,11 +1,14 @@
-import {initialBpm} from './bpm.js';
+import {initialBpm, addBpmHandlers, removeBpmHandlers} from './bpm.js';
 import {initialBeats, addBeatsHandlers} from './beats.js';
 import {playSound} from './player.js';
-import {setProjectDisabledSteps} from './project.js';
+import {setProjectDisabledSteps, setProjectNamePlaceHolder} from './project.js';
+import {addControlsHandlers, removeControlsHandlers} from './controls.js';
+import {addArrowsHandlers} from './slider.js';
 
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
 const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
+
 
 // const createLine = (sound) => {
 //   const newSample = sampleTemplate.cloneNode(true);
@@ -51,12 +54,9 @@ const renderLane = (lane) => {
   newSample.querySelector('[data-action="panner"]').value = panner;
   newSample.querySelector('[data-action="volume"]').value = volume;
 
-
-
   sampleList.append(newSample);
 
   const stepsList = newSample.querySelectorAll('.sequencer__steps-list');
-
 
   fillStep(stepsList, cells);
 };
@@ -66,9 +66,12 @@ const renderLane = (lane) => {
 
 const renderProject = (project) => {
   initialBeats(project);
+  setProjectNamePlaceHolder(project);
+
   let {lanes, bpm} = project;
     bpm = initialBpm(project);
-    lanes.forEach((lane) => {
+
+  lanes.forEach((lane) => {
     renderLane(lane);
   })
 };
@@ -89,6 +92,7 @@ const createAllCellsArray = (project, cb) => {
   const allCellsLists = [];
   lanes.forEach((lane) => {
     const i = lanes.indexOf(lane, 0);
+    
     const cellsOfLane = createCellsArray(i);
     allCellsLists.push(cellsOfLane);
     setCellBackgroundColor(allCellsLists)
@@ -107,7 +111,6 @@ const setCellBackgroundColor = (cellsButtons) => {
     };
   });
 };
-
 
 
 const addButtonCellHandler = (project, cellsButtons, callback) => {
@@ -144,7 +147,6 @@ const renderStateCellElement = (project, cellsButtons) => {
 const createPlaybackElement = () => {
     const playbackStep = document.createElement('div');
     playbackStep.classList.add('sequencer__playback-element');
-   // playbackStep.classList.add('sequencer__playback-element--no-played');
     return playbackStep;
 }
  
@@ -156,11 +158,8 @@ const createPlaybackElementsWrapper = (n) => {
         const playbackStep = createPlaybackElement();
         playbackList.append(playbackStep);
       }
-  
     return playbackList;
-}
-
-
+};
 
 const renderPlaybackLine = () => {
   const playbackWrapperFirst = document.querySelector('.slide-1');
@@ -208,21 +207,37 @@ const addSoundsButtonHandlers = (project) => {
   });
 };
 
+
 const addButtonCellHandlers = (project, cellsButtons) => {
+  renderStateCellElement(project, cellsButtons)
   addButtonCellHandler(project, cellsButtons, renderStateCellElement);
   addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons)}))
 }
 
 
 
+const renderInitialProject = (project) =>  {
+  addBpmHandlers();
+  renderProject(project);
+  renderPlaybackLine();
+  createAllCellsArray(project, addButtonCellHandlers);
+  addSoundsButtonHandlers(project);
+  addControlsHandlers(project);
+  addArrowsHandlers();
+}
 
-// const renderInitialProject = (project) => {
-//   // addBpmHandlers();
-//   // renderProject(project);
-//   // renderPlaybackLine();
-//   // createAllCellsArray(project, addButtonCellHandlers) ;
-//   // addSoundsButtonHandlers(project);
-// }
+const removeOldEventListeners = () => {
+  removeControlsHandlers();
+  removeBpmHandlers();
+};
+
+const resetProjectRendering= () => {
+  const projectLanesElements = document.querySelectorAll('.sequencer__samples-item');
+  for (let i = 0; i < projectLanesElements.length; i++) {
+    sampleList.removeChild(projectLanesElements[i]);
+  }
+}
+
 
 //создание newlane
 
@@ -244,4 +259,4 @@ const addButtonCellHandlers = (project, cellsButtons) => {
 
 
   
-  export {fillCurrentPlaybackStep, setCellBackgroundColor, createAllCellsArray, addSoundsButtonHandlers, renderProject, renderPlaybackLine, addButtonCellHandlers}
+  export {fillCurrentPlaybackStep, setCellBackgroundColor, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering}

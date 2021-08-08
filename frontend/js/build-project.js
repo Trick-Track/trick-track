@@ -1,4 +1,4 @@
-import {renderInitialProject} from './initial-project.js';
+import {renderInitialProject} from './renderer.js';
 
 const STEPS = 32;
 const defaultBpm = 120;
@@ -48,8 +48,8 @@ const createDefaultProject = (sounds) => {
    bpm: defaultBpm, 
    lanes: createDefaultLanes(sounds, newCells),
    }
-  //renderInitialProject(currentProject)
-  return project
+   renderInitialProject(project)
+   return project
 };
 
 

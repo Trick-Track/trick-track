@@ -1,7 +1,6 @@
 import {showError} from './messages.js';
 import {createSavedProject} from './build-project.js';
 import {resetProject} from './project.js';
-import { currentSlide } from './slider.js';
 import { renderInitialProject } from './renderer.js';
 
 const BASE_URL = '/projects';
@@ -58,7 +57,10 @@ const getProject = (pk, onSuccess) => {
     .then((projectData) => {const project = JSON.parse(projectData); return project})
     .then((project) => resetProject(currentProject, () => {
       const newProject = project[0].fields;
-      window.currentProject = newProject; 
+    
+      window.currentProject = newProject
+      currentProject['pk'] = Number(pk); 
+      console.log(currentProject)
       renderInitialProject(currentProject)
       return currentProject}))
     .then((onSuccess))

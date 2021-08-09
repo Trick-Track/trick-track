@@ -6,6 +6,7 @@ import {createDefaultProject} from './build-project.js'
 import {getSounds} from './data-store.js';
 import {removeOldEventListeners, resetProjectRendering} from './renderer.js';
 
+
 const projectNameInput = document.querySelector('#project-name');
 const saveButton = document.querySelector('.save-button');
 const updateProjectButton = document.querySelector('.update-button');
@@ -36,6 +37,7 @@ const setProjectPannerValue = (controls, project) => {
     const i = lanes.indexOf(lane, 0);
     let control = controls[i];
     lanes[i].panner = control.value;
+    console.log(ontrol.value)
   });
 }
 
@@ -63,14 +65,13 @@ const onDocumentEscapePressed = (evt) => {
   }
 };
 
-const onCreateNewProjectButtonClick = (project, cb) => {
+const onCreateNewProjectButtonClick = (project) => {
   closeModalNewProject();
   changeProjectSaveButton();
   project = createDefaultProject(getSounds())
   resetProject(project, () => {
     const newProject = createDefaultProject(buffer.urls);
     window.currentProject = newProject;
-    cb(newProject)
   })
 }
 
@@ -108,7 +109,7 @@ const addUpdateButtonHandler = (project, onSuccess) => {
   });
 }
 
-const setProjectDisabledSteps = (project, cb) => {
+const setProjectDisabledSteps = function (project, cb) {
   const {lanes} = project;
   let activeStep = setBeats();
   lanes.forEach((lane) => {
@@ -158,7 +159,7 @@ const deleteProject = (project) => {
 }
 
 const resetProject = (project, cb) => {
-  removeOldEventListeners();
+  removeOldEventListeners(project);
   resetProjectRendering()
   deleteProject(project);
   cb(project)

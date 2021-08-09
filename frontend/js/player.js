@@ -86,7 +86,6 @@ function playStepAtTime(project, playTime, cb) {
 const stopPlayback = (cb) => {
     context.suspend();
     setBeatsInputEnabledState();
-    playButton.removeEventListener('click', playSequencer);
     cb()
 }
 
@@ -111,4 +110,18 @@ const addPlayerButtonsHandlers = () => {
   })
 }
 
-export {addPlayerButtonsHandlers, playSound}
+const removeStopButtonEventListener = () => {
+  stopButton.removeEventListener('click', () => {
+    stopPlayback(setStep);
+  })
+}
+
+const removePlayerButtonsHandlers = () => {
+  removeStopButtonEventListener();
+  playButton.removeEventListener('click', () => {
+    playSequencer()
+  });
+  
+}
+
+export {addPlayerButtonsHandlers, playSound, removePlayerButtonsHandlers}

@@ -19,15 +19,17 @@ const initialBeats = (project) => {
   });
 };
 
-const addBeatsUnit = () => {
+const addBeatsUnit = function(cb) {
   if (beatsControl.value < 32){
     beatsControl.value = Number(beatsControl.value) + 1;
+    cb();
   };
 };
 
-const deleteBeatsUnit = () => {
+const deleteBeatsUnit = function(cb) {
   if (beatsControl.value > 1) {
     beatsControl.value = Number(beatsControl.value) - 1;
+    cb();
   };
 };
 
@@ -49,24 +51,6 @@ const changeBeatsControlValue = () => {
   }
 };
 
-
-const addIncrementButtonClickHandler = (cb) => {
-  incrementButton.addEventListener('click', () => {
-    addBeatsUnit();
-    cb();
-  })
-};
-
-
-const addDecrementButtonClickHandler = (cb) => {
-  decrementButton.addEventListener('click', () => {
-    deleteBeatsUnit();
-    cb();
-  })
-};
-
-
-
 const addBeatsInputHandler = (cb) => {
   beatsControl.addEventListener('change', function () {
     beatsControl.value = this.value;
@@ -76,9 +60,15 @@ const addBeatsInputHandler = (cb) => {
 }
 
 const addBeatsHandlers = (cb) => {
-  addIncrementButtonClickHandler(cb);
-  addDecrementButtonClickHandler(cb);
+  incrementButton.addEventListener('click', addBeatsUnit.bind(this, cb));
+  decrementButton.addEventListener('click', deleteBeatsUnit.bind(this, cb));
   addBeatsInputHandler(cb);
+}
+
+const removeBeatsHandlers = (cb) => {
+  incrementButton.removeEventListener('click', addBeatsUnit.bind(this, cb));
+  decrementButton.removeEventListener('click', deleteBeatsUnit.bind(this, cb));
+
 }
 
 const setBeats = () => {
@@ -97,5 +87,6 @@ const setBeatsInputEnabledState = () => {
   decrementButton.disabled = false;
 }
 
+
  
-export {initialBeats, addBeatsHandlers, setBeats, setBeatsInputDisabledState, setBeatsInputEnabledState}
+export {initialBeats, addBeatsHandlers, setBeats, setBeatsInputDisabledState, setBeatsInputEnabledState, removeBeatsHandlers}

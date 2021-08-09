@@ -1,6 +1,6 @@
 import {initialBpm, addBpmHandlers, removeBpmHandlers} from './bpm.js';
-import {initialBeats, addBeatsHandlers} from './beats.js';
-import {playSound} from './player.js';
+import {initialBeats, addBeatsHandlers, removeBeatsHandlers} from './beats.js';
+import {playSound, addPlayerButtonsHandlers, removePlayerButtonsHandlers} from './player.js';
 import {setProjectDisabledSteps, setProjectNamePlaceHolder} from './project.js';
 import {addControlsHandlers, removeControlsHandlers} from './controls.js';
 import {addArrowsHandlers} from './slider.js';
@@ -48,7 +48,7 @@ const fillStep = (stepsList, cells) => {
 
 
 const renderLane = (lane) => {
-  const{sound, cells, panner, volume} = lane
+  const{sound, cells, volume, panner} = lane
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
   newSample.querySelector('[data-action="panner"]').value = panner;
@@ -66,10 +66,11 @@ const renderLane = (lane) => {
 
 const renderProject = (project) => {
   initialBeats(project);
-  setProjectNamePlaceHolder(project);
 
-  let {lanes, bpm} = project;
+
+  let {lanes, bpm, name} = project;
     bpm = initialBpm(project);
+    name =  setProjectNamePlaceHolder(project);
 
   lanes.forEach((lane) => {
     renderLane(lane);
@@ -113,7 +114,7 @@ const setCellBackgroundColor = (cellsButtons) => {
 };
 
 
-const addButtonCellHandler = (project, cellsButtons, callback) => {
+const addButtonCellHandler = function (project, cellsButtons, callback) {
   const {lanes} = project;
   cellsButtons.forEach((cellsButtonsOfLane) => {
     const i = cellsButtons.indexOf(cellsButtonsOfLane, 0);
@@ -121,6 +122,7 @@ const addButtonCellHandler = (project, cellsButtons, callback) => {
     cellsButtonsOfLane.forEach((cellElement) => cellElement.addEventListener('click', (evt) => {
       const cellElement = evt.target;
       const j = cellsButtonsOfLane.indexOf(cellElement, 0);
+      
       cells[j].checked = cells[j].checked ? false : true; 
       callback(project, cellsButtons);
     }));
@@ -132,14 +134,15 @@ const addButtonCellHandler = (project, cellsButtons, callback) => {
 
 // }
 
-const renderStateCellElement = (project, cellsButtons) => {
+const renderStateCellElement = function (project, cellsButtons) {
   const {lanes} = project;
   for (let i = 0; i < lanes.length; i++) {
     const {cells} = lanes[i]
     for (let j = 0; j < cells.length; j++) {  
-      cells[j].disabled == true ? cellsButtons[i][j].classList.add('sequencer__cell--disabled') && cellsButtons[i][j].disabled == true :
-      cellsButtons[i][j].classList.remove('sequencer__cell--disabled') && cellsButtons[i][j].disabled == false;
-      cells[j].checked == true ? cellsButtons[i][j].classList.add('sequencer__cell--checked') : cellsButtons[i][j].classList.remove('sequencer__cell--checked') 
+      const thisButton = cellsButtons[i][j];  
+      cells[j].disabled == true ? thisButton.classList.add('sequencer__cell--disabled') && thisButton.disabled == true :
+      thisButton.classList.remove('sequencer__cell--disabled') && thisButton.disabled == false;
+      cells[j].checked == true ? thisButton.classList.add('sequencer__cell--checked') : thisButton.classList.remove('sequencer__cell--checked') 
     }
   }
 }
@@ -208,10 +211,10 @@ const addSoundsButtonHandlers = (project) => {
 };
 
 
-const addButtonCellHandlers = (project, cellsButtons) => {
+const addButtonCellHandlers = function(project, cellsButtons) {
   renderStateCellElement(project, cellsButtons)
   addButtonCellHandler(project, cellsButtons, renderStateCellElement);
-  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons)}))
+  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons)}));
 }
 
 
@@ -224,11 +227,13 @@ const renderInitialProject = (project) =>  {
   addSoundsButtonHandlers(project);
   addControlsHandlers(project);
   addArrowsHandlers();
+  addPlayerButtonsHandlers();
 }
 
-const removeOldEventListeners = () => {
+const removeOldEventListeners = (project) => {
   removeControlsHandlers();
   removeBpmHandlers();
+  removePlayerButtonsHandlers();
 };
 
 const resetProjectRendering= () => {

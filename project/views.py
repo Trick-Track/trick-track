@@ -29,7 +29,6 @@ def project(request, id=id):
         if request.method == 'GET':
             project = retrieve(id)
             serialized = serialize([project, ])
-            print(serialized)
             return JsonResponse(serialized, 
                                 encoder=DjangoJSONEncoder, 
                                 safe=False)

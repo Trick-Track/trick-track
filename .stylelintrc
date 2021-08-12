@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "stylelint-scss"
+  ],
+
+  "rules": {
+    "declaration-no-important": true,
+    "indentation": [2, {"ignore": ["inside-parens"]}]
+  }
+}

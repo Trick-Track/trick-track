@@ -6,17 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>trick-track</title>
 
-      <script defer src={% static "main.js" %}></script><link href={% static "main.css" %} rel="stylesheet"></head>
+    <script defer src={% static "main.js" %}></script><link href={% static "main.css" %} rel="stylesheet"></head>
   </head>
   <body class="page__body">
     <svg style="display: none" xmlns="http://www.w3.org/2000/svg">
-      <symbol viewBox="0 0 32 32" id="switch" ><path d="M15.5 16a3.5 3.5 0 01-3.5-3.5v-8a3.5 3.5 0 117 0v8a3.5 3.5 0 01-3.5 3.5zm0-13A1.5 1.5 0 0014 4.5v8a1.5 1.5 0 003 0v-8A1.5 1.5 0 0015.5 3z"/><path d="M15.52 32h-.74a15.47 15.47 0 01-6.2-29.32 1 1 0 011.42.89v7.5a1 1 0 01-.23.64 7.48 7.48 0 1013.14 5.9 7.41 7.41 0 00-1.65-5.89 1 1 0 01-.23-.64V3.57a1 1 0 011.45-.89 15.46 15.46 0 013.75 25A15.35 15.35 0 0115.52 32zM8 5.31a13.47 13.47 0 1015 0v5.42a9.34 9.34 0 011.86 7.16A9.48 9.48 0 118 10.72z"/></symbol>
-      <!-- <symbol viewBox="0 0 92 70" fill="none">
-        <path d="M1.98198 17.2065L39.6084 65.058C42.9046 70.8353 48.2486 70.8353 51.5464 65.058L89.1776 17.2C89.9124 16.1527 90.7044 14.2859 90.8648 13.0154C91.3814 8.90308 91.7902 0.687683 86.8036 0.687683H4.35249C-0.634092 0.687683 -0.223414 8.9078 0.294716 13.0217C0.455108 14.2904 1.24737 16.159 1.98198 17.2065Z" fill="black"/>
-      </symbol> -->
       <symbol viewBox="0 0 32 32" id="stop-button"><g><rect x="2" y="4" width="24" height="24" rx="1"/></g><defs><filter id="filter0_di" x="0" y="0" width="32" height="32" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dx="2"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="-2"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter></defs></symbol>
       <symbol viewBox="0 0 30 34" id="play-button"><g><path d="M23.5 17.866a1 1 0 000-1.732L4 4.876a1 1 0 00-1.5.866v22.516a1 1 0 001.5.866l19.5-11.258z"/></g><filter id="filter0_di" x=".5" y=".74" width="29.5" height="32.52" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/><feOffset dx="2"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="-2"/><feGaussianBlur stdDeviation="2"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter>
       </symbol>
+      <symbol viewBox="0 0 22 22" id="switch"><path d="M12.1 0C16.989 0 22 4.714 22 11c0 6.119-4.649 11-11 11S0 17.31 0 11 5.011 0 9.9 0c-.5 7-.733 9.9 1.1 9.9 1.833 0 1.6-2.9 1.1-9.9z"></path><filter id="filter0_i" x="0" y="0" width="22" height="23" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feBlend in="SourceGraphic" in2="BackgroundImageFix" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation="2.5"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/><feBlend in2="shape" result="effect1_innerShadow"/></filter></defs></symbol>
       <symbol viewBox="0 0 15 14" id="counter"><path d="M4.334 6h6.332c.383 0 .351-.717.311-1.077a1.05 1.05 0 00-.13-.365L7.959.378c-.253-.504-.663-.504-.916 0l-2.89 4.18a1.05 1.05 0 00-.13.365c-.04.36-.07 1.077.312 1.077z"/><defs><filter id="filter0_di" x="0" y="0" width="15" height="14" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation=".5"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter></symbol> 
       <symbol viewBox="0 0 15 14" id="counter-decrement"><path d="M10.666 0H4.334c-.383 0-.351.717-.311 1.077.012.11.073.274.13.365l2.889 4.18c.253.504.663.504.916 0l2.89-4.18a1.05 1.05 0 00.13-.365c.04-.36.07-1.077-.312-1.077z"/></g><defs><filter id="filter0_di" x="0" y="0" width="15" height="14" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation=".5"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter></defs></symbol>
       <symbol viewBox="0 0 8 14" id="arrow-right"><path d="M7.237 6.642L1.729 1.133a.506.506 0 10-.716.716L6.163 7l-5.151 5.15a.507.507 0 00.716.717l5.509-5.509a.504.504 0 000-.716z"/></symbol>
@@ -50,7 +47,7 @@
               <label for="beats">beats</label>
             </div>
               <div class="app-beats__buttons app-counters">
-                <button type="button" class="app-beats__button--increment app__counter app__counter--increment">
+                <button type="button" class="app-beats__button app-beats__button--increment app__counter app__counter--increment">
                 <svg width="14" height="15"><use xlink:href="#counter"></use></svg></button>
                 <button type="button" class="app-beats__button app-beats__button--decrement app__counter app__counter--decrement"><svg width="14" height="15"><use xlink:href="#counter-decrement"></use></svg></button>
               </div>
@@ -60,12 +57,11 @@
               <button type="button" class="player__button player__button--stop" id="stop"><svg width="32" height="32" aria-label="stop track"><use xlink:href="#stop-button"></use></svg></button>
             </div>
           
-  <!-- User section -->
             <div class="app__user">
               {% if user.is_authenticated %}
-                <a class="app__user-link" href="/accounts/logout">logout<svg width="30" height="40"><use xlink:href="#logout"></use></svg></a>
+                <a class="app__user-link" href="/accounts/logout">logout<svg width="24" height="24"><use xlink:href="#logout"></use></svg></a>
                 {% else %}
-                <a class="app__user-link" href="/accounts/login">login<svg width="30" height="40"><use xlink:href="#login"></use></svg>
+                <a class="app__user-link" href="/accounts/login">login<svg width="24" height="24"><use xlink:href="#login"></use></svg>
                 {% endif %}
               </a>
             </div>
@@ -83,7 +79,6 @@
             {% for project in projects %}
               <li class="app__project-item">
                 <a  class="app__project-link app__project-button" href="#" data-pk="{{project.pk}}">{{project.name}}</a>
-                <!-- <p>{{project.pk}}</p> -->
               </li>
             {% endfor %}
             {% endif %}
@@ -100,7 +95,8 @@
                   <input type="text" name="project-name" id="project-name">
                 </div>
                 <button type="submit" class="project-button save-button">save</button>
-                <button type="submit" class="project-button update-button visually-hidden">update</button>
+                <button type="submit" class="project-button project-button--update update-button visually-hidden">update</button>
+                <button type="submit" class="project-button project-button--delete delete-button visually-hidden">delete</button>
               </div>
 
               <div class="app__project-toggles slider__buttons">
@@ -109,45 +105,54 @@
               </div>
                 
               <div class="sequencer__wrapper">
-                <ul class="sequencer__samples-list"></ul>
+                <ul class="sequencer__samples-list" id="#sequencer-list"></ul>
               </div>
             </div>
-            <button type="submit" class="project-button project-button--delete delete-button visually-hidden">delete project</button>
-        </div>
+          </div>
       </div>
       </section>
     </main>
 
 
     <footer>
-      <div>rr</div>
+      
     </footer>
 
     <template id="matrix">
-      <li class="sequencer__samples-item">
-        <div class="sequencer__controls">
-           <div class="sequencer__controls-panner"> 
-            <label class="sequencer__controls-label sequencer__controls-label--panner" for="panner">
-              <svg class="sequencer__controls-label-img" width="25" height="25" tabindex="0"><use xlink:href="#switch"></use></svg>
-              <input class="sequencer__controls-input sequencer__controls-input--panner visually-hidden" type="range" id="panner" class="control-panner" list="pans" min="-1" max="1" value="0" step="0.01" data-action="panner"/>
-              <datalist id="pan-vals">
-                <option value="-1" label="left">
-                <option value="1" label="right">
-              </datalist>
-            </label>
+      <li class="sequencer__samples-item" id="#sequencer-item">
+        <div class="sequencer__sound-buttons">
+          <button class="button sample-button"></button>
+          <div class="sequencer__controls">
+            <div class="sequencer__controls-volume">
+              <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" data-action="volume"/>
+                <datalist id="volums-values">
+                  <option value="0" label="min">
+                  <option value="2" label="max">
+                </datalist>
+              <label for="volume"></label>
+            </div>
+
+            <div class="sequencer__controls-panner"> 
+              <label class="sequencer__controls-label sequencer__controls-label--panner" for="panner">
+                <div class="sequencer__controls-label-group">
+                  <span class="sequencer__panner-span sequencer__panner-span--left">l</span>
+                  <svg class="sequencer__controls-label-img" width="24" height="24" tabindex="0"><use xlink:href="#switch"></use></svg>
+                  <span class="sequencer__panner-span sequencer__panner-span--right">r</span>
+                </div>
+                <input class="sequencer__controls-input sequencer__controls-input--panner visually-hidden" type="range" id="panner" class="control-panner" list="pans" min="-1" max="1" value="0" step="0.01" data-action="panner"/>
+                <datalist id="pan-vals">
+                  <option value="-1" label="left">
+                  <option value="1" label="right">
+                </datalist>
+              </label>
+            </div>
+  
           </div>
 
-          <div class="sequencer__controls-volume">
-            <input class="sequencer__controls-input sequencer__controls-input--volume" type="range" class="control-volume" min="0" max="2" list="volums" step="0.01" data-action="volume"/>
-              <datalist id="volums-values">
-                <option value="0" label="min">
-                <option value="2" label="max">
-              </datalist>
-            <label for="volume"></label>
-          </div>
+        
+         
         </div>
-
-        <button class="button sample-button"></button>
+        
         <div class="sequencer__steps slider">
           <div class="slide slide-1 slide--current" id="slide-1">
             <div class="sequencer__steps-list sequencer__steps-list--first"></div>
@@ -193,31 +198,5 @@
         </div>
       </div>
     </section>
-
-  <section class="modal-user modal">
-    <div class="modal-user__content">
-      <button class="modal-close button-close" type="button" aria-label="Close">X</button>
-      <h2 class="modal-user__heading">Sign in</h2>
-      <form class="modal-user__form user-form" method="post" action="">
-        <div class="user-field">
-          <input class="form-name" type="text" id="user-name" name="user" placeholder="" required>
-          <label for="user-name">Your name</label>
-        </div>
-        <div class="user-field">
-          <input class="form-email" id="user-email" type="email" name="user" placeholder="email@example.com" required>
-          <label for="user-email">Your e-mail:</label>
-        </div>
-        <div class="user-field">
-          <input type="password" id="user-password" class="form-password">
-          <label data-error="wrong" data-success="right" for="user-password">Your password</label>
-        </div>
-        <div class="modal-button-block">        
-          <input class="button user-button" type="submit" value="Login">
-        </div>
-      </form>
-    </div>
-  </section>
-
-
   </body>
   </html>

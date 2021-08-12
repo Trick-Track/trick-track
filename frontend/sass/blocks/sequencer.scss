@@ -5,6 +5,7 @@
   height: auto;
   background-color: none;
   margin-top: 30px;
+  width: 100%;
 };
 
 .sequencer__samples-list {
@@ -82,11 +83,18 @@
   } 
 };
 
+.sequencer__sound-buttons {
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+}
+
 .sample-button {
+  @include backlight ($plum);
   @include button-reset;
-  margin-right: 10px;
-  width: 130px;
+  width: 170px;
   height: 20px;
+  z-index: 2;
   color: $grey;
   font-family: 'Share Tech Mono', 'Arial', monospace;
   font-size: 14px;
@@ -95,7 +103,7 @@
   @media (max-width: $mobile-width) {
     color: $sandy;
     margin-top: -10px;
-    //width: 70px;
+    width: 70px;
   }
 
 

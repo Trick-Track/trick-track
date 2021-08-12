@@ -12,9 +12,7 @@
 }
 
 .sequencer__controls-volume {
-  margin-right: -130px;
-  margin-top: 20px;
-
+  margin-right: 10px;
   @media (max-width: $mobile-width) {
     margin-top: 10px;
   }
@@ -76,15 +74,32 @@
   }
 }
 
+.sequencer__controls-label-group {
+  display: flex;
+  justify-content: center;
+}
 
-.sequencer__controls-label-img {
-  fill: $grey;
-  
-  &:hover, 
-  &:focus {
-    fill: $sandy;
-    border: none;
+.sequencer__panner-span {
+  text-transform: uppercase;
+  align-self: bottom;
+  font-size: 12px;
+
+  &--left {
+    margin-right: 3px;
   }
 
- 
+  &--right {
+    margin-left: 3px;
+  }
+}
+
+
+.sequencer__controls-label-img {
+  margin-top: -5px;
+  fill: $sandy;
+  &:hover, 
+  &:focus {
+    //fill: $sandy;
+    //border: none;
+  }
 }

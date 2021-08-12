@@ -26,14 +26,14 @@
 };
 
 .app__header-wrapper {
-  padding: 0 70px;
-  margin: 0 auto;
+  padding: 0 50px;
   height: auto;
   display: flex;
   flex-flow: row wrap;
   flex-direction: start;
   align-items: center;
   padding-left: 15%;
+  max-width: 1300px;
 
   @media (max-width: $mobile-width) {
     padding-left: 5px;
@@ -103,7 +103,7 @@
 
   & svg {
     position: absolute;
-    top: -15px;
+    top: -6px;
     fill: $grey;
   }
 

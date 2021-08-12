@@ -2,8 +2,7 @@ import {isEscEvent} from './util.js';
 import {sendProject, getProject, updateProject} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
-import {createDefaultProject} from './build-project.js'
-import {getSounds} from './data-store.js';
+import {createDefaultProject} from './build-project.js';
 import {removeOldEventListeners, resetProjectRendering} from './renderer.js';
 
 
@@ -20,7 +19,7 @@ const projectLinks = document.querySelectorAll('.app__project-link');
 
 const setProjectName = () => {
   return projectNameInput.value;
-}
+};
 
 const addProjectNameInputHandler = () => {
   projectNameInput.addEventListener('change', setProjectName);
@@ -28,27 +27,29 @@ const addProjectNameInputHandler = () => {
 
 const setProjectNamePlaceHolder = (project) =>{
   projectNameInput.placeholder = project.name;
-}
+};
 
 
 const setProjectPannerValue = (controls, project) => {
   const {lanes} = project;
-    lanes.forEach((lane) => {
+  lanes.forEach((lane) => {
     const i = lanes.indexOf(lane, 0);
     let control = controls[i];
     lanes[i].panner = control.value;
-    console.log(ontrol.value)
+    console.log(control.value);
   });
-}
+};
+
 
 const setProjectVolumeValue = (controls, project) => {
-  const {lanes} = project
+  const {lanes} = project;
   lanes.forEach((lane) => {
     const i = lanes.indexOf(lane, 0);
     let control = controls[i];
     lanes[i].volume = control.value;
   });
 };
+
 
 const closeModalNewProject = () => {
   modalNewProject.classList.remove('modal__show');
@@ -65,49 +66,56 @@ const onDocumentEscapePressed = (evt) => {
   }
 };
 
-const onCreateNewProjectButtonClick = (project) => {
+
+const onCreateNewProjectButtonClick = () => {
   closeModalNewProject();
   changeProjectSaveButton();
-  project = createDefaultProject(getSounds())
-  resetProject(project, () => {
+  //project = createDefaultProject(getSounds());
+  resetProject(currentProject, () => {
     const newProject = createDefaultProject(buffer.urls);
     window.currentProject = newProject;
-  })
-}
+    return newProject;
+  });
+};
 
 const addOpenModalButtonHandler = (project) => {
   openModalButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     modalNewProject.classList.add('modal__show');
     closeModalButton.addEventListener('click', closeModalNewProject);
-    createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick)
+    createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick);
     document.addEventListener('keydown', onDocumentEscapePressed(project));
-  })
-}
+  });
+};
 
-const addProjectsHandlers = () => {
+
+const addProjectsHandlers = () => { 
   addProjectNameInputHandler();
-  //addOpenModalButtonHandler();
-}
+};
+
 
 const setProjectInputsValues = (project) => {
   project.name = setProjectName();
   project.bpm = setBpm();
-}
+};
+
 
 const addSaveButtonHandler = (project, onSuccess) => {
   saveButton.addEventListener('click', () => {
     setProjectInputsValues(project);
     sendProject(project, onSuccess);
   });
-}
+};
+
 
 const addUpdateButtonHandler = (project, onSuccess) => {
   updateProjectButton.addEventListener('click', () => {
     setProjectInputsValues(project);
     updateProject(project, onSuccess);
+    console.log(project);
   });
-}
+};
+
 
 const setProjectDisabledSteps = function (project, cb) {
   const {lanes} = project;
@@ -122,54 +130,52 @@ const setProjectDisabledSteps = function (project, cb) {
   });
 };
 
+
 const changeProjectUpdateButton = () => {
- if (updateProjectButton.classList.contains('visually-hidden')) {
+  if (updateProjectButton.classList.contains('visually-hidden')) {
     saveButton.classList.add('visually-hidden');
     deleteProjectButton.classList.remove('visually-hidden');
     updateProjectButton.classList.remove('visually-hidden');
   }
 };
 
+
 const changeProjectSaveButton = () => {
   if (saveButton.classList.contains('visually-hidden')) {
-     saveButton.classList.remove('visually-hidden');
-     deleteProjectButton.classList.add('visually-hidden');
-     updateProjectButton.classList.add('visually-hidden');
-   }
- };
+    saveButton.classList.remove('visually-hidden');
+    deleteProjectButton.classList.add('visually-hidden');
+    updateProjectButton.classList.add('visually-hidden');
+  }
+};
+
 
 const getPkByProjectLink = (onSuccess) => {
   projectLinks.forEach((projectLink) => {
     projectLink.addEventListener('click', (evt) => {
       evt.preventDefault();
       const pk = evt.target.dataset.pk;
-      getProject(pk, onSuccess)
-    })
-  })
-}
-
+      getProject(pk, onSuccess);
+    });
+  });
+}; 
 
 
 const deleteProject = (project) => {
-  for (let props in project) 
-    {if (project.hasOwnProperty(props)) {
-      delete project[props]
+  console.log(project);
+  Object.keys(project).forEach(key => {
+    if (project.hasOwnProperty(key)) {
+      delete project[key];
     }
-  };
-}
+  });
+};
+
 
 const resetProject = (project, cb) => {
-  removeOldEventListeners(project);
-  resetProjectRendering()
+  removeOldEventListeners();
+  resetProjectRendering();
   deleteProject(project);
-  cb(project)
-} 
+  cb();
+};
 
 
-
-
-
-
-
-
-export {addProjectsHandlers, addOpenModalButtonHandler, resetProject, addSaveButtonHandler, setProjectNamePlaceHolder, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton} 
+export {addProjectsHandlers, addOpenModalButtonHandler, resetProject, addSaveButtonHandler, setProjectNamePlaceHolder, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton};

@@ -4,12 +4,15 @@ import {currentSlide} from './slider.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 
+
 const playButton = document.getElementById('play');
 const stopButton = document.getElementById('stop');
+
 
 let startTime = 0;
 let nextStepTime = 0.0;
 let currentStep = 0;
+
 
 const playSound = (audioData, playTime, project) => {
 
@@ -34,15 +37,17 @@ const playSound = (audioData, playTime, project) => {
   source.connect(gainNode).connect(panner).connect(context.destination);
   source.start(playTime);
   if (context.state === 'suspended') {
-    context.resume().then(source.start(playTime)).then(context.suspend())
+    context.resume().then(source.start(playTime)).then(context.suspend());
   }
 };
+
 
 const setTempo = () => {
   const bpm = setBpm();
   const tic = (60 / bpm) / 4;
   return tic; 
-}
+};
+
 
 function scheduleSound() {
   let now = context.currentTime;
@@ -54,8 +59,8 @@ function scheduleSound() {
     playStepAtTime(currentProject, pt, fillCurrentPlaybackStep);
     nextStep(currentSlide);
   }
-    const timer = setTimeout(scheduleSound, 0)
-};
+  const timer = setTimeout(scheduleSound, 0);
+}
 
 function nextStep(callback) {
   currentStep++;
@@ -68,60 +73,49 @@ function nextStep(callback) {
 
   let tempo = setTempo();
   nextStepTime += tempo;
-};
+}
 
 function playStepAtTime(project, playTime, cb) {
-    const {lanes} = project;
-    for(let i = 0; i < lanes.length; i++) {
-        const lane = lanes[i];
-  
-       if (lane.cells[currentStep].checked == true) {
-          playSound(buffer.getSound(i), playTime, project);
-        }
+  const {lanes} = project;
+  for(let i = 0; i < lanes.length; i++) {
+    const lane = lanes[i];
+
+    if (lane.cells[currentStep].checked == true) {
+      playSound(buffer.getSound(i), playTime, project);
     }
-    cb(currentStep)
-};
+  }
+  cb(currentStep);
+}
 
 
 const stopPlayback = (cb) => {
-    context.suspend();
-    setBeatsInputEnabledState();
-    cb()
-}
+  context.suspend();
+  setBeatsInputEnabledState();
+  cb();
+};
+
 
 const setStep = () => {
   currentStep = 0;
-}
+};
+
 
 const playSequencer = () => {
-    scheduleSound()
-    setBeatsInputDisabledState();
-    if (context.state === 'suspended') {
-        context.resume();
-    }
-}
+  scheduleSound();
+  setBeatsInputDisabledState();
+  if (context.state === 'suspended') {
+    context.resume();
+  }
+};
 
 const addPlayerButtonsHandlers = () => {
   playButton.addEventListener('click', () => {
-    playSequencer()
+    playSequencer();
   });
   stopButton.addEventListener('click', () => {
     stopPlayback(setStep);
-  })
-}
-
-const removeStopButtonEventListener = () => {
-  stopButton.removeEventListener('click', () => {
-    stopPlayback(setStep);
-  })
-}
-
-const removePlayerButtonsHandlers = () => {
-  removeStopButtonEventListener();
-  playButton.removeEventListener('click', () => {
-    playSequencer()
   });
-  
-}
+};
 
-export {addPlayerButtonsHandlers, playSound, removePlayerButtonsHandlers}
+
+export {addPlayerButtonsHandlers, playSound};

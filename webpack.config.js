@@ -38,22 +38,20 @@ module.exports = {
           MiniCssExtractPlugin.loader,
           'css-loader?url=false',
           'sass-loader',
-      ]},
+        ]},
       {
         test: /\.(woff|woff2)$/,
         type: 'asset/resource',
         use: ['file-loader'],
-    
       },
       
       {
         test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
         type: 'asset/resource',
         use: ['file-loader'],
-      } 
+      }, 
     ],
   },
-
 
   plugins: [
     new CleanWebpackPlugin(),

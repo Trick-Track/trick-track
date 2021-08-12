@@ -1,14 +1,18 @@
 .app__user-projects {
-
-    grid-column: 1;
-    grid-row-start: 1;
-    //grid-row-end: -1;
-    min-height: 100vw;
-    padding-bottom: 50px;
-  
-
+  grid-column: 1;
+  grid-row-start: 1;
+  padding-bottom: 50px;
+  min-height: 100%;
   background-color: rgba(253, 197, 123, 0.79);
   color: $black;
+
+  @media (max-width: $tablet-width) {
+    order: 1;
+    width: 100%;
+    height: auto;
+    background-color: $dark-background;
+    color: $sandy;
+  }
 }
 
 .app__projects-heading { 
@@ -32,6 +36,8 @@
   &:focus {
     color: red;
   }
+
+
 }
 
 .app__project-list {
@@ -40,10 +46,22 @@
   list-style: none;
   margin-left: 10px;
   margin-bottom: 50px;
+
+  @media (max-width: $tablet-width) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
 }
 
 .app__project-item {
   margin-bottom: 10px;
+
+
+  @media (max-width: $tablet-width) {
+    margin-bottom: 0;
+    margin-left: 10px;
+  }
 }
 
 .app__project-link {
@@ -53,5 +71,10 @@
   &:hover,
   &:focus {
     text-shadow: 0 0 1px $black;
+  }
+
+
+  @media (max-width: $tablet-width) {
+    color: $sandy;
   }
 }

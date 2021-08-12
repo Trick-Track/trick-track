@@ -33,7 +33,7 @@ const sendProject = (body, onSuccess) => {
       const id = project[0].pk;
       createSavedProject(id);
     }) 
-    .then(onSuccess(window.currentProject))
+    .then(onSuccess())
     .catch((error) => showError(error));
 };
 
@@ -47,30 +47,41 @@ const updateProject = (body, onSuccess) => {
   )
     .then(checkStatusRequest)
     .then((response) => {
-      console.log(body);
       onSuccess(response);})
     .catch((error) => showError(error));
 };
 
 
-const getProject = (pk, onSuccess) => {
+const getProject = (pk, onSuccess, project) => {
   fetch(`${BASE_URL}/${pk}`)
-
     .then(checkStatusRequest)
     .then((response) => response.json())
     .then((projectData) => JSON.parse(projectData))
-    .then((project) => resetProject(currentProject, () => {
-      const newProject = project[0].fields;
-      window.currentProject = newProject;
-      createSavedProject(Number(pk)); 
 
-      console.log(currentProject);
+    .then((newProject) => resetProject(project, () => {
+      currentProject = newProject[0].fields;
+      const id = newProject[0].pk;
+      createSavedProject(id);
       renderInitialProject(currentProject);
-      //return currentProject;
     }))
-    .then((onSuccess))
+    .then((onSuccess()))
     .catch((error) => console.log(error));
 };  
 
 
-export {sendProject, getProject, updateProject};
+const deleteProject = (body, onSuccess) => {
+  fetch(`${BASE_URL}/${body.pk}`,
+    {
+      method: 'DELETE',
+      body: JSON.stringify(body)
+    },
+  )
+    .then(checkStatusRequest)
+    .then((response) => {
+      onSuccess(response);})
+    .catch((error) => console.log(error));
+
+};
+
+
+export {sendProject, getProject, updateProject, deleteProject};

@@ -1,4 +1,4 @@
-import {getPkByProjectLink, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers} from './project.js';
+import {getPkByProjectLink, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers, addDeleteButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js';
@@ -14,15 +14,14 @@ let sounds = ['/static/samples/bdsh.wav',
 ];
 
 
+/* global currentProject:false, buffer:false, context: false */
+
 window.context = new (window.AudioContext || window.webkitAudioContext)();
 window.buffer = new Buffer(context, sounds);
 
 buffer.createBuffer(() =>  {
   setSounds(window.buffer.urls);
 });
-
-
-/* global currentProject:false, buffer:false, context: false */
 
 window.currentProject = createDefaultProject(buffer.urls);
 
@@ -34,18 +33,19 @@ addPlayerButtonsHandlers();
 addBpmHandlers();
 
 
-
 addSaveButtonHandler(currentProject, () => {
   showSuccess();
   changeProjectUpdateButton();
 });
 
 
-addUpdateButtonHandler(currentProject, () => {
+addUpdateButtonHandler(() => {
   console.log(currentProject);
   console.log('ok');
 });
 
+addDeleteButtonHandler();
 
-getPkByProjectLink(changeProjectUpdateButton);
+
+getPkByProjectLink(changeProjectUpdateButton, currentProject);
 

@@ -209,6 +209,7 @@ const addSoundsButtonHandlers = (project) => {
 const addButtonCellsHandlers = function(project, cellsButtons) {
   renderStateCellElement(project, cellsButtons);
   addButtonCellHandler(project, cellsButtons, renderStateCellElement);
+  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons);}))
 };
 
 
@@ -219,19 +220,20 @@ const renderInitialProject = (project) =>  {
   addSoundsButtonHandlers(project);
   addControlsHandlers(project);
   addArrowsHandlers();
-};
-
-const addBeatsHandlersRendering = (project) => {
-  const laneElements = document.getElementById('#sequencer-list').children;
-
-  const laneCells = [];
-  for (let i = 0; i < laneElements.length; i++) {
-    const cells = laneElements[i].querySelectorAll('.sequencer__cell');
-    laneCells.push(cells);
-  }
   
-  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, laneCells);}));
 };
+
+// const addBeatsHandlersRendering = (project) => {
+//   const laneElements = document.getElementById('#sequencer-list').children;
+
+//   const laneCells = [];
+//   for (let i = 0; i < laneElements.length; i++) {
+//     const cells = laneElements[i].querySelectorAll('.sequencer__cell');
+//     laneCells.push(cells);
+//   }
+  
+//   addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, laneCells);}));
+// };
 
 
 const removeOldEventListeners = () => {
@@ -263,4 +265,4 @@ const resetProjectRendering= () => {
 //   })
 // };
 
-export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, addBeatsHandlersRendering};
+export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering};

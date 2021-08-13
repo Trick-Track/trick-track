@@ -1,6 +1,5 @@
-import {getPkByProjectLink, addOpenModalButtonHandler, addSaveButtonHandler, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers, addDeleteButtonHandler} from './project.js';
+import {getPkByProjectLink, addOpenModalButtonHandler, addProjectsButtonsHandlers, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers, addDeleteButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
-import {showSuccess} from './messages.js';
 import {Buffer} from './buffer.js';
 import {setSounds} from './data-store.js';
 import {addPlayerButtonsHandlers} from './player.js';
@@ -32,11 +31,7 @@ addOpenModalButtonHandler();
 addPlayerButtonsHandlers();
 addBpmHandlers();
 
-
-addSaveButtonHandler(currentProject, () => {
-  showSuccess();
-  changeProjectUpdateButton();
-});
+addProjectsButtonsHandlers(currentProject);
 
 
 addUpdateButtonHandler(() => {

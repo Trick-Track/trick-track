@@ -3,6 +3,7 @@ import {sendProject, getProject, updateProject, deleteProject} from './server.js
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
+import {showSuccess} from './messages.js';
 import {removeOldEventListeners, resetProjectRendering} from './renderer.js';
 
 
@@ -104,10 +105,13 @@ const setProjectInputsValues = (project) => {
 };
 
 
-const addSaveButtonHandler = (project, onSuccess) => {
+const addSaveButtonHandler = (project) => {
   saveButton.addEventListener('click', () => {
     setProjectInputsValues(project);
-    sendProject(project, onSuccess);
+    sendProject(project, () => {
+      showSuccess();
+      changeProjectUpdateButton();
+    });
   });
 };
 
@@ -116,7 +120,6 @@ const addUpdateButtonHandler = (onSuccess) => {
   updateProjectButton.addEventListener('click', () => {
     setProjectInputsValues(currentProject);
     updateProject(window.currentProject, onSuccess);
-    console.log(currentProject);
   });
 };
 
@@ -124,6 +127,7 @@ const addDeleteButtonHandler = () => {
   deleteProjectButton.addEventListener('click', () => {
     deleteProject(currentProject, () => {
       resetProject(currentProject, createNewProject);
+      changeProjectSaveButton();
     });
   });
 };
@@ -173,6 +177,10 @@ const getPkByProjectLink = (onSuccess, project) => {
   });
 }; 
 
+const addProjectsButtonsHandlers = (project) => {
+  addSaveButtonHandler(project);
+};
+
 
 const removeProject = (project) => {
   console.log(project);
@@ -193,4 +201,4 @@ const resetProject = (project, cb) => {
 };
 
 
-export {addProjectsHandlers, addOpenModalButtonHandler, resetProject, addSaveButtonHandler, setProjectNamePlaceHolder, addDeleteButtonHandler, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton};
+export {addProjectsHandlers, addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, addDeleteButtonHandler, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton};

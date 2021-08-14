@@ -71,6 +71,7 @@
         </div>
 
         <div class="app__main">
+
           {% if user.is_authenticated %}
           <article class="app__user-projects">
             <h2 class="app__projects-heading">Your&ensp;tracks</h2>
@@ -78,7 +79,7 @@
             {% if user.is_authenticated %}
             {% for project in projects %}
               <li class="app__project-item">
-                <a  class="app__project-link app__project-button" href="#" data-pk="{{project.pk}}">{{project.name}}</a>
+                <a class="app__project-link app__project-button" href="#" data-pk="{{project.pk}}">{{project.name}}</a>
               </li>
             {% endfor %}
             {% endif %}

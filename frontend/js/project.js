@@ -4,8 +4,7 @@ import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
-import {removeOldEventListeners, resetProjectRendering} from './renderer.js';
-
+import {removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem} from './renderer.js';
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -120,6 +119,7 @@ const addUpdateButtonHandler = (onSuccess) => {
   updateProjectButton.addEventListener('click', () => {
     setProjectInputsValues(currentProject);
     updateProject(window.currentProject, onSuccess);
+    rerenderSavedProjectItem(currentProject);
   });
 };
 
@@ -183,7 +183,6 @@ const addProjectsButtonsHandlers = (project) => {
 
 
 const removeProject = (project) => {
-  console.log(project);
   Object.keys(project).forEach(key => {
     if (project.hasOwnProperty(key)) {
       delete project[key];

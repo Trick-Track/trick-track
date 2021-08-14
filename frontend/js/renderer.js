@@ -50,9 +50,9 @@ const fillStep = (stepsList, cells) => {
 const renderLane = (lane) => {
   const{sound, cells, volume, panner} = lane;
   const newSample = sampleTemplate.cloneNode(true);
-  newSample.querySelector('.button').textContent = sound.replace(/^.*[\\\/]/, '').slice(0, -4);
-  newSample.querySelector('[data-action="panner"]').value = panner;
+  newSample.querySelector('.button').textContent = sound.replace(/^.*[\\/]/, '').slice(0, -4);
   newSample.querySelector('[data-action="volume"]').value = volume;
+  newSample.querySelector('.sequencer__controls-label-img').style.transform = 'rotate(' + panner * 180 + 'deg)';
 
   sampleList.append(newSample);
 
@@ -66,6 +66,7 @@ const renderProject = (project) => {
   initialBeats(project);
 
   let {lanes, bpm, name} = project;
+
   bpm = initialBpm(project);
   name =  setProjectNamePlaceHolder(project);
 
@@ -97,7 +98,6 @@ const createAllCellsArray = (project, cb) => {
     allCellsLists.push(cellsOfLane);
     setCellBackgroundColor(allCellsLists);
   }); 
-  console.log(allCellsLists);
   cb(project, allCellsLists);
 };
 
@@ -209,7 +209,7 @@ const addSoundsButtonHandlers = (project) => {
 const addButtonCellsHandlers = function(project, cellsButtons) {
   renderStateCellElement(project, cellsButtons);
   addButtonCellHandler(project, cellsButtons, renderStateCellElement);
-  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons);}))
+  addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, cellsButtons);}));
 };
 
 
@@ -220,7 +220,13 @@ const renderInitialProject = (project) =>  {
   addSoundsButtonHandlers(project);
   addControlsHandlers(project);
   addArrowsHandlers();
-  
+};
+
+
+const rerenderSavedProjectItem = (project) => {
+  const {pk, name} = project;
+  const projectLink = document.querySelector(`[data-pk='${pk}']`);
+  projectLink.innerHTML = name;
 };
 
 // const addBeatsHandlersRendering = (project) => {
@@ -265,4 +271,4 @@ const resetProjectRendering= () => {
 //   })
 // };
 
-export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering};
+export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem};

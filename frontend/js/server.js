@@ -63,6 +63,7 @@ const getProject = (pk, onSuccess, project) => {
       const id = newProject[0].pk;
       createSavedProject(id);
       renderInitialProject(currentProject);
+      console.log(currentProject);
     }))
     .then((onSuccess()))
     .catch((error) => console.log(error));

@@ -4,7 +4,7 @@ import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem, rerenderDeletedProjectItem} from './renderer.js';
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -37,7 +37,6 @@ const setProjectPannerValue = (controls, project) => {
     const i = lanes.indexOf(lane, 0);
     let control = controls[i];
     lanes[i].panner = control.value;
-    console.log(control.value);
   });
 };
 
@@ -118,7 +117,7 @@ const addSaveButtonHandler = (project) => {
 const addUpdateButtonHandler = (onSuccess) => {
   updateProjectButton.addEventListener('click', () => {
     setProjectInputsValues(currentProject);
-    updateProject(window.currentProject, onSuccess);
+    updateProject(currentProject, onSuccess);
     rerenderSavedProjectItem(currentProject);
   });
 };
@@ -128,6 +127,7 @@ const addDeleteButtonHandler = () => {
     deleteProject(currentProject, () => {
       resetProject(currentProject, createNewProject);
       changeProjectSaveButton();
+      rerenderDeletedProjectItem(currentProject);
     });
   });
 };

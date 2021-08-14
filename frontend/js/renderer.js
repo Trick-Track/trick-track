@@ -229,6 +229,13 @@ const rerenderSavedProjectItem = (project) => {
   projectLink.innerHTML = name;
 };
 
+
+const rerenderDeletedProjectItem = (project) => {
+  const {pk} = project;
+  const projectsList = document.querySelector('.app__project-list');
+  projectsList.remove(projectsList.querySelector(`[data-pk='${pk}']`));
+};
+
 // const addBeatsHandlersRendering = (project) => {
 //   const laneElements = document.getElementById('#sequencer-list').children;
 
@@ -271,4 +278,4 @@ const resetProjectRendering= () => {
 //   })
 // };
 
-export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem};
+export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem, rerenderDeletedProjectItem};

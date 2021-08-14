@@ -32,7 +32,7 @@ def project(request, id=id):
             return JsonResponse(serialized, 
                                 encoder=DjangoJSONEncoder, 
                                 safe=False)
-        elif request.method == 'PUT':
+        elif request.method == 'PATCH':
             updated_project = update(request, id)
             serialized_project = serialize([updated_project, ])
             return JsonResponse(serialized_project, 
@@ -49,6 +49,7 @@ def project(request, id=id):
 
 def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
+    print(json_data)
     return json_data
 
 

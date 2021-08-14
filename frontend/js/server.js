@@ -41,7 +41,7 @@ const sendProject = (body, onSuccess) => {
 const updateProject = (body, onSuccess) => {
   fetch(`${BASE_URL}/${body.pk}/`,
     {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify(body)
     },
   )

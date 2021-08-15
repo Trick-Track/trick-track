@@ -15,7 +15,7 @@ const initialBeats = (project) => {
 
 
 const addBeatsUnit = function(cb) {
-  if (beatsControl.value < 32){
+  if (beatsControl.value < 32) {
     beatsControl.value = Number(beatsControl.value) + 1;
     cb();
   }
@@ -60,8 +60,8 @@ const addBeatsInputHandler = (cb) => {
 
 
 const addBeatsHandlers = (cb) => {
-  incrementButton.addEventListener('click', addBeatsUnit.bind(this, cb));
-  decrementButton.addEventListener('click', deleteBeatsUnit.bind(this, cb));
+  incrementButton.onclick = addBeatsUnit.bind(this, cb);
+  decrementButton.onclick = deleteBeatsUnit.bind(this, cb);
   addBeatsInputHandler(cb);
 };
 

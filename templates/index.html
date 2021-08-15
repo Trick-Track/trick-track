@@ -74,7 +74,8 @@
 
           {% if user.is_authenticated %}
           <article class="app__user-projects">
-            <h2 class="app__projects-heading">Your&ensp;tracks</h2>
+            <button class="app__projects-link">+&ensp;Create&ensp;new</button>
+            <h2 class="app__projects-heading"><a href="#">Your&ensp;tracks</a></h2>
             <ul class="app__project-list">
             {% if user.is_authenticated %}
             {% for project in projects %}
@@ -84,8 +85,7 @@
             {% endfor %}
             {% endif %}
           </ul>
-            <button class="app__projects-link">+&ensp;Create&ensp;new</button>
-          </article>
+        </article>
           {% endif %}
 
           <div class="app__project">

@@ -9,7 +9,6 @@
 
 
 .app__project-wrapper {
- // margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 100px;
@@ -22,6 +21,7 @@
 
   @media (max-width: $mobile-width) {
     padding: 0 30px;
+    grid-row: 50px;
   }
 }
 
@@ -34,6 +34,11 @@
   flex-wrap: none;
   justify-content: space-between;
   width: 50px;
+
+  @media (max-width: $mobile-width) {
+    width: auto;
+  }
+  
 }
 
 
@@ -51,6 +56,13 @@
   width: 98px;
   border: none;
   border-radius: 4px;
+
+  @media (max-width: $mobile-width) {
+    width: 75px;
+    height: 25px;
+    margin-top: 10px;
+  }
+
 
   &:hover, 
   &:focus {
@@ -71,6 +83,44 @@
     &:hover {
       background-color: lighten($close-red, 5%);
     }
+  }
+}
+
+input[type=text] {
+  border: none;
+  background-color: transparent;
+  color: $grey;
+  font-size: 25px;
+  min-width: 250px;
+  height: 50px;
+  padding: 10px;
+
+  @media (max-width: $mobile-width) {
+    font-size: 20px;
+    width: 150px;
+    height: 25px;
+  }
+
+  &::placeholder {
+    font-family: 'Share Tech Mono', 'Arial', monospace;
+    color: $grey;
+    text-transform: capitalize;
+    font-size: 36px;
+    padding-left: 10px;
+
+    @media (max-width: $mobile-width) {
+      font-size: 20px;
+    }
+  }
+
+  &:hover {
+    border: 1px solid red;
+  }
+
+  
+  &:hover::placeholder,
+  &:focus::placeholder {
+    color: red;
   }
 }
 

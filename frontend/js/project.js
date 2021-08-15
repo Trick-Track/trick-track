@@ -114,13 +114,16 @@ const addSaveButtonHandler = (project) => {
 };
 
 
-const addUpdateButtonHandler = (onSuccess) => {
+const addUpdateButtonHandler = () => {
   updateProjectButton.addEventListener('click', () => {
-    setProjectInputsValues(currentProject);
-    updateProject(currentProject, onSuccess);
-    rerenderSavedProjectItem(currentProject);
+    updateProject(currentProject, () => {
+      setProjectInputsValues(currentProject);
+      showSuccess();
+      rerenderSavedProjectItem(currentProject);
+    });
   });
 };
+
 
 const addDeleteButtonHandler = () => {
   deleteProjectButton.addEventListener('click', () => {
@@ -128,12 +131,13 @@ const addDeleteButtonHandler = () => {
       resetProject(currentProject, createNewProject);
       changeProjectSaveButton();
       rerenderDeletedProjectItem(currentProject);
+     
     });
   });
 };
 
 
-const setProjectDisabledSteps = function (project, cb) {
+const setProjectDisabledSteps = (project, cb) => {
   const {lanes} = project;
   let activeStep = setBeats();
   lanes.forEach((lane) => {
@@ -191,12 +195,14 @@ const removeProject = (project) => {
 };
 
 
-const resetProject = (project, cb) => {
-  //removeOldEventListeners();
-  resetProjectRendering();
-  projectNameInput.value = ''; 
-  removeProject(project);
-  cb();
+const resetProject = async function(project, cb) {
+  removeOldEventListeners(project);
+  setTimeout(()=> {
+    resetProjectRendering();
+    projectNameInput.value = ''; 
+    removeProject(project);
+    cb();
+  }, 0);
 };
 
 

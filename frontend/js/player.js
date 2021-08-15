@@ -35,10 +35,9 @@ const playSound = (audioData, playTime, project) => {
   });
 
   source.connect(gainNode).connect(panner).connect(context.destination);
+
   source.start(playTime);
-  if (context.state === 'suspended') {
-    context.resume().then(source.start(playTime)).then(context.suspend());
-  }
+  
 };
 
 

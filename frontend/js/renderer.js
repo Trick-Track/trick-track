@@ -11,12 +11,6 @@ const sampleList = sequencer.querySelector('.sequencer__samples-list');
 const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
 
 
-// const createLine = (sound) => {
-//   const newSample = sampleTemplate.cloneNode(true);
-//   newSample.querySelector('.button').textContent = sound;
-//   sampleList.append(newSample);
-// }
-
 const renderCell = () => {
   const cellElement = document.createElement('button');
   cellElement.classList.add('sequencer__cell');
@@ -76,29 +70,17 @@ const renderProject = (project) => {
 };
 
 
-const createCellsArray = (i) => {
-  const slidesFirst = document.querySelectorAll('.sequencer__steps-list--first');
-  const slidesSecond = document.querySelectorAll('.sequencer__steps-list--second');
-  
-  const cellsOfLane = [];
-  cellsOfLane.push.apply(cellsOfLane, slidesFirst[i].children);
-  cellsOfLane.push.apply(cellsOfLane, slidesSecond[i].children);
-  
-  return cellsOfLane;
-};
+const createCellsElementsArray = (project, cb) => {
+  const laneElements = document.getElementById('#sequencer-list').children;
 
-
-const createAllCellsArray = (project, cb) => {
-  const {lanes} = project;
-  const allCellsLists = [];
-  lanes.forEach((lane) => {
-    const i = lanes.indexOf(lane, 0);
-    
-    const cellsOfLane = createCellsArray(i);
-    allCellsLists.push(cellsOfLane);
-    setCellBackgroundColor(allCellsLists);
-  }); 
-  cb(project, allCellsLists);
+  const laneCells = [];
+  for (let i = 0; i < laneElements.length; i++) {
+    const cells = laneElements[i].querySelectorAll('.sequencer__cell');
+    laneCells.push(cells);
+    setCellBackgroundColor(laneCells);
+  }
+  console.log(laneCells);
+  cb(project, laneCells);
 };
 
 
@@ -115,14 +97,14 @@ const setCellBackgroundColor = (cellsButtons) => {
 };
 
 
-const addButtonCellHandler = function (project, cellsButtons, callback) {
+const addButtonCellHandler = (project, cellsButtons, callback) => {
   const {lanes} = project;
   cellsButtons.forEach((cellsButtonsOfLane) => {
     const i = cellsButtons.indexOf(cellsButtonsOfLane, 0);
     const {cells} = lanes[i];
     cellsButtonsOfLane.forEach((cellElement) => cellElement.addEventListener('click', (evt) => {
       const cellElement = evt.target;
-      const j = cellsButtonsOfLane.indexOf(cellElement, 0);
+      const j = [...cellsButtonsOfLane].indexOf(cellElement, 0);
       
       cells[j].checked = cells[j].checked ? false : true; 
       callback(project, cellsButtons);
@@ -193,14 +175,19 @@ const getAllSoundsButtons = () => {
 };
 
 
-const addSoundsButtonHandlers = (project) => {
+const addSoundsButtonHandlers = (project, cb) => {
   let allSoundsButtons = getAllSoundsButtons();
 
   allSoundsButtons.forEach((btn) => {
     btn.addEventListener('click', (evt) => {
       btn = evt.target;
       const i = allSoundsButtons.indexOf(btn, 0);
-      playSound(buffer.getSound(i), 0, project);
+    
+      context.resume().then(() => {
+        playSound(buffer.getSound(i), 0, project);
+        cb();
+      });
+    
     });
   });
 };
@@ -216,7 +203,7 @@ const addButtonCellsHandlers = function(project, cellsButtons) {
 const renderInitialProject = (project) =>  {
   renderProject(project);
   renderPlaybackLine();
-  createAllCellsArray(project, addButtonCellsHandlers);
+  createCellsElementsArray(project, addButtonCellsHandlers);
   addSoundsButtonHandlers(project);
   addControlsHandlers(project);
   addArrowsHandlers();
@@ -236,22 +223,16 @@ const rerenderDeletedProjectItem = (project) => {
   projectsList.remove(projectsList.querySelector(`[data-pk='${pk}']`));
 };
 
-// const addBeatsHandlersRendering = (project) => {
-//   const laneElements = document.getElementById('#sequencer-list').children;
-
-//   const laneCells = [];
-//   for (let i = 0; i < laneElements.length; i++) {
-//     const cells = laneElements[i].querySelectorAll('.sequencer__cell');
-//     laneCells.push(cells);
-//   }
-  
-//   addBeatsHandlers(() => setProjectDisabledSteps(project, () => {renderStateCellElement(project, laneCells);}));
-// };
-
 
 const removeOldEventListeners = () => {
-  const cellsButtons = document.querySelectorAll('.sequencer__cell');
-  [...cellsButtons].forEach((evt) => removeEventListener('click', (evt)));
+  const laneElements = document.getElementById('#sequencer-list').children;
+  const laneCells = [];
+  for (let i = 0; i < laneElements.length; i++) {
+    const cells = laneElements[i].querySelectorAll('.sequencer__cell');
+    laneCells.push(cells);
+  }
+  
+  laneCells.forEach((evt) => removeEventListener('click', (evt)));
   removeControlsHandlers();
 };
 

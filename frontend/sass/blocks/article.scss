@@ -2,7 +2,7 @@
   grid-column: 1;
   grid-row-start: 1;
   padding-bottom: 50px;
-  min-height: 100%;
+  height: 100vw;
   background-color: rgba(253, 197, 123, 0.79);
   color: $black;
 
@@ -10,34 +10,39 @@
     order: 1;
     width: 100%;
     height: auto;
-    background-color: $dark-background;
+    background-color: transparent;
     color: $sandy;
   }
 }
 
 .app__projects-heading { 
-  margin: 0;
-  padding: 0;
   font-size: 16px;
   margin-top: 50px;
   margin-left: 10px;
   margin-bottom: 30px;
   line-height: 18px;
   text-transform: capitalize;
+
+  & a {
+    text-decoration: none;
+    color: $black;
+  }
 }
 
 .app__projects-link {
   @include button-reset;
   font-size: 16px;
+  margin-top: 30px;
   margin-left: 10px;
+  padding-bottom: 5px;
   color: $black;
+  border-bottom: 1px dashed $black;
 
   &:hover,
   &:focus {
     color: red;
+    border-color: $close-red;
   }
-
-
 }
 
 .app__project-list {

@@ -15,10 +15,10 @@
 .save {
   margin-top: 10%;
   margin: 0 auto;
-  margin-top: 10%;
-  width: 50%;
+  margin-top: 250px;
+  width: 50vw;
   padding: 30px;
-  height: auto;
+  height: 200px;
   text-align: center;
   background-color: $white;
   border: 1px solid #c6c6c6;
@@ -26,6 +26,7 @@
   @media(max-width: $mobile-width) {
     padding: 0 15px;
     width: 100%;
+    height: 300px;
   }
 }
 
@@ -36,6 +37,8 @@
   padding: 50px;
   font-size: 30px;
   font-weight: 700;
+
+  
 }
 
 .success__message {

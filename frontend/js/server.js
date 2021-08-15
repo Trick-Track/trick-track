@@ -46,8 +46,7 @@ const updateProject = (body, onSuccess) => {
     },
   )
     .then(checkStatusRequest)
-    .then((response) => {
-      onSuccess(response);})
+    .then(onSuccess())
     .catch((error) => showError(error));
 };
 

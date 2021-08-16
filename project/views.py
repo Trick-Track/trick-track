@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.core import serializers
@@ -20,7 +21,7 @@ def projects(request):
         elif request.method == 'DELETE':
             delete_all(user)
     else:
-        return redirect('accounts/login/')
+        return HttpResponse('401')
 
 
 def project(request, id=id):

@@ -45,7 +45,7 @@ def project(request, id=id):
                                 encoder=DjangoJSONEncoder, 
                                 safe=False)
     else:
-        return redirect('accounts/login/')
+        return HttpResponse(status=401)
 
 
 def json_decode(request):
@@ -70,9 +70,11 @@ def new(request, user):
 
 def update(request, id):
     version = json_decode(request)
+    name = version['name']
     bpm = version['bpm']
     lanes = version['lanes']
     project = Project.objects.get(pk=id)
+    project.name = name
     project.bpm = bpm
     project.lanes = lanes
     project.save()

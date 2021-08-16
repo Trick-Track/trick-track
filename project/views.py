@@ -21,7 +21,7 @@ def projects(request):
         elif request.method == 'DELETE':
             delete_all(user)
     else:
-        return HttpResponse('401')
+        return HttpResponse(status=401)
 
 
 def project(request, id=id):

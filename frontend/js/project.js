@@ -82,13 +82,13 @@ const onCreateNewProjectButtonClick = () => {
 
 
 const addOpenModalButtonHandler = (project) => {
-  openModalButton.addEventListener('click', (evt) => {
+  openModalButton.onclick = function(evt) {
     evt.preventDefault();
     modalNewProject.classList.add('modal__show');
     closeModalButton.addEventListener('click', closeModalNewProject);
     createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick);
     document.addEventListener('keydown', onDocumentEscapePressed(project));
-  });
+  };
 };
 
 

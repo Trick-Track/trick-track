@@ -75,6 +75,17 @@
           {% if user.is_authenticated %}
           <article class="app__user-projects">
             <button class="app__projects-link">+&ensp;Create&ensp;new</button>
+            <sctipt type="text/javascript">
+
+               <!-- window.app.addEventListener('click', (evt) => {
+                  evt.preventDefault();
+                  modalNewProject.classList.add('modal__show');
+                  closeModalButton.addEventListener('click', closeModalNewProject);
+                  createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick);
+                  document.addEventListener('keydown', onDocumentEscapePressed(project));
+                
+            }; -->
+            </sctipt>
             <h2 class="app__projects-heading"><a href="#">Your&ensp;tracks</a></h2>
             <ul class="app__project-list">
             {% if user.is_authenticated %}
@@ -199,5 +210,7 @@
         </div>
       </div>
     </section>
+
+
   </body>
   </html>

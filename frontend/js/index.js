@@ -26,7 +26,7 @@ window.currentProject = createDefaultProject(buffer.urls);
 
 
 addProjectsHandlers();
-addOpenModalButtonHandler();
+//addOpenModalButtonHandler();
 
 addPlayerButtonsHandlers();
 addBpmHandlers();

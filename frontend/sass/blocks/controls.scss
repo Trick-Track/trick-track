@@ -13,9 +13,6 @@
 
 .sequencer__controls-volume {
   margin-right: 10px;
-  @media (max-width: $mobile-width) {
-    margin-top: 10px;
-  }
 }
 
 .sequencer__controls-input--volume {
@@ -28,8 +25,20 @@
     outline: none;
   }
 
+  &::-moz-range-track {
+    width: $track-width;
+    height: 4px;
+    cursor: pointer;
+    box-shadow: 0px 2px 1px 0px #33313BB2 inset;
+    background: $sandy;
+    border-radius: 5%;
+    border: 0.2px solid #010101;
+  }
+
+
+
     &::-webkit-slider-runnable-track {
-    width: 100px;
+    width: $track-width;
     height: 8px;
     cursor: pointer;
     box-shadow: 0px 2px 1px 0px #33313BB2 inset;
@@ -41,6 +50,10 @@
     &:focus {
       background-color: darken($sandy, 10%);
       border: none;
+    }
+
+    @media (max-width: $mobile-width) {
+      width: 15px;
     }
   }
   
@@ -59,6 +72,7 @@
     &:hover {
       transform: scale(1.4);
     }
+
   }
 
   &::-moz-range-thumb {
@@ -99,7 +113,6 @@
   fill: $sandy;
   &:hover, 
   &:focus {
-    //fill: $sandy;
-    //border: none;
+    fill: lighten($sandy, 10%);
   }
 }

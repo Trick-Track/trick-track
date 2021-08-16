@@ -11,8 +11,8 @@ const checkStatusRequest = (response) => {
   if (response.ok) {
     return response;
   }
-  const { statusText, status } = response;
-  const error = new Error (`${status} (${statusText})`);
+  const {status} = response;
+  const error = new Error (`${status}`);
   throw error;
 };
 
@@ -33,10 +33,12 @@ const sendProject = (body, onSuccess) => {
       const id = project[0].pk;
       createSavedProject(id);
     }) 
-    .then(onSuccess())
-    .catch((error) => showError(error));
+    .then(()=>onSuccess())
+    .catch(error => {
+      error.message == 401 ? document.location.href = '/accounts/login' : showError();
+    });
 };
-
+ 
 
 const updateProject = (body, onSuccess) => {
   fetch(`${BASE_URL}/${body.pk}/`,

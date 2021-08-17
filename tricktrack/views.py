@@ -9,6 +9,3 @@ def index(request):
     else:
         return render(request, 'index.html')
 
-
-def profile(request):
-    return redirect('/')

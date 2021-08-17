@@ -23,9 +23,9 @@ DB_PORT=<5432 would be awesome :)>
 
 running PostgreSQL server required
 ```
-python manage.py migrate --settings=settings.local
+python manage.py migrate --settings=tricktrack.settings.local
 
-python manage.py runserver --settings=settings.local
+python manage.py runserver --settings=tricktrack.settings.local
 ```
 
 http://127.0.0.1:8000/

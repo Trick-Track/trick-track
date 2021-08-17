@@ -23,15 +23,15 @@ DB_PORT=<5432 would be awesome :)>
 
 running PostgreSQL server required
 ```
-python manage.py migrate
+python manage.py migrate --settings=settings.local
 
-python manage.py runserver
+python manage.py runserver --settings=settings.local
 ```
 
 http://127.0.0.1:8000/
 
 
-### Installation frontend
+### Frontend installation
 
 Download and install Node: https://nodejs.org/
 Install project dependancies: npm install

@@ -31,10 +31,11 @@ python manage.py runserver --settings=tricktrack.settings.local
 http://127.0.0.1:8000/
 
 
-### Frontend installation
+### Installation frontend
 ```
 Download and install Node: https://nodejs.org/
 ```
 Install project dependancies: npm install
+```
 Run build: npm run build
 

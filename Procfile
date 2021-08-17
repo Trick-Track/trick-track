@@ -1,2 +1,2 @@
-release: python manage.py migrate --settings=tricktrack.settings.local
+release: python manage.py migrate --settings=tricktrack.settings.heroku
 web: gunicorn tricktrack.wsgi

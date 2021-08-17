@@ -33,9 +33,10 @@ http://127.0.0.1:8000/
 
 ### Installation frontend
 ```
-Download and install Node: https://nodejs.org/
-```
+Download and install Node: https://nodejs.org
+
 Install project dependancies: npm install
-```
+
 Run build: npm run build
+```
 

@@ -34,6 +34,7 @@ const sendProject = (body, onSuccess) => {
       const project = JSON.parse(projectData);
       const id = project[0].pk;
       createSavedProject(id);
+      console.log(project)
     
     }) 
     .then(() => onSuccess())

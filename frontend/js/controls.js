@@ -15,6 +15,7 @@ const onMouseLeftClick = (evt) => {
   if(isMouseLeftEvent(evt)) {
     evt.preventDefault();
     isPannerSpinnerMove = true;
+    //cb()
   }
 };
 
@@ -28,26 +29,56 @@ const addPannerControlsHandler = (cb, project) => {
     const pannerControl = pannerLabel.querySelector('[data-action="panner"]');
     const imgCenter = getCenter(pannerSpinner);
 
-    pannerSpinner.addEventListener('mousedown', onMouseLeftClick);
+    const addEventsOnPannerSpinner = (eventMove, eventEnd) => {
+      pannerSpinner.addEventListener(eventMove, ({clientX, clientY}) => {
+        if (isPannerSpinnerMove == true) {
+        
+          const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
   
-    pannerSpinner.addEventListener('mousemove', ({clientX, clientY}) => {
-      if (isPannerSpinnerMove == true) {
-      
-        const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
-
-        pannerSpinner.style.transform = `rotate(${angle}rad)`;
-        let angleDegree = (angle * 180) / Math.PI;
-        pannerControl.value = (angleDegree / 180).toFixed(2);
-
-        document.addEventListener('mouseup', () => {
-          if(isPannerSpinnerMove == true) {
-            isPannerSpinnerMove = false;
-          }
-        });
-
-        cb(pannerControls, project);
-      }
+          pannerSpinner.style.transform = `rotate(${angle}rad)`;
+          let angleDegree = (angle * 180) / Math.PI;
+          pannerControl.value = (angleDegree / 180).toFixed(2);
+  
+          document.addEventListener(eventEnd, () => {
+            if(isPannerSpinnerMove == true) {
+              isPannerSpinnerMove = false;
+            }
+          });
+  
+          cb(pannerControls, project);
+        }
+      });
+    };
+    
+    pannerSpinner.addEventListener('mousedown', onMouseLeftClick);
+    pannerSpinner.addEventListener('touchstart', () => {
+      isPannerSpinnerMove = true;
     });
+    addEventsOnPannerSpinner('touchmove','touchend');
+    addEventsOnPannerSpinner('mousemove', 'mouseup');// });
+
+    //pannerSpinner.addEventListener('touchstrart', () => )
+
+  
+    // pannerSpinner.addEventListener('mousemove', ({clientX, clientY}) => {
+    //   if (isPannerSpinnerMove == true) {
+      
+    //     const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
+
+    //     pannerSpinner.style.transform = `rotate(${angle}rad)`;
+    //     let angleDegree = (angle * 180) / Math.PI;
+    //     pannerControl.value = (angleDegree / 180).toFixed(2);
+
+    //     document.addEventListener('mouseup', () => {
+    //       if(isPannerSpinnerMove == true) {
+    //         isPannerSpinnerMove = false;
+    //       }
+    //     });
+
+    //     cb(pannerControls, project);
+    //   }
+  // });
+  //});
   });
 };
 

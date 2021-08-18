@@ -30,8 +30,8 @@ const addPannerControlsHandler = (cb, project) => {
     const imgCenter = getCenter(pannerSpinner);
 
     const addEventsOnPannerSpinner = (eventMove, eventEnd) => {
-      pannerSpinner.addEventListener(eventMove, (evt, {clientX, clientY}) => {
-        evt.preventDefault();
+      pannerSpinner.addEventListener(eventMove, ({clientX, clientY}) => {
+    
         if (isPannerSpinnerMove == true) {
         
           const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
@@ -48,7 +48,7 @@ const addPannerControlsHandler = (cb, project) => {
   
           cb(pannerControls, project);
         } 
-      }, {passive: true});
+      });
     };
     
     pannerSpinner.addEventListener('mousedown', onMouseLeftClick);

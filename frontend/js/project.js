@@ -4,6 +4,7 @@ import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
+import {getSounds} from './data-store.js';
 import {removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem, rerenderDeletedProjectItem} from './renderer.js';
 
 
@@ -22,11 +23,13 @@ const setProjectName = () => {
   return projectNameInput.value;
 };
 
+
 const addProjectNameInputHandler = () => {
   projectNameInput.addEventListener('change', setProjectName);
 };
 
-const setProjectNamePlaceHolder = (project) =>{
+
+const setProjectNamePlaceHolder = (project) => {
   projectNameInput.placeholder = project.name;
 };
 
@@ -68,9 +71,10 @@ const onDocumentEscapePressed = (evt) => {
 
 
 const createNewProject = () => {
-  const newProject = createDefaultProject(buffer.urls);
+  const newProject = createDefaultProject(window.buffer.urls);
   window.currentProject = newProject;
-  return newProject;
+  console.log(currentProject);
+  return currentProject;
 };
 
 
@@ -90,12 +94,6 @@ const addOpenModalButtonHandler = (project) => {
     document.addEventListener('keydown', onDocumentEscapePressed(project));
   };
 };
-
-
-const addProjectsHandlers = () => { 
-  addProjectNameInputHandler();
-};
-
 
 const setProjectInputsValues = (project) => {
   project.name = setProjectName();
@@ -169,20 +167,20 @@ const changeProjectSaveButton = () => {
 };
 
 
-const getPkByProjectLink = (onSuccess, project) => {
-  const projectLinks = document.querySelectorAll('.app__project-link');
-
+const addProjectLinkHandler = (project) => {
   projectLinks.forEach((projectLink) => {
     projectLink.addEventListener('click', (evt) => {
       evt.preventDefault();
       const pk = evt.target.dataset.pk;
-      getProject(pk, onSuccess , project);
+      getProject(pk, changeProjectUpdateButton, project);
     });
   });
 }; 
 
+
 const addProjectsButtonsHandlers = (project) => {
   addSaveButtonHandler(project);
+  addProjectLinkHandler(project);
 };
 
 
@@ -206,4 +204,4 @@ const resetProject = async function(project, cb) {
 };
 
 
-export {addProjectsHandlers, addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, addDeleteButtonHandler, setProjectDisabledSteps, setProjectPannerValue, getPkByProjectLink, addUpdateButtonHandler, setProjectVolumeValue, changeProjectUpdateButton};
+export {addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, addDeleteButtonHandler, setProjectDisabledSteps, addUpdateButtonHandler, setProjectPannerValue, setProjectVolumeValue};

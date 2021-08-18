@@ -79,7 +79,6 @@ const createCellsElementsArray = (project, cb) => {
     laneCells.push(cells);
     setCellBackgroundColor(laneCells);
   }
-  console.log(laneCells);
   cb(project, laneCells);
 };
 
@@ -167,6 +166,7 @@ const fillCurrentPlaybackStep = (step) => {
   });
 };
 
+
 const getAllSoundsButtons = () => {
   let button = document.getElementsByClassName('button');
   let allSoundsButtons = [];
@@ -218,9 +218,10 @@ const rerenderSavedProjectItem = (project) => {
 
 
 const rerenderDeletedProjectItem = (project) => {
-  const {pk} = project;
   const projectsList = document.querySelector('.app__project-list');
-  projectsList.remove(projectsList.querySelector(`[data-pk='${pk}']`));
+  const {pk} = project;
+  const link = document.querySelector(`[data-pk='${pk}']`);
+  projectsList.removeChild(link.parentNode);
 };
 
 

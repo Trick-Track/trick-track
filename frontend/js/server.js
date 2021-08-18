@@ -24,18 +24,26 @@ const sendProject = (body, onSuccess) => {
       body: JSON.stringify(body)
     },
   )
+  
     .then(checkStatusRequest)
     .then((response) => {
+      
       return response.json();
     })
     .then((projectData) => {
       const project = JSON.parse(projectData);
       const id = project[0].pk;
       createSavedProject(id);
+    
     }) 
-    .then(()=>onSuccess())
+    .then(() => onSuccess())
     .catch(error => {
-      error.message == 401 ? document.location.href = '/accounts/login' : showError();
+
+      if (error.message == 401) {
+        localStorage.setItem('project', JSON.stringify(body)); 
+  
+        document.location.href = '/accounts/login';} 
+      else showError();
     });
 };
  
@@ -64,7 +72,6 @@ const getProject = (pk, onSuccess, project) => {
       const id = newProject[0].pk;
       createSavedProject(id);
       renderInitialProject(currentProject);
-      console.log(currentProject);
     }))
     .then((onSuccess()))
     .catch((error) => console.log(error));

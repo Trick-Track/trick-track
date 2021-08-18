@@ -1,4 +1,4 @@
-import {getPkByProjectLink, addOpenModalButtonHandler, addProjectsButtonsHandlers, changeProjectUpdateButton, addUpdateButtonHandler, addProjectsHandlers, addDeleteButtonHandler} from './project.js';
+import {addOpenModalButtonHandler, addProjectsButtonsHandlers, addUpdateButtonHandler, addDeleteButtonHandler} from './project.js';
 import {createDefaultProject} from './build-project.js';
 import {Buffer} from './buffer.js';
 import {setSounds} from './data-store.js';
@@ -19,14 +19,12 @@ window.context = new (window.AudioContext || window.webkitAudioContext)();
 window.buffer = new Buffer(context, sounds);
 
 buffer.createBuffer(() =>  {
-  setSounds(window.buffer.urls);
+  setSounds(buffer.urls);
 });
 
 window.currentProject = createDefaultProject(buffer.urls);
 
-
-addProjectsHandlers();
-//addOpenModalButtonHandler();
+addOpenModalButtonHandler();
 
 addPlayerButtonsHandlers();
 addBpmHandlers();
@@ -41,7 +39,3 @@ addUpdateButtonHandler(() => {
 });
 
 addDeleteButtonHandler();
-
-
-getPkByProjectLink(changeProjectUpdateButton, currentProject);
-

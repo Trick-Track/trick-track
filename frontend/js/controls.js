@@ -30,7 +30,8 @@ const addPannerControlsHandler = (cb, project) => {
     const imgCenter = getCenter(pannerSpinner);
 
     const addEventsOnPannerSpinner = (eventMove, eventEnd) => {
-      pannerSpinner.addEventListener(eventMove, ({clientX, clientY}) => {
+      pannerSpinner.addEventListener(eventMove, (evt, {clientX, clientY}) => {
+        evt.preventDefault();
         if (isPannerSpinnerMove == true) {
         
           const angle = Math.atan2(clientY - imgCenter.y, clientX - imgCenter.x);
@@ -46,16 +47,19 @@ const addPannerControlsHandler = (cb, project) => {
           });
   
           cb(pannerControls, project);
-        }
-      });
+        } 
+      }, {passive: true});
     };
     
     pannerSpinner.addEventListener('mousedown', onMouseLeftClick);
     pannerSpinner.addEventListener('touchstart', () => {
       isPannerSpinnerMove = true;
+      addEventsOnPannerSpinner('touchmove','touchend');
     });
-    addEventsOnPannerSpinner('touchmove','touchend');
-    addEventsOnPannerSpinner('mousemove', 'mouseup');// });
+  
+    addEventsOnPannerSpinner('mousemove', 'mouseup');
+    
+    // });
 
     //pannerSpinner.addEventListener('touchstrart', () => )
 

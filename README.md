@@ -27,7 +27,7 @@ python manage.py migrate --settings=tricktrack.settings.local
 
 python manage.py runserver --settings=tricktrack.settings.local
 ```
-or
+or(in case you are on Linux or MacOS)
 ```
 bash run.sh
 

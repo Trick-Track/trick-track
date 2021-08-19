@@ -16,6 +16,12 @@ const checkStatusRequest = (response) => {
   throw error;
 };
 
+const getProjectData = (projectData) => {
+  const project = JSON.parse(projectData);
+  const id = project[0].pk;
+  createSavedProject(id);
+};
+
 
 const sendProject = (body, onSuccess) => {
   fetch(BASE_URL,
@@ -31,9 +37,7 @@ const sendProject = (body, onSuccess) => {
       return response.json();
     })
     .then((projectData) => {
-      const project = JSON.parse(projectData);
-      const id = project[0].pk;
-      createSavedProject(id);
+      getProjectData(projectData);
     }) 
     .then(() => onSuccess())
     .catch(error => {
@@ -55,7 +59,13 @@ const updateProject = (body, onSuccess) => {
     },
   )
     .then(checkStatusRequest)
+    .then((response) => {
+      
+      return response.json();
+    })
+    .then((projectData) => getProjectData(projectData))
     .then(onSuccess())
+
     .then(getProjectsList())
     .catch((error) => showError(error));
 };

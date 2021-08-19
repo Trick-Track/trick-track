@@ -211,9 +211,10 @@ const renderInitialProject = (project) =>  {
 
 
 const rerenderSavedProjectItem = (project) => {
-  const {pk, name} = project;
+  const {pk, fields} = project;
   const projectLink = document.querySelector(`[data-pk='${pk}']`);
-  projectLink.innerHTML = name;
+  console.log(fields);
+  projectLink.innerHTML = fields.name;
 };
 
 

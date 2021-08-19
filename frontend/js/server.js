@@ -1,7 +1,7 @@
 import {showError} from './messages.js';
 import {createSavedProject} from './build-project.js';
 import {resetProject} from './project.js';
-import {renderInitialProject} from './renderer.js';
+import {renderInitialProject, rerenderSavedProjectItem} from './renderer.js';
 
 
 const BASE_URL = '/projects';
@@ -18,7 +18,6 @@ const checkStatusRequest = (response) => {
 
 
 const sendProject = (body, onSuccess) => {
-  console.log(body);
   fetch(BASE_URL,
     {
       method: 'POST',
@@ -35,8 +34,6 @@ const sendProject = (body, onSuccess) => {
       const project = JSON.parse(projectData);
       const id = project[0].pk;
       createSavedProject(id);
-      console.log(project)
-    
     }) 
     .then(() => onSuccess())
     .catch(error => {
@@ -59,6 +56,7 @@ const updateProject = (body, onSuccess) => {
   )
     .then(checkStatusRequest)
     .then(onSuccess())
+    .then(getProjectsList())
     .catch((error) => showError(error));
 };
 
@@ -78,6 +76,16 @@ const getProject = (pk, onSuccess, project) => {
     .then((onSuccess()))
     .catch((error) => console.log(error));
 };  
+
+
+const getProjectsList = () => {
+  fetch(BASE_URL)
+    .then((response) => response.json())
+    .then((projects) => JSON.parse(projects))
+    .then((objs) => objs.forEach((obj) => {
+      rerenderSavedProjectItem(obj);
+    }));
+};
 
 
 const deleteProject = (body, onSuccess) => {

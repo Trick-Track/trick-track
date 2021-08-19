@@ -5,7 +5,7 @@ import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {getSounds} from './data-store.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem, rerenderDeletedProjectItem} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderDeletedProjectItem} from './renderer.js';
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -20,6 +20,9 @@ const projectLinks = document.querySelectorAll('.app__project-link');
 
 
 const setProjectName = () => {
+  if (projectNameInput.value === '') {
+    return 'noName';
+  }  
   return projectNameInput.value;
 };
 
@@ -30,7 +33,8 @@ const addProjectNameInputHandler = () => {
 
 
 const setProjectNamePlaceHolder = (project) => {
-  projectNameInput.placeholder = project.name;
+  projectNameInput.value = project.name;
+
 };
 
 
@@ -72,8 +76,6 @@ const onDocumentEscapePressed = (evt) => {
 
 const createNewProject = () => {
   window.currentProject = createDefaultProject(window.buffer.urls);
-  // window.currentProject = newProject;
-  console.log('in create new project', window.currentProject);
   return window.currentProject;
 };
 
@@ -95,6 +97,7 @@ const addOpenModalButtonHandler = (project) => {
   };
 };
 
+
 const setProjectInputsValues = (project) => {
   project.name = setProjectName();
   project.bpm = setBpm();
@@ -113,11 +116,11 @@ const addSaveButtonHandler = () => {
 
 
 const addUpdateButtonHandler = () => {
+
   updateProjectButton.addEventListener('click', () => {
+    setProjectInputsValues(currentProject);
     updateProject(currentProject, () => {
-      setProjectInputsValues(currentProject);
       showSuccess();
-      rerenderSavedProjectItem(currentProject);
     });
   });
 };
@@ -129,7 +132,6 @@ const addDeleteButtonHandler = () => {
       resetProject(currentProject, createNewProject);
       changeProjectSaveButton();
       rerenderDeletedProjectItem(currentProject);
-     
     });
   });
 };
@@ -175,13 +177,12 @@ const addProjectLinkHandler = (project) => {
       getProject(pk, changeProjectUpdateButton, project);
     });
   });
-}; 
+};
 
 
 const addProjectsButtonsHandlers = (project) => {
   addSaveButtonHandler();
   addProjectLinkHandler(project);
-  console.log(project);
 };
 
 

@@ -46,7 +46,6 @@ const createDefaultProject = (sounds) => {
     bpm: defaultBpm, 
     lanes: createDefaultLanes(sounds, newCells),
   };
-  console.log(project.lanes);
   renderInitialProject(project);
   return project;
 };

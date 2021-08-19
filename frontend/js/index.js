@@ -31,7 +31,6 @@ addBpmHandlers();
 
 
 addProjectsButtonsHandlers(window.currentProject);
-console.log(currentProject);
 
 
 addUpdateButtonHandler(() => {

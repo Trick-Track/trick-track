@@ -63,7 +63,7 @@ const updateProject = (body, onSuccess) => {
 
 
 const getProject = (pk, onSuccess, project) => {
-  fetch(`${BASE_URL}/${pk}`)
+  fetch(`${BASE_URL}/${pk}/`)
     .then(checkStatusRequest)
     .then((response) => response.json())
     .then((projectData) => JSON.parse(projectData))
@@ -80,7 +80,7 @@ const getProject = (pk, onSuccess, project) => {
 
 
 const deleteProject = (body, onSuccess) => {
-  fetch(`${BASE_URL}/${body.pk}`,
+  fetch(`${BASE_URL}/${body.pk}/`,
     {
       method: 'DELETE',
       body: JSON.stringify(body)

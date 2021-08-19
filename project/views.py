@@ -50,7 +50,6 @@ def project(request, id=id):
 
 def json_decode(request):
     json_data = json.loads(request.body.decode("utf-8"))
-    print(json_data)
     return json_data
 
 

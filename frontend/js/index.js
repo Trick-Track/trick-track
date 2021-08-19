@@ -30,7 +30,8 @@ addPlayerButtonsHandlers();
 addBpmHandlers();
 
 
-addProjectsButtonsHandlers(currentProject);
+addProjectsButtonsHandlers(window.currentProject);
+console.log(currentProject);
 
 
 addUpdateButtonHandler(() => {

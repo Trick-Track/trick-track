@@ -18,6 +18,7 @@ const checkStatusRequest = (response) => {
 
 
 const sendProject = (body, onSuccess) => {
+  console.log(body);
   fetch(BASE_URL,
     {
       method: 'POST',

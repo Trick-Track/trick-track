@@ -71,10 +71,10 @@ const onDocumentEscapePressed = (evt) => {
 
 
 const createNewProject = () => {
-  const newProject = createDefaultProject(window.buffer.urls);
-  window.currentProject = newProject;
-  console.log(currentProject);
-  return currentProject;
+  window.currentProject = createDefaultProject(window.buffer.urls);
+  // window.currentProject = newProject;
+  console.log('in create new project', window.currentProject);
+  return window.currentProject;
 };
 
 
@@ -101,10 +101,10 @@ const setProjectInputsValues = (project) => {
 };
 
 
-const addSaveButtonHandler = (project) => {
+const addSaveButtonHandler = () => {
   saveButton.addEventListener('click', () => {
-    setProjectInputsValues(project);
-    sendProject(project, () => {
+    setProjectInputsValues(currentProject);
+    sendProject(currentProject, () => {
       showSuccess();
       changeProjectUpdateButton();
     });
@@ -179,8 +179,9 @@ const addProjectLinkHandler = (project) => {
 
 
 const addProjectsButtonsHandlers = (project) => {
-  addSaveButtonHandler(project);
+  addSaveButtonHandler();
   addProjectLinkHandler(project);
+  console.log(project);
 };
 
 

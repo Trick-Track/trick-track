@@ -1,11 +1,11 @@
 import {isEscEvent} from './util.js';
-import {sendProject, getProject, updateProject, deleteProject} from './server.js';
+import {sendProject, getProject, updateProject, deleteProject, getProjectsList} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {getSounds} from './data-store.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderDeletedProjectItem} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderDeletedProjectItem,} from './renderer.js';
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -110,6 +110,7 @@ const addSaveButtonHandler = () => {
     sendProject(currentProject, () => {
       showSuccess();
       changeProjectUpdateButton();
+      getProjectsList();
     });
   });
 };
@@ -121,6 +122,7 @@ const addUpdateButtonHandler = () => {
     setProjectInputsValues(currentProject);
     updateProject(currentProject, () => {
       showSuccess();
+      getProjectsList();
     });
   });
 };

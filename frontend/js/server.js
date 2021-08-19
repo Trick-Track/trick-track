@@ -113,4 +113,4 @@ const deleteProject = (body, onSuccess) => {
 };
 
 
-export {sendProject, getProject, updateProject, deleteProject};
+export {sendProject, getProject, updateProject, deleteProject, getProjectsList};

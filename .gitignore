@@ -157,4 +157,6 @@ TrickTrackDB
 curl
 test_request.py
 
+run.sh
+
 

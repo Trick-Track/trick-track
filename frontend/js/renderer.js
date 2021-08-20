@@ -230,6 +230,11 @@ const rerenderUpdatedProjectList = (projects) => {
 };
 
 
+const rerenderDeletedProjectList = (projects) => {
+    
+};
+
+
 const removeOldEventListeners = () => {
   const laneElements = document.getElementById('#sequencer-list').children;
   const laneCells = [];

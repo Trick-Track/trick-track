@@ -36,4 +36,11 @@ export class ProjectItem {
     const projectLink = document.querySelector(`[data-pk='${pk}']`);
     projectLink.innerHTML = this.name;
   }
+
+
+  deleteItem(project) {
+    const {pk} = project;
+    const link = document.querySelector(`[data-pk='${pk}']`);
+    projectsList.removeChild(link.parentNode);
+  }
 }

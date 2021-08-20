@@ -59,10 +59,7 @@ const updateProject = (body, onSuccess) => {
     },
   )
     .then(checkStatusRequest)
-    .then((response) => {
-      
-      return response.json();
-    })
+    .then((response) => response.json())
     .then((projectData) => getProjectData(projectData))
     .then(onSuccess())
     .catch((error) => showError(error));
@@ -102,8 +99,9 @@ const deleteProject = (body, onSuccess) => {
     },
   )
     .then(checkStatusRequest)
-    .then((response) => {
-      onSuccess(response);})
+    .then((response) => response.json())
+    .then((projectData) => getProjectData(projectData))
+    .then(onSuccess())
     .catch((error) => console.log(error));
 
 };

@@ -135,7 +135,7 @@ const addDeleteButtonHandler = () => {
     deleteProject(currentProject, () => {
       resetProject(currentProject, createNewProject);
       changeProjectSaveButton();
-      item.deleteItem();
+      getProjectsList();
     });
   });
 };

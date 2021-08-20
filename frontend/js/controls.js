@@ -51,13 +51,13 @@ const addPannerControlsHandler = (cb, project) => {
       });
     };
     
-    pannerSpinner.addEventListener('mousedown', onMouseLeftClick);
-    pannerSpinner.addEventListener('touchstart', () => {
-      isPannerSpinnerMove = true;
-      addEventsOnPannerSpinner('touchmove','touchend');
-    });
+    pannerSpinner.addEventListener('pointerdown', onMouseLeftClick);
+    // pannerSpinner.addEventListener('touchstart', () => {
+    //   isPannerSpinnerMove = true;
+    //   addEventsOnPannerSpinner('touchmove','touchend');
+    // });
   
-    addEventsOnPannerSpinner('mousemove', 'mouseup');
+    addEventsOnPannerSpinner('pointermove', 'pointerup');
     
     // });
 

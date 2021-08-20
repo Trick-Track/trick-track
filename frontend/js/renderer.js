@@ -4,11 +4,13 @@ import {playSound} from './player.js';
 import {setProjectDisabledSteps, setProjectNamePlaceHolder} from './project.js';
 import {addControlsHandlers, removeControlsHandlers} from './controls.js';
 import {addArrowsHandlers} from './slider.js';
+import {ProjectItem} from './project-item.js';
  
 
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
 const sampleTemplate = document.querySelector('#matrix').content.querySelector('.sequencer__samples-item');
+const projectsList = document.querySelector('.app__project-list');
 
 
 const renderCell = () => {
@@ -210,19 +212,21 @@ const renderInitialProject = (project) =>  {
 };
 
 
-const rerenderSavedProjectItem = (project) => {
-  const {pk, fields} = project;
-  const projectLink = document.querySelector(`[data-pk='${pk}']`);
-  console.log(fields);
-  projectLink.innerHTML = fields.name;
+const renderProjectList = (projects) => {
+  projects.forEach((project) => {
+    const rendererProject = project.fields;
+    rendererProject['pk'] = project.pk;
+    new ProjectItem(rendererProject).render();
+  });
 };
 
 
-const rerenderDeletedProjectItem = (project) => {
-  const projectsList = document.querySelector('.app__project-list');
-  const {pk} = project;
-  const link = document.querySelector(`[data-pk='${pk}']`);
-  projectsList.removeChild(link.parentNode);
+const rerenderUpdatedProjectList = (projects) => {
+  projects.find((project) => {
+    if(project.pk == currentProject.pk) {
+      new ProjectItem(currentProject).rerenderSavedProjecItem(project);
+    }
+  });
 };
 
 
@@ -261,4 +265,4 @@ const resetProjectRendering= () => {
 //   })
 // };
 
-export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, rerenderSavedProjectItem, rerenderDeletedProjectItem};
+export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, renderProjectList, rerenderUpdatedProjectList};

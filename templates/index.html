@@ -83,29 +83,12 @@
           {% if user.is_authenticated %}
           <article class="app__user-projects">
             <button class="app__projects-link">+&ensp;Create&ensp;new</button>
-            <script type="text/javascript">
+            <!-- <script type="text/javascript">
 
-              //  <!-- window.app_.addEventListener('click', (evt) => {
-              //     evt.preventDefault();
-              //     modalNewProject.classList.add('modal__show');
-              //     closeModalButton.addEventListener('click', closeModalNewProject);
-              //     createNewProjectButton.addEventListener('click', onCreateNewProjectButtonClick);
-              //     document.addEventListener('keydown', onDocumentEscapePressed(project));
-                
           
-            </script>
+            </script> -->
             <h2 class="app__projects-heading"><a href="#">Your&ensp;tracks</a></h2>
-            
-            
-            <ul class="app__project-list">
-              {% if user.is_authenticated %}
-              {% for project in projects %}
-                <li class="app__project-item">
-                  <a class="app__project-link" href="#" data-pk="{{project.pk}}">{{project.name}}</a>
-                </li>
-              {% endfor %}
-              {% endif %}
-            </ul>
+            <ul class="app__project-list"></ul>
           </article>
           {% endif %}
 

@@ -1,11 +1,14 @@
 import {isEscEvent} from './util.js';
-import {sendProject, getProject, updateProject, deleteProject, getProjectsList} from './server.js';
+import {sendProject, updateProject, deleteProject, getProjectsList} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
-import {getSounds} from './data-store.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderDeletedProjectItem,} from './renderer.js';
+import {ProjectItem} from './project-item.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList} from './renderer.js';
+
+
+/* global item: false */
 
 
 const projectNameInput = document.querySelector('#project-name');
@@ -16,7 +19,6 @@ const modalNewProject = document.querySelector('.modal-new-project');
 const createNewProjectButton = document.querySelector('.save__button--nosave');
 const closeModalButton = document.querySelector('.save__button--save');
 const deleteProjectButton = document.querySelector('.delete-button');
-const projectLinks = document.querySelectorAll('.app__project-link');
 
 
 const setProjectName = () => {
@@ -110,19 +112,19 @@ const addSaveButtonHandler = () => {
     sendProject(currentProject, () => {
       showSuccess();
       changeProjectUpdateButton();
-      getProjectsList();
+      window.item = new ProjectItem(currentProject);
+      item.render();
     });
   });
 };
 
 
 const addUpdateButtonHandler = () => {
-
   updateProjectButton.addEventListener('click', () => {
     setProjectInputsValues(currentProject);
     updateProject(currentProject, () => {
       showSuccess();
-      getProjectsList();
+      getProjectsList(rerenderUpdatedProjectList);
     });
   });
 };
@@ -133,7 +135,7 @@ const addDeleteButtonHandler = () => {
     deleteProject(currentProject, () => {
       resetProject(currentProject, createNewProject);
       changeProjectSaveButton();
-      rerenderDeletedProjectItem(currentProject);
+      item.deleteItem();
     });
   });
 };
@@ -171,20 +173,11 @@ const changeProjectSaveButton = () => {
 };
 
 
-const addProjectLinkHandler = (project) => {
-  projectLinks.forEach((projectLink) => {
-    projectLink.addEventListener('click', (evt) => {
-      evt.preventDefault();
-      const pk = evt.target.dataset.pk;
-      getProject(pk, changeProjectUpdateButton, project);
-    });
-  });
-};
-
-
-const addProjectsButtonsHandlers = (project) => {
+const addProjectsButtonsHandlers = () => {
   addSaveButtonHandler();
-  addProjectLinkHandler(project);
+  addUpdateButtonHandler();
+  addDeleteButtonHandler();
+
 };
 
 
@@ -208,4 +201,4 @@ const resetProject = async function(project, cb) {
 };
 
 
-export {addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, addDeleteButtonHandler, setProjectDisabledSteps, addUpdateButtonHandler, setProjectPannerValue, setProjectVolumeValue};
+export {addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue, changeProjectUpdateButton};

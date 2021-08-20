@@ -1,7 +1,7 @@
 import {showError} from './messages.js';
 import {createSavedProject} from './build-project.js';
 import {resetProject} from './project.js';
-import {renderInitialProject, rerenderSavedProjectItem} from './renderer.js';
+import {renderInitialProject} from './renderer.js';
 
 
 const BASE_URL = '/projects';
@@ -65,8 +65,6 @@ const updateProject = (body, onSuccess) => {
     })
     .then((projectData) => getProjectData(projectData))
     .then(onSuccess())
-
-    .then(getProjectsList())
     .catch((error) => showError(error));
 };
 
@@ -88,13 +86,11 @@ const getProject = (pk, onSuccess, project) => {
 };  
 
 
-const getProjectsList = () => {
+const getProjectsList = (onSuccess) => {
   fetch(BASE_URL)
     .then((response) => response.json())
     .then((projects) => JSON.parse(projects))
-    .then((objs) => objs.forEach((obj) => {
-      rerenderSavedProjectItem(obj);
-    }));
+    .then((objs) => onSuccess(objs));
 };
 
 

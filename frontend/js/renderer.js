@@ -231,7 +231,27 @@ const rerenderUpdatedProjectList = (projects) => {
 
 
 const rerenderDeletedProjectList = (projects) => {
+  const items = document.querySelectorAll('.app__project-link');
+  let idItems = [...items].map((item) => {
+    return item.dataset.pk;
+  });
+
+  const g = [];
+  let i = 0;
+  let some;
+
+  while (i < projects.length) {
+    some = projects[i].pk;
+    const noDeletedItem = [...items].find(item => some == item.dataset.pk);
     
+    if (noDeletedItem) {
+      i++;
+    }
+    g.push(noDeletedItem.dataset.pk);
+  }
+ 
+  idItems = idItems.filter(e => !~g.indexOf(e));
+  projectsList.removeChild(document.querySelector(`[data-pk="${idItems[0]}"]`).parentNode);
 };
 
 
@@ -270,4 +290,4 @@ const resetProjectRendering= () => {
 //   })
 // };
 
-export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, renderProjectList, rerenderUpdatedProjectList};
+export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, renderProjectList, rerenderDeletedProjectList, rerenderUpdatedProjectList};

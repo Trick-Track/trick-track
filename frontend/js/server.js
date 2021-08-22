@@ -1,7 +1,7 @@
 import {showError} from './messages.js';
 import {createSavedProject} from './build-project.js';
 import {resetProject} from './project.js';
-import {renderInitialProject} from './renderer.js';
+import {renderInitialProject, rerenderDeletedProjectList} from './renderer.js';
 
 
 const BASE_URL = '/projects';
@@ -100,8 +100,9 @@ const deleteProject = (body, onSuccess) => {
   )
     .then(checkStatusRequest)
     .then((response) => response.json())
-    .then((projectData) => getProjectData(projectData))
-    .then(onSuccess())
+    .then(resetProject(currentProject, onSuccess))
+    .then((projectData) => JSON.parse(projectData))
+    .then((projects) => rerenderDeletedProjectList(projects))
     .catch((error) => console.log(error));
 
 };

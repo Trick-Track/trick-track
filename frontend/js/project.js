@@ -5,7 +5,7 @@ import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {ProjectItem} from './project-item.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList, rerenderDeletedProjectList, renderProjectList} from './renderer.js';
 
 
 /* global item: false */
@@ -133,9 +133,8 @@ const addUpdateButtonHandler = () => {
 const addDeleteButtonHandler = () => {
   deleteProjectButton.addEventListener('click', () => {
     deleteProject(currentProject, () => {
-      resetProject(currentProject, createNewProject);
+      createNewProject();
       changeProjectSaveButton();
-      getProjectsList();
     });
   });
 };
@@ -190,7 +189,7 @@ const removeProject = (project) => {
 };
 
 
-const resetProject = async function(project, cb) {
+const resetProject = (project, cb) => {
   removeOldEventListeners(project);
   setTimeout(()=> {
     resetProjectRendering();

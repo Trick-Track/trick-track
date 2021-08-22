@@ -7,8 +7,8 @@ const initialBeats = (project) => {
   const {lanes} = project;
   lanes.forEach((lane) => {
     const {cells} = lane;
-    const l = cells.find(cell => cell.disabled == true);
-    const i = cells.indexOf(l, 0);
+    const firstDisabledCell = cells.find(cell => cell.disabled == true);
+    const i = cells.indexOf(firstDisabledCell, 0);
     i < 0 ? beatsControl.value = 32 : beatsControl.value = i;
   });
 };

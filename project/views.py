@@ -6,6 +6,9 @@ from django.core.serializers.json import DjangoJSONEncoder
 from .models import Project
 import json
 
+ERRORS = {'name_is_taken':{'error':'Name is already taken. Please chhose another one.'}
+}
+
 
 def projects(request):
     if request.user.is_authenticated:
@@ -19,7 +22,7 @@ def projects(request):
             if saved:
                 answer = serialize([saved, ])
             else:
-                answer = {'error':'Name is already taken. Please chhose another one.'}
+                answer = ERRORS['name_is_taken']
                 print(answer)
             return JsonResponse(answer,
                             encoder=DjangoJSONEncoder, 
@@ -41,8 +44,12 @@ def project(request, id=id):
                                 safe=False)
         elif request.method == 'PATCH':
             updated_project = update(request, id)
-            serialized_project = serialize([updated_project, ])
-            return JsonResponse(serialized_project, 
+            if not updated_project:
+                answer = ERRORS['name_is_taken']
+            else
+                serialized_project = serialize([updated_project, ])
+                answer = serialized_project
+            return JsonResponse(answer,
                                 encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'DELETE':
@@ -76,6 +83,8 @@ def new(request, user):
 
 def update(request, id):
     version = json_decode(request)
+    if Project.objects.filter(user=user, name=name).exists():
+        return None
     name = version['name']
     bpm = version['bpm']
     lanes = version['lanes']

@@ -46,7 +46,7 @@ def project(request, id=id):
             updated_project = update(request, id)
             if not updated_project:
                 answer = ERRORS['name_is_taken']
-            else
+            else:
                 serialized_project = serialize([updated_project, ])
                 answer = serialized_project
             return JsonResponse(answer,
@@ -83,16 +83,17 @@ def new(request, user):
 
 def update(request, id):
     version = json_decode(request)
-    if Project.objects.filter(user=user, name=name).exists():
-        return None
-    name = version['name']
-    bpm = version['bpm']
-    lanes = version['lanes']
-    project = Project.objects.get(pk=id)
-    project.name = name
-    project.bpm = bpm
-    project.lanes = lanes
-    project.save()
+    if valid(version):
+        name = version['name']
+        if Project.objects.filter(user=request.user, name=name).exists():
+            return None
+        bpm = version['bpm']
+        lanes = version['lanes']
+        project = Project.objects.get(pk=id)
+        project.name = name
+        project.bpm = bpm
+        project.lanes = lanes
+        project.save()
     return project
 
 

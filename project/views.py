@@ -15,9 +15,15 @@ def projects(request):
                                 encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'POST':
-            return JsonResponse(serialize([new(request, user), ]),
-                                encoder=DjangoJSONEncoder, 
-                                safe=False)
+            saved = new(request, user)
+            if saved:
+                answer = serialize([saved, ])
+            else:
+                answer = {'error':'Name is already taken. Please chhose another one.'}
+                print(answer)
+            return JsonResponse(answer,
+                            encoder=DjangoJSONEncoder, 
+                            safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
     else:
@@ -62,9 +68,10 @@ def new(request, user):
         if not Project.objects.filter(user=user, name=name).exists():
             project = Project(name=name, bpm=bpm, user=user, lanes=lanes)
             project.save()
+            response = project
         else:
-            project = Project.objects.get(user=user, name=name)
-    return project
+            response = None
+    return response
 
 
 def update(request, id):

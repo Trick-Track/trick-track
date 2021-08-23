@@ -48,7 +48,7 @@ const renderLane = (lane) => {
   const newSample = sampleTemplate.cloneNode(true);
   newSample.querySelector('.button').textContent = sound.replace(/^.*[\\/]/, '').slice(0, -4);
   newSample.querySelector('[data-action="volume"]').value = volume;
-  newSample.querySelector('.sequencer__controls-label-img').style.transform = 'rotate(' + panner * 180 + 'deg)';
+  newSample.querySelector('.sequencer__controls-label-img').style.transform = 'rotate(' + panner * 90 + 'deg)';
 
   sampleList.append(newSample);
 

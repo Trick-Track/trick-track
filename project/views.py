@@ -50,7 +50,7 @@ def project(request, id=id):
                 serialized_project = serialize([updated_project, ])
                 answer = serialized_project
             return JsonResponse(answer,
-                                encoder=DjangoJSONEncoder, 
+                                # encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'DELETE':
             delete(id)

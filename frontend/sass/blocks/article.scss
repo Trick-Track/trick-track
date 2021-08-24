@@ -12,6 +12,7 @@
     height: auto;
     background-color: transparent;
     color: $sandy;
+    padding-left: 50px;
   }
 }
 
@@ -43,6 +44,10 @@
     color: red;
     border-color: $close-red;
   }
+
+  @media (max-width: $tablet-width) {
+    color: $grey;
+  }
 }
 
 .app__project-list {
@@ -55,6 +60,7 @@
   @media (max-width: $tablet-width) {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 0;
   }
 
 }
@@ -81,5 +87,10 @@
 
   @media (max-width: $tablet-width) {
     color: $sandy;
+
+    &:hover,
+    &:focus {
+      text-shadow: 0 0 1px $sandy;
+    }
   }
 }

@@ -5,7 +5,7 @@ import {setBeats} from './beats.js';
 import {createDefaultProject} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {ProjectItem} from './project-item.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList, rerenderDeletedProjectList, renderProjectList} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList} from './renderer.js';
 
 
 /* global item: false */
@@ -36,7 +36,6 @@ const addProjectNameInputHandler = () => {
 
 const setProjectNamePlaceHolder = (project) => {
   projectNameInput.value = project.name;
-
 };
 
 

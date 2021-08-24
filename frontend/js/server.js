@@ -11,15 +11,26 @@ const checkStatusRequest = (response) => {
   if (response.ok) {
     return response;
   }
+  
   const {status} = response;
+
   const error = new Error (`${status}`);
   throw error;
 };
 
 const getProjectData = (projectData) => {
-  const project = JSON.parse(projectData);
-  const id = project[0].pk;
-  createSavedProject(id);
+  if (projectData.hasOwnProperty('error')) {
+    const {error} = projectData;
+    const err = new Error(error);
+    throw err;
+  }
+  else {
+    const project = JSON.parse(projectData);
+    const id = project[0].pk;
+    const savedProject = createSavedProject(id);
+    return savedProject;
+  }
+ 
 };
 
 
@@ -33,20 +44,19 @@ const sendProject = (body, onSuccess) => {
   
     .then(checkStatusRequest)
     .then((response) => {
-      
-      return response.json();
-    })
+      return response.json();})
+  
     .then((projectData) => {
       getProjectData(projectData);
     }) 
-    .then(() => onSuccess())
-    .catch(error => {
-
+    .then((project) => onSuccess(project))
+    .catch((error) => {
+  
       if (error.message == 401) {
         localStorage.setItem('project', JSON.stringify(body)); 
   
         document.location.href = '/accounts/login';} 
-      else showError();
+      else showError(error.message);
     });
 };
  
@@ -62,7 +72,7 @@ const updateProject = (body, onSuccess) => {
     .then((response) => response.json())
     .then((projectData) => getProjectData(projectData))
     .then(onSuccess())
-    .catch((error) => showError(error));
+    .catch((error) => showError(error.message));
 };
 
 

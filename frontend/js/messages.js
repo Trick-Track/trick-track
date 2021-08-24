@@ -8,7 +8,7 @@ const MessageTypes = {
 };
 
   
-const showMessage = (messageType) => {
+const showMessage = (messageType, message) => {
   const resultTemplate = document.querySelector(`#${messageType}`)
     .content
     .querySelector(`.${messageType}__wrapper`)
@@ -59,6 +59,10 @@ const showMessage = (messageType) => {
     setTimeout(() => {
       removeTemplate();
     }, SHOW_SUCCESS_TIME);
+  }
+
+  if(message) {
+    resultTemplate.querySelector(`.${messageType}__message`).textContent = message; 
   }
 };
 

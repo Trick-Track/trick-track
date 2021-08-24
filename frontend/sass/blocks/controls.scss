@@ -116,14 +116,28 @@
   &--right {
     margin-left: 3px;
   }
+
+
+  @media (max-width: $mobile-width) {
+   margin-bottom: -5px;
+  }
 }
 
 
 .sequencer__controls-label-img {
+  cursor: pointer;
   margin-top: -5px;
   fill: $sandy;
+  width: 24px;
+  height: 24px;
   &:hover, 
   &:focus {
-    fill: lighten($sandy, 10%);
+    fill: darken($sandy, 10%);
+  }
+
+
+  @media (max-width: $mobile-width) {
+    width: 30px;
+    height: 30px;
   }
 }

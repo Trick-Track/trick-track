@@ -145,6 +145,7 @@
 
 
 input[type=number] {
+  -moz-appearance: textfield;
   font-family: 'Share Tech Mono', 'Arial', monospace;
   background-color: $sandy;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25) inset,
@@ -157,13 +158,15 @@ input[type=number] {
   display: inline-block;
   box-sizing: border-box;
   border: none;
+  width: 50px;
   font-size: 16px;
   line-height: 18px;
+
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
       -webkit-appearance: none;
-      -moz-appearance: none;
+      margin: 0;
   }
 
   &:hover,

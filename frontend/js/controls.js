@@ -20,6 +20,7 @@ const addPannerControlsHandler = (cb, project) => {
         evt.preventDefault();
         prevY !== 0;
         addEventsOnPannerSpinner('pointermove', 'pointerup');
+        document.body.style.touchAction = 'none';
       }
     };
 
@@ -65,6 +66,7 @@ const addVolumeControlsHandler = (cb, project) => {
   const volumeControls = document.querySelectorAll('[data-action="volume"]');
   volumeControls.forEach((volumeControl) => {
     volumeControl.addEventListener('input', (evt) => {
+      document.body.touchAction = 'none';
       volumeControl.value = evt.target.value;
       cb(volumeControls, project);
     });

@@ -30,7 +30,6 @@ const getProjectData = (projectData) => {
     const savedProject = createSavedProject(id);
     return savedProject;
   }
- 
 };
 
 
@@ -71,7 +70,7 @@ const updateProject = (body, onSuccess) => {
     .then(checkStatusRequest)
     .then((response) => response.json())
     .then((projectData) => getProjectData(projectData))
-    .then(onSuccess())
+    .then((project) => onSuccess(project))
     .catch((error) => showError(error.message));
 };
 

@@ -55,6 +55,7 @@ const addPannerControlsHandler = (cb, project) => {
     
       document.addEventListener(eventEnd, () => {
         prevY = 0;
+        document.body.style.touchAction = 'auto';
         document.removeEventListener(eventMove, onMouseMove);
       });
     };

@@ -2,11 +2,15 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.core import serializers
+from django.core.exceptions import ValidationError
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import Project
+from django.db.models import UniqueConstraint
 import json
 
-ERRORS = {'name_is_taken':{'error':'Name is already taken. Please choose another one.'}
+
+ERRORS = {
+            'name_is_taken':{'error':'Name is already taken. Please choose another one.'}
 }
 
 
@@ -63,41 +67,39 @@ def json_decode(request):
 def new(request, user):
     new_project = json_decode(request)
     if valid(new_project):
-        name = new_project['name']
-        bpm = new_project['bpm']
-        lanes = new_project['lanes']
-        if not Project.objects.filter(user=user, name=name).exists():
+        try:
+            name = new_project['name']
+            bpm = new_project['bpm']
+            lanes = new_project['lanes']
             project = Project(name=name, bpm=bpm, user=user, lanes=lanes)
+            project.validate_unique(exclude=[lanes, bpm])
             project.save()
-            response = project
-        else:
-            response = None
-    return response
+            return project
+        except ValidationError as v_error:
+            print('invalid')
+            print(v_error.message_dict)
+            return None
 
 
 def update(request, id):
     version = json_decode(request)
     if valid(version):
-        name = version['name']
-        projects_by_name = Project.objects.filter(user=request.user, name=name)
-        print(projects_by_name)
-        if projects_by_name.exists():
-            print('exists')
-            project_by_name = projects_by_name[0]
-            print(project_by_name)
-            project_by_id = Project.objects.get(pk=id)
-            print(project_by_id)
-            if not project_by_name == project_by_id:
-                print('yes that is the name issue')
-                return None
-        bpm = version['bpm']
-        lanes = version['lanes']
-        project = Project.objects.get(pk=id)
-        project.name = name
-        project.bpm = bpm
-        project.lanes = lanes
-        project.save()
-    return project
+        try:
+            name = version['name']
+            bpm = version['bpm']
+            lanes = version['lanes']
+            project = Project.objects.get(pk=id)
+            project.name = name
+            project.bpm = bpm
+            project.lanes = lanes
+            project.validate_unique(exclude=[lanes, bpm])
+            print('validated')
+            project.save()
+            return project
+        except ValidationError as v_error:
+            print('invalid')
+            print(v_error.message_dict)
+            return None
 
 
 def retrieve(id):

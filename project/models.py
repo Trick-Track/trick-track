@@ -11,6 +11,8 @@ class Project(models.Model):
 	lanes = JSONField(dict())
 
 	class Meta:
+		constraints = [models.UniqueConstraint(fields=['name', 'user'], name='unique_project_name')]
+		ordering = ('name',)
 		db_table = 'project'
 		verbose_name_plural = 'projects'
 

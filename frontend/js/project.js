@@ -2,10 +2,10 @@ import {isEscEvent} from './util.js';
 import {sendProject, updateProject, deleteProject, getProjectsList} from './server.js';
 import {setBpm} from './bpm.js';
 import {setBeats} from './beats.js';
-import {createDefaultProject} from './build-project.js';
+import {createDefaultProject, createLane} from './build-project.js';
 import {showSuccess} from './messages.js';
 import {ProjectItem} from './project-item.js';
-import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList} from './renderer.js';
+import {removeOldEventListeners, resetProjectRendering, rerenderUpdatedProjectList, renderInitialProject} from './renderer.js';
 
 
 /* global item: false */
@@ -201,4 +201,19 @@ const resetProject = (project, cb) => {
 };
 
 
-export {addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue, changeProjectUpdateButton};
+const addNewLane = (newSound, project) => {
+  const {lanes} = project; 
+  const newLane = createLane(newSound);
+  const newLanes = [...lanes, newLane];
+      
+  window.currentProject = {
+    name: currentProject.name,
+    bpm: currentProject.bpm,
+    lanes: newLanes
+  };
+  renderInitialProject(currentProject);
+
+};
+
+
+export {addOpenModalButtonHandler, resetProject, addProjectsButtonsHandlers, setProjectNamePlaceHolder, setProjectDisabledSteps, setProjectPannerValue, setProjectVolumeValue, changeProjectUpdateButton, addNewLane};

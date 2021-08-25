@@ -12,4 +12,10 @@
   outline: 5px solid $color;
   outline-offset: -5px;
 }
+
+@mixin text-decoration($line, $style, $color) {
+  text-decoration-line: $line;
+  text-decoration-style: $style;
+  text-decoration-color: $color;
+}
   

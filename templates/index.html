@@ -27,15 +27,7 @@
         <h1 class="visually-hidden">Online Digital Audio Workstation "trick-track"</h1>
 
         <div class="app__header">
-          {% if user.is_authenticated %}
-          <!-- <script type="text/javascript">
-            if(localStorage.hasOwnProperty('project')) {console.log(localStorage.project); window.currentProject = JSON.parse(localStorage.getItem('project'));}  
-          </script> -->
-          {% endif %}
-            
-        
-
-          <div class="app__header-wrapper">
+         <div class="app__header-wrapper">
             <a class="app__logo">
                <img src={% static "image/logo.png" %} width="100" height="55" alt="logo">
             </a> 
@@ -107,6 +99,12 @@
                 
               <div class="sequencer__wrapper">
                 <ul class="sequencer__samples-list" id="#sequencer-list"></ul>
+                <div class="sequencer__upload">
+                  <input class="sequencer__upload-input" type="file" name="sample" id="#sample" accept="audio/mp3, audio/wav">
+                  <label class="sequencer__upload-label" for="sample">+&ensp;new&ensp;lane
+                  
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -149,9 +147,6 @@
             </div>
   
           </div>
-
-        
-         
         </div>
         
         <div class="sequencer__steps slider">
@@ -164,9 +159,7 @@
         </div>
       </li>
 
-      <div class="sequencer__upload">
-        <input type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
-      </div>
+   
     </template>
     
     <template id="success">

@@ -276,18 +276,4 @@ const resetProjectRendering= () => {
 };
 
 
-//создание newlane
-
-// const addNewLane = (lanes) => {
-  
-//   const before = lanes.slice(0, i);
-//   const after = lanes.slice(i, i + 1);
-//     const newArray = [...before, ...after];
-
-//     return {
-//       lanes: newArray,
-//     }
-//   })
-// };
-
 export {fillCurrentPlaybackStep, renderProject, renderInitialProject, removeOldEventListeners, resetProjectRendering, renderProjectList, rerenderDeletedProjectList, rerenderUpdatedProjectList};

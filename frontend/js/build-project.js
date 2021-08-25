@@ -21,33 +21,45 @@ const initialCells = (steps) => {
 };
 
 
-const createDefaultLanes = (sounds, cells) => {
-  const lanes = [];
- 
-  sounds.map((sound) => {
-    const steps = [];
+let newCells = initialCells(STEPS); 
 
-    for (let i = 0; i < cells.length; i++) {
-      const clonedCell = Object.assign({}, cells[i]);
-      steps.push(clonedCell);
-    }
-    const obj = {sound: sound, cells: steps, volume: 1.75, panner: 0};
-    lanes.push(obj);
+
+const createLane = (sound) => {
+  const steps = [];
+
+  for (let i = 0; i < newCells.length; i++) {
+    const clonedCell = Object.assign({}, newCells[i]);
+    steps.push(clonedCell);
+  }
+
+  const lane = {sound: sound, cells: steps, volume: 1.75, panner: 0};
+  return lane;
+};
+
+
+const createDefaultLanes = (sounds) => {
+  const lanes = [];
+  sounds.map((sound) => {
+    const lane = createLane(sound);
+    lanes.push(lane);
   });
   return lanes;
 };
 
 
-let newCells = initialCells(STEPS); 
-
-
 const createDefaultProject = (sounds) => {
-   
-  const project = {
+  let project = {
     name: defaultName,
     bpm: defaultBpm, 
-    lanes: createDefaultLanes(sounds, newCells),
+    lanes: createDefaultLanes(sounds),
   };
+
+  if (localStorage.hasOwnProperty('project')) {
+    project = JSON.parse(localStorage.getItem('project')); 
+
+    localStorage.removeItem('project');
+  }
+
   renderInitialProject(project);
   return project;
 };
@@ -61,4 +73,4 @@ const createSavedProject = (id) => {
 };
 
 
-export {createDefaultProject, createSavedProject};
+export {createDefaultProject, createSavedProject, createLane};

@@ -1,0 +1,19 @@
+.sequencer__upload-label {
+  text-transform: capitalize;
+  font-size: 24px;
+  line-height: 27px;
+  padding-bottom: 5px;
+  border-bottom: 1px dashed $grey;
+
+  &:hover {
+    color: $close-red;
+  }
+   
+  
+
+  .sequencer__upload-input:focus + & {
+    color: $close-red;
+    -webkit-box-shadow: 0 0 2px 2px $close-red;
+            box-shadow: 0 0 2px 2px $close-red;
+  }
+}

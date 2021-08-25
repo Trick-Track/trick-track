@@ -13,7 +13,9 @@ const initialCells = (steps) => {
       checked: false,
       disabled: false,
     };
+
     cells.push(cell);
+    i >= 16 ? cells[i].disabled = true : false;
   }
   return cells;
 };

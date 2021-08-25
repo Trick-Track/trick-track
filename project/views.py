@@ -76,8 +76,6 @@ def new(request, user):
             project.save()
             return project
         except ValidationError as v_error:
-            print('invalid')
-            print(v_error.message_dict)
             return None
 
 
@@ -93,12 +91,9 @@ def update(request, id):
             project.bpm = bpm
             project.lanes = lanes
             project.validate_unique(exclude=[lanes, bpm])
-            print('validated')
             project.save()
             return project
         except ValidationError as v_error:
-            print('invalid')
-            print(v_error.message_dict)
             return None
 
 

@@ -6,7 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from .models import Project
 import json
 
-ERRORS = {'name_is_taken':{'error':'Name is already taken. Please chhose another one.'}
+ERRORS = {'name_is_taken':{'error':'Name is already taken. Please choose another one.'}
 }
 
 
@@ -15,7 +15,6 @@ def projects(request):
         user = request.user
         if request.method == 'GET':
             return JsonResponse(serialize(retrieve_all(user)), 
-                                encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'POST':
             saved = new(request, user)
@@ -23,9 +22,7 @@ def projects(request):
                 answer = serialize([saved, ])
             else:
                 answer = ERRORS['name_is_taken']
-                print(answer)
             return JsonResponse(answer,
-                            encoder=DjangoJSONEncoder, 
                             safe=False)
         elif request.method == 'DELETE':
             delete_all(user)
@@ -40,7 +37,6 @@ def project(request, id=id):
             project = retrieve(id)
             serialized = serialize([project, ])
             return JsonResponse(serialized, 
-                                encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'PATCH':
             updated_project = update(request, id)
@@ -50,12 +46,10 @@ def project(request, id=id):
                 serialized_project = serialize([updated_project, ])
                 answer = serialized_project
             return JsonResponse(answer,
-                                # encoder=DjangoJSONEncoder, 
                                 safe=False)
         elif request.method == 'DELETE':
             delete(id)
             return JsonResponse(serialize(retrieve_all(user)), 
-                                encoder=DjangoJSONEncoder, 
                                 safe=False)
     else:
         return HttpResponse(status=401)
@@ -85,8 +79,17 @@ def update(request, id):
     version = json_decode(request)
     if valid(version):
         name = version['name']
-        if Project.objects.filter(user=request.user, name=name).exists():
-            return None
+        projects_by_name = Project.objects.filter(user=request.user, name=name)
+        print(projects_by_name)
+        if projects_by_name.exists():
+            print('exists')
+            project_by_name = projects_by_name[0]
+            print(project_by_name)
+            project_by_id = Project.objects.get(pk=id)
+            print(project_by_id)
+            if not project_by_name == project_by_id:
+                print('yes that is the name issue')
+                return None
         bpm = version['bpm']
         lanes = version['lanes']
         project = Project.objects.get(pk=id)

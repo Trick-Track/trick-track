@@ -56,13 +56,19 @@ function uploadFile(file, data, url){
 
   xhr.onreadystatechange = function() {
     if(xhr.readyState === 4){
-      if(xhr.status === 200 || xhr.status === 204){
-        //resetProject(currentProject, () => {
-          addNewLane(url, currentProject);
+      if(xhr.status === 200 || xhr.status === 204) {
+        let clone = {};
+        for (let key in currentProject) {
+          clone[key] = currentProject[key];
+        }
+        resetProject(currentProject, () => {
+          window.currentProject = clone;
+          addNewLane(url, clone);
         // document.getElementById("preview").src = url;
         // document.getElementById("avatar-url").value = url;
-      }
-      else{
+      });
+    }
+      else {
         alert('Could not upload file.');
       }
     }

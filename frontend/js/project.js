@@ -203,17 +203,18 @@ const resetProject = (project, cb) => {
 
 const addNewLane = (newSound, project) => {
   const {urls} = buffer;
+  context.decodeAudioData(newSound);
   const newUrls = [...urls, newSound];
   
+  buffer.loadSound(newSound, buffer.urls.length)
   window.buffer.urls = newUrls;
-  console.log(newUrls)
+  
 
 
   const {lanes} = project; 
   const newLane = createLane(newUrls[newUrls.length - 1]); 
-  console.log(newLane);
   const newLanes = [...lanes, newLane];
-  console.log(newLanes)
+
 
       
   window.currentProject = {

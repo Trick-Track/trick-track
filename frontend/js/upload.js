@@ -64,8 +64,7 @@ function uploadFile(file, data, url){
         resetProject(currentProject, () => {
           window.currentProject = clone;
           addNewLane(url, clone);
-        // document.getElementById("preview").src = url;
-        // document.getElementById("avatar-url").value = url;
+       
       });
     }
       else {

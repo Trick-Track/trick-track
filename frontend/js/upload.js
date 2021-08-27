@@ -1,37 +1,78 @@
 import {addNewLane, resetProject} from './project.js';
+import{resetProjectRendering} from './project.js';
 
 const inputAdd = document.getElementById('#sample');
 
 const FILE_TYPES = ['mp3', 'wav'];
 
 
-const uploadFile = (evt, cb) => {
+const onFileInputchange = () => {
 
-  const sound = evt.files[0];
-  console.log(sound);
-  const fileName = sound.url;
-  console.log(fileName);
+  const sound = inputAdd.files[0];
+  const fileName = sound.name;
+  console.log(sound.type, sound.name);
 
   const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
 
   if (matches) {
-    const reader = new FileReader();
-    reader.addEventListener('load', cb);
-    reader.readAsArrayBuffer(sound);
+    getSignedRequest(sound);
+    
   }
 };
  
-const uploadSound = (sound) => {
-  uploadFile(inputAdd, () => {
-    addNewLane(currentProject, sound);
-  });
-};
+function getSignedRequest(file) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '/upload/?file_name='+file.name+'&file_type='+file.type);
+  xhr.onreadystatechange = function(){
+    if(xhr.readyState === 4){
+      if(xhr.status === 200){
+        let response = JSON.parse(xhr.responseText);
+        console.log(response);
+        console.log(response.data);
+        
+        uploadFile(file, response.data, response.url);
+      }
+      else{
+        alert('Could not get signed URL.');
+      }
+    }
+  };
+  xhr.send();
+}
+
+function uploadFile(file, data, url){
+  var xhr = new XMLHttpRequest();
+  console.log(data);
+  xhr.open('POST', data.url);
+ 
+
+  var postData = new FormData();
+  for(let key in data.fields){
+    postData.append(key, data.fields[key]);
+  }
+  postData.append('file', file);
+
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState === 4){
+      if(xhr.status === 200 || xhr.status === 204){
+        //resetProject(currentProject, () => {
+          addNewLane(url, currentProject);
+        // document.getElementById("preview").src = url;
+        // document.getElementById("avatar-url").value = url;
+      }
+      else{
+        alert('Could not upload file.');
+      }
+    }
+  };
+  xhr.send(postData);
+}
+
 
 const addInputAddHandler = () => {
-  console.log(inputAdd);
-  inputAdd.addEventListener('change', uploadSound(inputAdd.files));
+  inputAdd.addEventListener('change', onFileInputchange);
 };
 
 export {addInputAddHandler};

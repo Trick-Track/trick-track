@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views, s3_presigned
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +23,5 @@ urlpatterns = [
     path('accounts/profile/', views.index),
     path('accounts/', include('allauth.urls')),
     path('', include('project.urls')),
-    path('upload/', views.sign_s3)
+    path('upload/', s3_presigned.sign_s3)
 ]

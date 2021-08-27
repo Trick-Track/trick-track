@@ -177,7 +177,7 @@ const getAllSoundsButtons = () => {
 };
 
 
-const addSoundsButtonHandlers = (project, cb) => {
+const addSoundsButtonHandlers = (project) => {
   let allSoundsButtons = getAllSoundsButtons();
 
   allSoundsButtons.forEach((btn) => {
@@ -187,7 +187,7 @@ const addSoundsButtonHandlers = (project, cb) => {
     
       context.resume().then(() => {
         playSound(buffer.getSound(i), 0, project);
-        cb();
+        //cb();
       });
     
     });

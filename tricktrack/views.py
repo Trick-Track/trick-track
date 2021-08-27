@@ -33,7 +33,7 @@ def sign_s3(request):
     ExpiresIn = 3600
     )
 
-    return JsonResponse(json.dumps({
+    return JsonResponse({
         'data': presigned_post,
         'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)
-    }), safe=False)
+    }, safe=False)

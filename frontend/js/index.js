@@ -33,6 +33,7 @@ buffer.createBuffer(() =>  {
   setSounds(buffer.urls);
 });
 
+console.log(buffer);
 window.currentProject = createDefaultProject(buffer.urls);
 
 addOpenModalButtonHandler();

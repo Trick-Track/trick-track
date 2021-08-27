@@ -202,9 +202,19 @@ const resetProject = (project, cb) => {
 
 
 const addNewLane = (newSound, project) => {
+  const {urls} = buffer;
+  const newUrls = [...urls, newSound];
+  
+  window.buffer.urls = newUrls;
+  console.log(newUrls)
+
+
   const {lanes} = project; 
-  const newLane = createLane(newSound);
+  const newLane = createLane(newUrls[newUrls.length - 1]); 
+  console.log(newLane);
   const newLanes = [...lanes, newLane];
+  console.log(newLanes)
+
       
   window.currentProject = {
     name: currentProject.name,

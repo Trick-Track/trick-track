@@ -23,4 +23,5 @@ urlpatterns = [
     path('accounts/profile/', views.index),
     path('accounts/', include('allauth.urls')),
     path('', include('project.urls')),
+    path('upload/', views.sign_s3)
 ]

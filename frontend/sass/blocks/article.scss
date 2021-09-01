@@ -27,6 +27,11 @@
   & a {
     text-decoration: none;
     color: $black;
+
+    @media (max-width: $tablet-width) {
+      display: none;
+    }
+
   }
 }
 
@@ -71,7 +76,7 @@
 
   @media (max-width: $tablet-width) {
     margin-bottom: 0;
-    margin-left: 10px;
+    margin-left: 20px;
   }
 }
 

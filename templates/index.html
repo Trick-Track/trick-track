@@ -17,8 +17,6 @@
       <symbol viewBox="0 0 15 14" id="counter"><path d="M4.334 6h6.332c.383 0 .351-.717.311-1.077a1.05 1.05 0 00-.13-.365L7.959.378c-.253-.504-.663-.504-.916 0l-2.89 4.18a1.05 1.05 0 00-.13.365c-.04.36-.07 1.077.312 1.077z"/><defs><filter id="filter0_di" x="0" y="0" width="15" height="14" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation=".5"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter></symbol> 
       <symbol viewBox="0 0 15 14" id="counter-decrement"><path d="M10.666 0H4.334c-.383 0-.351.717-.311 1.077.012.11.073.274.13.365l2.889 4.18c.253.504.663.504.916 0l2.89-4.18a1.05 1.05 0 00.13-.365c.04-.36.07-1.077-.312-1.077z"/></g><defs><filter id="filter0_di" x="0" y="0" width="15" height="14" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="4"/><feGaussianBlur stdDeviation="2"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/><feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/><feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/><feOffset dy="1"/><feGaussianBlur stdDeviation=".5"/><feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/><feBlend in2="shape" result="effect2_innerShadow"/></filter></defs></symbol>
       <symbol viewBox="0 0 8 14" id="arrow-right"><path d="M7.237 6.642L1.729 1.133a.506.506 0 10-.716.716L6.163 7l-5.151 5.15a.507.507 0 00.716.717l5.509-5.509a.504.504 0 000-.716z"/></symbol>
-      <symbol viewBox="0 0 24 24" id="logout"><path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 012 2v2h-2V4H5v16h9v-2h2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V4a2 2 0 012-2h9z"/></symbol>
-      <symbol viewBox="0 0 24 24" id="login"><path d="M10 17v-3H3v-4h7V7l5 5-5 5m0-15h9a2 2 0 012 2v16a2 2 0 01-2 2h-9a2 2 0 01-2-2v-2h2v2h9V4h-9v2H8V4a2 2 0 012-2z"/></symbol>
     </svg>
 
 
@@ -29,7 +27,7 @@
         <div class="app__header">
          <div class="app__header-wrapper">
             <a class="app__logo">
-               <img src={% static "image/logo.png" %} width="100" height="55" alt="logo">
+               <img src={% static "image/logo2.png" %} width="160" height="69" alt="logo">
             </a> 
             <div class="app__header-input app-bpm">
               <div class="app__header-fieldset">
@@ -59,11 +57,10 @@
           
             <div class="app__user">
               {% if user.is_authenticated %}
-                <a class="app__user-link" href="/accounts/logout">logout<svg width="24" height="24"><use xlink:href="#logout"></use></svg></a>
+                <a class="app__user-link" href="/accounts/logout">logout</a>
                 {% else %}
-                <a class="app__user-link" href="/accounts/login">login<svg width="24" height="24"><use xlink:href="#login"></use></svg>
+                <a class="app__user-link" href="/accounts/login">login</a>
                 {% endif %}
-              </a>
             </div>
           </div>
 
@@ -100,9 +97,8 @@
               <div class="sequencer__wrapper">
                 <ul class="sequencer__samples-list" id="#sequencer-list"></ul>
                 <div class="sequencer__upload">
-                  <input class="sequencer__upload-input" type="file" name="sample" id="#sample" accept="audio/mp3, audio/wav">
                   <label class="sequencer__upload-label" for="sample">+&ensp;new&ensp;lane
-                  
+                  <input class="sequencer__upload-input visually-hidden" type="file" name="sample" id="sample" accept="audio/mp3, audio/wav">
                   </label>
                 </div>
               </div>
@@ -118,7 +114,7 @@
     </footer>
 
     <template id="matrix">
-      <li class="sequencer__samples-item" id="#sequencer-item">
+      <li class="sequencer__samples-item" id="sequencer-item">
         <div class="sequencer__sound-buttons">
           <button class="button sample-button"></button>
           <div class="sequencer__controls">

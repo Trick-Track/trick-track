@@ -52,7 +52,7 @@ function scheduleSound() {
   let now = context.currentTime;
   now -= startTime;
  
-  while (nextStepTime < now + 0.2 ) {
+  while (nextStepTime < now + 0.9 ) {
 
     let pt = nextStepTime + startTime;
     playStepAtTime(currentProject, pt, fillCurrentPlaybackStep);
@@ -80,7 +80,7 @@ function playStepAtTime(project, playTime, cb) {
     const lane = lanes[i];
 
     if (lane.cells[currentStep].checked == true) {
-      playSound(buffer.getSound(i), playTime, project);
+      playSound(window.buffer.getSound(i), playTime, project);
     }
   }
   cb(currentStep);

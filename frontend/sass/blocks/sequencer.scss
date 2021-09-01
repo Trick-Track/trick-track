@@ -6,6 +6,11 @@
   background-color: none;
   margin-top: 30px;
   width: 100%;
+
+  @media (max-width: $mobile-width) {
+    margin-top: 20px;
+  }
+
 };
 
 .sequencer__samples-list {
@@ -87,6 +92,11 @@
   margin-top: -10px;
   display: flex;
   flex-direction: column;
+
+
+  @media (max-width: $mobile-width) {
+    margin-top: 0;
+  }
 }
 
 .sample-button {
@@ -123,6 +133,7 @@
 
   @media (max-width: $mobile-width) {
     width: 460px;
+    top: -30px;
   }
 };
 

@@ -1,26 +1,25 @@
 import {addNewLane, resetProject} from './project.js';
-import{resetProjectRendering} from './project.js';
 
-const inputAdd = document.getElementById('#sample');
+
+const inputAdd = document.getElementById('sample');
+const inputLabel = document.querySelector('.sequencer__upload');
 
 const FILE_TYPES = ['mp3', 'wav'];
 
 
-const onFileInputchange = () => {
+const onFileInputChange = () => {
 
   const sound = inputAdd.files[0];
   const fileName = sound.name;
-  console.log(sound.type, sound.name);
-
   const matches = FILE_TYPES.some((it) => {
     return fileName.endsWith(it);
   });
 
   if (matches) {
     getSignedRequest(sound);
-    
   }
 };
+
  
 function getSignedRequest(file) {
   var xhr = new XMLHttpRequest();
@@ -29,9 +28,6 @@ function getSignedRequest(file) {
     if(xhr.readyState === 4){
       if(xhr.status === 200){
         let response = JSON.parse(xhr.responseText);
-        console.log(response);
-        console.log(response.data);
-        
         uploadFile(file, response.data, response.url);
       }
       else{
@@ -44,7 +40,6 @@ function getSignedRequest(file) {
 
 function uploadFile(file, data, url){
   var xhr = new XMLHttpRequest();
-  console.log(data);
   xhr.open('POST', data.url);
  
 
@@ -64,9 +59,8 @@ function uploadFile(file, data, url){
         resetProject(currentProject, () => {
           window.currentProject = clone;
           addNewLane(url, clone);
-       
-      });
-    }
+        });
+      }
       else {
         alert('Could not upload file.');
       }
@@ -77,7 +71,13 @@ function uploadFile(file, data, url){
 
 
 const addInputAddHandler = () => {
-  inputAdd.addEventListener('change', onFileInputchange);
+  inputAdd.onchange = onFileInputChange();
 };
 
-export {addInputAddHandler};
+
+const addInputLabelHandler = () => {
+  inputAdd.addEventListener('change', addInputAddHandler);
+};
+
+
+export {addInputAddHandler, addInputLabelHandler};

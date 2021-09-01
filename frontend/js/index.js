@@ -4,7 +4,7 @@ import {Buffer} from './buffer.js';
 import {setSounds} from './data-store.js';
 import {addPlayerButtonsHandlers} from './player.js';
 import {addBpmHandlers} from './bpm.js';
-import {addInputAddHandler} from './upload.js';
+import {addInputLabelHandler} from './upload.js';
 import '../sass/style.sass';
 
 import {getProjectsList} from './server.js';
@@ -44,4 +44,4 @@ addBpmHandlers();
 
 addProjectsButtonsHandlers();
 
-addInputAddHandler();
+addInputLabelHandler();

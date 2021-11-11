@@ -9,12 +9,12 @@ const isProd = !isDev;
 const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 module.exports = {
-    
+
   entry: './frontend/js/index.js',
   devtool: 'source-map',
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, './frontend/build'), 
+    path: path.resolve(__dirname, './frontend/build'),
   },
   resolve: {
     extensions: ['.js', '.wav', 'woff2'],
@@ -44,12 +44,12 @@ module.exports = {
         type: 'asset/resource',
         use: ['file-loader'],
       },
-      
+
       {
         test: /\.(jpe?g|gif|png|svg|woff|ttf|wav|mp3)$/,
         type: 'asset/resource',
         use: ['file-loader'],
-      }, 
+      },
     ],
   },
 

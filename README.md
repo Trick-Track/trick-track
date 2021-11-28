@@ -31,7 +31,7 @@ python manage.py runserver --settings=tricktrack.settings.local
 http://127.0.0.1:8000/
 
 
-### Frontend installation 
+### Frontend installation
 Download and install Node:
 ```
 https://nodejs.org
@@ -43,5 +43,30 @@ npm install
 Run build:
 ```
 npm run build
+```
+
+### Using Docker
+
+Build:
+
+```
+docker-compose build
+```
+
+Run migrations:
+
+```
+docker-compose run --rm backend python manage.py migrate --settings=tricktrack.settings.local
+```
+
+Install dependencies:
+```
+docker-compose run --rm frontend npm install
+```
+
+Server run:
+
+```
+docker-compose up backend frontend
 ```
 

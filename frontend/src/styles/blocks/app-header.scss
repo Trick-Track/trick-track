@@ -57,8 +57,8 @@
 }
 
 .app__counter {
-  @include button-reset; 
-  
+  @include button-reset;
+
   & svg {
     fill: $grey;
     stroke: none;
@@ -174,5 +174,5 @@ input[type=number] {
   &:disabled {
     opacity: 0.4;
   }
-} 
+}
 

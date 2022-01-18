@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node" ,
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "target": "es2020",
+    "module": "esnext",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "noEmit": true ,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "resolveJsonModule": true
+
+    },
+  "include": [
+    "frontend/src/*/**/*"
+  ],
+}

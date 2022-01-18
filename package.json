@@ -2,7 +2,17 @@
   "name": "trick-track",
   "private": true,
   "devDependencies": {
-    "browser-sync": "^2.27.1",
+    "@babel/cli": "^7.16.8",
+    "@babel/core": "^7.16.7",
+    "@babel/node": "^7.16.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.16.8",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^9.0.0",
     "css-loader": "^5.2.6",
@@ -11,14 +21,15 @@
     "eslint-loader": "^4.0.2",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^1.6.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.1",
     "postcss-loader": "^6.1.0",
     "sass": "^1.35.1",
     "sass-loader": "^12.1.0",
     "style-loader": "^2.0.0",
-    "webpack": "^5.39.1",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2"
+    "webpack-dev-server": "^4.7.3"
   },
   "scripts": {
     "dev": "webpack --mode development",
@@ -35,10 +46,15 @@
     "node": "14.16.0"
   },
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
     "normalize.css": "^8.0.1",
-    "stylelint": "^13.13.1",
-    "stylelint-scss": "^3.20.1",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
+    "stylelint": "^14.2.0",
+    "stylelint-scss": "^4.1.0",
     "util": "^0.12.4"
   }
 }

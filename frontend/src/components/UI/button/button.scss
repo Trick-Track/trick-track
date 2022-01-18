@@ -9,8 +9,7 @@
 }
 
 .button-close {
-    @include button-reset; 
-    font-family: 'Arial';
+    @include button-reset;
     cursor: pointer;
     font-size: 30px;
     color: $grey;
@@ -19,4 +18,4 @@
         color: $close-red;
     }
 }
-  
+

@@ -10,19 +10,21 @@ const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
 
 module.exports = {
 
-  entry: './frontend/js/index.js',
+  entry: './frontend/src/index.tsx',
   devtool: 'source-map',
   output: {
     filename: "[name].js",
     path: path.resolve(__dirname, './frontend/build'),
   },
   resolve: {
-    extensions: ['.js', '.wav', 'woff2'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.wav', '.woff2'],
     alias: {
     normalize_css: __dirname + '/node_modules/normalize.css/normalize.css',
     },
     fallback: { "path": false },
   },
+
+  devtool: 'inline-source-map',
 
   devServer: {
     port: 4200,
@@ -33,9 +35,15 @@ module.exports = {
     rules:
     [
       {
+        test: /\.ts$|tsx/,
+        exclude: /node_modules/,
+        loader: require.resolve("babel-loader"),
+      },
+      {
         test: /s[ac]ss$/,
         use: [
           MiniCssExtractPlugin.loader,
+          'postcss-loader',
           'css-loader?url=false',
           'sass-loader',
         ]},
@@ -58,15 +66,15 @@ module.exports = {
     new CopyWebpackPlugin({
     patterns: [
     {
-    from: path.resolve(__dirname, './frontend/samples'),
+    from: path.resolve(__dirname, './frontend/src/samples'),
     to: path.resolve(__dirname, './frontend/build/samples')
     },
     {
-    from: path.resolve(__dirname, './frontend//image'),
+    from: path.resolve(__dirname, './frontend/src/asets/image'),
     to: path.resolve(__dirname, './frontend/build/image')
     },
     {
-      from: path.resolve(__dirname, './frontend/fonts'),
+      from: path.resolve(__dirname, './frontend/src/asets/fonts'),
       to: path.resolve(__dirname, './frontend/build/fonts')
       },
 

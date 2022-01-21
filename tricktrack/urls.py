@@ -19,6 +19,7 @@ from . import views, s3_presigned
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("rest_framework.urls")),
     path("", views.index),
     path("accounts/profile/", views.index),
     path("", include("project.urls")),

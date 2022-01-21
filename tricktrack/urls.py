@@ -18,10 +18,9 @@ from django.urls import path, include
 from . import views, s3_presigned
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index),
-    path('accounts/profile/', views.index),
-    path('accounts/', include('allauth.urls')),
-    path('', include('project.urls')),
-    path('upload/', s3_presigned.sign_s3)
+    path("admin/", admin.site.urls),
+    path("", views.index),
+    path("accounts/profile/", views.index),
+    path("", include("project.urls")),
+    path("upload/", s3_presigned.sign_s3),
 ]

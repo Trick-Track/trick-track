@@ -1,11 +1,11 @@
-export type Cell = {
+export type CellType = {
   checked: boolean,
   disabled: boolean
 };
 
-export type Lane = {
-  sound: URL,
-  cells: Array<Cell>,
+export type LaneType = {
+  sound: string | URL,
+  cells: Array<CellType>,
   volume: number,
   panner: number,
 }
@@ -14,7 +14,8 @@ export type InitialState = {
   currentProject: {
     name: string,
     bpm: number,
-    lanes: Array<Lane>,
+    lanes: Array<LaneType>,
   },
+  currentStep: number,
   isPlaying: boolean,
 }

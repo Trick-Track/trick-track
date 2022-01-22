@@ -1,0 +1,48 @@
+.sequencer__samples-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  margin-bottom: 5px;
+}
+
+.sequencer__steps-list {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+.sequencer__sound-buttons {
+  margin-top: -10px;
+  display: flex;
+  flex-direction: column;
+
+
+  @media (max-width: $mobile-width) {
+    margin-top: 0;
+  }
+}
+
+.sample-button {
+  @include backlight ($plum);
+  @include button-reset;
+  width: 170px;
+  height: 20px;
+  z-index: 2;
+  color: $grey;
+  font-family: 'Share Tech Mono', 'Arial', monospace;
+  font-size: 14px;
+  line-height: 16px;
+
+  @media (max-width: $mobile-width) {
+    color: $sandy;
+    margin-top: -10px;
+    width: 70px;
+  }
+
+  &:hover {
+    color: $red-wine
+  }
+}

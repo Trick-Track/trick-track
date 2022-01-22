@@ -1,0 +1,45 @@
+.sequencer__cell {
+  width: 36px;
+  height: 36px;
+  flex-direction: row;
+  border: none;
+  border-radius: 10%;
+
+  @media (max-width: $mobile-width) {
+    width: 24px;
+    height: 24px;
+  }
+
+  &:not(:nth-child(16n)) {
+    margin-right: 5px;
+  }
+
+  &--odd-quarter {
+    background-color: $plum;
+  }
+
+  &--even-quarter {
+    background-color: $red-wine;
+  }
+
+  &:hover,
+  &:focus {
+    border: 1px solid $sandy;
+    outline: none;
+  }
+
+  &:active {
+    box-shadow: 0 0 3px 2px $sandy;
+  }
+
+  &--checked {
+    background-color: $sandy;
+    box-shadow: 4px 0px 3px 0px #FFFFFF4A inset,
+            -1px -2px 2px 1px #0000001F inset,
+            3px 0px 4px 0px #00000033;
+  }
+
+  &--disabled {
+    opacity: 0.4;
+  }
+};

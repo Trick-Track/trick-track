@@ -1,14 +1,14 @@
-import {Cell, Lane} from '../redux/types';
+import {CellType, LaneType} from '../types';
 
 const ENABLED_CELLS:number = 16;
 const DEFAULT_VOLUME:number = 1.75;
 const DEFAULT_PANNER:number = 0;
 
-const initialCells = (steps:number):Array<Cell> => {
+const initialCells = (steps:number):Array<CellType> => {
   let cells = [];
 
   for (let i = 0; i < steps; i++) {
-    const cell:Cell = {
+    const cell:CellType = {
       checked: false,
       disabled: false,
     };
@@ -19,7 +19,7 @@ const initialCells = (steps:number):Array<Cell> => {
   return cells;
 };
 
-const createLane = (steps:number, sound:URL) => {
+const createLane = (steps:number, sound:URL | string) => {
   const cells = [];
   const newCells = initialCells(steps);
 
@@ -28,12 +28,12 @@ const createLane = (steps:number, sound:URL) => {
     cells.push(clonedCell);
   }
 
-  const lane:Lane = {sound, cells, volume: DEFAULT_VOLUME, panner: DEFAULT_PANNER};
+  const lane:LaneType = {sound, cells, volume: DEFAULT_VOLUME, panner: DEFAULT_PANNER};
   return lane;
 };
 
-export const createDefaultLanes = (steps:number, sounds:Array<URL>) => {
-  const lanes:Array<Lane> = [];
+export const createDefaultLanes = (steps:number, sounds:Array<URL | string>) => {
+  const lanes:Array<LaneType> = [];
   sounds.map((sound) => {
     const lane = createLane(steps,sound);
     lanes.push(lane);

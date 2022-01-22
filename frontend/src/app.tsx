@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './app.sass';
-import 'components/UI/button'
+import { connect } from 'react-redux';
+import DrumMachine from './components/drumMachine/drumMachine';
+import * as actions from './redux/actions/actionCreators';
+import * as types from './redux/types';
+
+const mapStateToProps = (state:types.InitialState) => {
+  return {
+    lanes: state.currentProject.lanes,
+  }
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    checkCell: (cell: types.CellType) => {dispatch(actions.checkCell(cell))},
+    }
+};
 
 
-const App: React.FC = () => {
-  let a = 10;
+const App = (props: any) => {
+
+
   return (
     <div className="app">
-      <button>jj{a}</button>
+      <DrumMachine lanes={props.lanes} checkCell={props.checkCell}/>
     </div>
-  )
+  );
 }
 
-
-export default App
+export default connect(mapStateToProps, mapDispatchToProps)(App);

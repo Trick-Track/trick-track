@@ -66,7 +66,7 @@ module.exports = {
     new CopyWebpackPlugin({
     patterns: [
     {
-    from: path.resolve(__dirname, './frontend/src/samples'),
+    from: path.resolve(__dirname, './frontend/src/asetes/samples'),
     to: path.resolve(__dirname, './frontend/build/samples')
     },
     {

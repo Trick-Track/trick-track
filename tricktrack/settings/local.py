@@ -11,3 +11,6 @@ DATABASES = {'default': {
     'HOST': config('DB_HOST'),
     'PORT': config('DB_PORT')}
 }
+
+ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = [] if not any(ALLOWED_HOSTS) else ALLOWED_HOSTS

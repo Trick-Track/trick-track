@@ -158,6 +158,3 @@ curl
 test_request.py
 
 run.sh
-
-
-tricktrack/settings/local.py

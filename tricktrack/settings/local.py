@@ -12,4 +12,4 @@ DATABASES = {'default': {
     'PORT': config('DB_PORT')}
 }
 
-ALLOWED_HOSTS = ['192.168.9.63', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '0.0.0.0']

@@ -12,4 +12,4 @@ DATABASES = {'default': {
     'PORT': config('DB_PORT')}
 }
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')

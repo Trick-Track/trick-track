@@ -19,3 +19,8 @@ export type InitialState = {
   currentStep: number,
   isPlaying: boolean,
 }
+
+export type InputType = {
+  id: string,
+  className: string,
+}

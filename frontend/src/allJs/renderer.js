@@ -5,7 +5,7 @@ import {setProjectDisabledSteps, setProjectNamePlaceHolder} from './project.js';
 import {addControlsHandlers, removeControlsHandlers} from './controls.js';
 import {addArrowsHandlers} from './slider.js';
 import {ProjectItem} from './project-item.js';
- 
+
 
 const sequencer = document.querySelector('.sequencer__wrapper');
 const sampleList = sequencer.querySelector('.sequencer__samples-list');
@@ -17,7 +17,7 @@ const renderCell = () => {
   const cellElement = document.createElement('button');
   cellElement.classList.add('sequencer__cell');
   cellElement.type = 'button';
-  
+
   return cellElement;
 };
 
@@ -106,8 +106,8 @@ const addButtonCellHandler = (project, cellsButtons, callback) => {
     cellsButtonsOfLane.forEach((cellElement) => cellElement.addEventListener('click', (evt) => {
       const cellElement = evt.target;
       const j = [...cellsButtonsOfLane].indexOf(cellElement, 0);
-      
-      cells[j].checked = cells[j].checked ? false : true; 
+
+      cells[j].checked = cells[j].checked ? false : true;
       callback(project, cellsButtons);
     }));
   });
@@ -118,10 +118,10 @@ const renderStateCellElement = function (project, cellsButtons) {
   const {lanes} = project;
   for (let i = 0; i < lanes.length; i++) {
     const {cells} = lanes[i];
-    for (let j = 0; j < cells.length; j++) {  
-      const thisButton = cellsButtons[i][j];  
+    for (let j = 0; j < cells.length; j++) {
+      const thisButton = cellsButtons[i][j];
       cells[j].disabled == true ? thisButton.classList.add('sequencer__cell--disabled') && thisButton.disabled == true : thisButton.classList.remove('sequencer__cell--disabled') && thisButton.disabled == false;
-      cells[j].checked == true ? thisButton.classList.add('sequencer__cell--checked') : thisButton.classList.remove('sequencer__cell--checked'); 
+      cells[j].checked == true ? thisButton.classList.add('sequencer__cell--checked') : thisButton.classList.remove('sequencer__cell--checked');
     }
   }
 };
@@ -132,12 +132,12 @@ const createPlaybackElement = () => {
   playbackStep.classList.add('sequencer__playback-element');
   return playbackStep;
 };
- 
+
 
 const createPlaybackElementsWrapper = (n) => {
   const playbackList = document.createElement('div');
   playbackList.classList.add('sequencer__playback-list');
-  
+
   for (let i = 0; i < n ; i++) {
     const playbackStep = createPlaybackElement();
     playbackList.append(playbackStep);
@@ -154,7 +154,7 @@ const renderPlaybackLine = () => {
   const fragmentOne = document.createDocumentFragment();
   fragment.append(createPlaybackElementsWrapper(16));
   fragmentOne.append(createPlaybackElementsWrapper(16));
-  
+
   playbackWrapperFirst.append(fragment);
   playbackWrapperSecond.append(fragmentOne);
 };
@@ -164,7 +164,7 @@ const fillCurrentPlaybackStep = (step) => {
   const playbackSteps = document.querySelectorAll('.sequencer__playback-element');
   [...playbackSteps].forEach((playbackStep) => {
     const currentStep = playbackSteps[step];
-    playbackStep == currentStep ? playbackStep.classList.add('sequencer__playback-element--played') : playbackStep.classList.remove('sequencer__playback-element--played'); 
+    playbackStep == currentStep ? playbackStep.classList.add('sequencer__playback-element--played') : playbackStep.classList.remove('sequencer__playback-element--played');
   });
 };
 
@@ -184,12 +184,12 @@ const addSoundsButtonHandlers = (project) => {
     btn.addEventListener('click', (evt) => {
       btn = evt.target;
       const i = allSoundsButtons.indexOf(btn, 0);
-    
+
       context.resume().then(() => {
         playSound(buffer.getSound(i), 0, project);
-        //cb();
+
       });
-    
+
     });
   });
 };
@@ -243,13 +243,13 @@ const rerenderDeletedProjectList = (projects) => {
   while (i < projects.length) {
     some = projects[i].pk;
     const noDeletedItem = [...items].find(item => some == item.dataset.pk);
-    
+
     if (noDeletedItem) {
       i++;
     }
     g.push(noDeletedItem.dataset.pk);
   }
- 
+
   idItems = idItems.filter(e => !~g.indexOf(e));
   projectsList.removeChild(document.querySelector(`[data-pk="${idItems[0]}"]`).parentNode);
 };
@@ -262,7 +262,7 @@ const removeOldEventListeners = () => {
     const cells = laneElements[i].querySelectorAll('.sequencer__cell');
     laneCells.push(cells);
   }
-  
+
   laneCells.forEach((evt) => removeEventListener('click', (evt)));
   removeControlsHandlers();
 };

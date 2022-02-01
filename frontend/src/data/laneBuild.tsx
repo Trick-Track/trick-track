@@ -1,4 +1,4 @@
-import {CellType, LaneType} from '../types';
+import {CellType, LaneType} from './types';
 
 const ENABLED_CELLS:number = 16;
 const DEFAULT_VOLUME:number = 1.75;
@@ -11,6 +11,7 @@ const initialCells = (steps:number):Array<CellType> => {
     const cell:CellType = {
       checked: false,
       disabled: false,
+
     };
 
     cells.push(cell);

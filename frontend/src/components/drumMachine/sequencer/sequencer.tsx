@@ -1,12 +1,11 @@
 import React from "react";
-import Lane from "../lane/lane";
-import Sequencer from "./sequencer/sequencer";
-import {LaneType} from '../../data/types'
+import {LaneType} from '../../../data/types';
+import Lane from '../../lane/lane'
 
 type Key = string | number;
 
-const DrumMachine: React.FC = (props: any) => {
-  let {lanes, checkCell, playSample} = props;
+const Sequencer: React.FC = (props: any) => {
+  let {lanes, checkCell} = props;
 
   return (
     <div className="drumMachine__wrapper">
@@ -17,7 +16,6 @@ const DrumMachine: React.FC = (props: any) => {
             key={lane.sound}
             lane = {lane}
             checkCell={checkCell}
-            playSample={playSample}
           />))
         }
       </ul>
@@ -26,4 +24,4 @@ const DrumMachine: React.FC = (props: any) => {
 
 }
 
-export default DrumMachine
+export default Sequencer

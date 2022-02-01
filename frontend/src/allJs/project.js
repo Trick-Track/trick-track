@@ -24,7 +24,7 @@ const deleteProjectButton = document.querySelector('.delete-button');
 const setProjectName = () => {
   if (projectNameInput.value === '') {
     return 'noName';
-  }  
+  }
   return projectNameInput.value;
 };
 
@@ -194,7 +194,7 @@ const resetProject = (project, cb) => {
   removeOldEventListeners(project);
   setTimeout(()=> {
     resetProjectRendering();
-    projectNameInput.value = ''; 
+    projectNameInput.value = '';
     removeProject(project);
     cb();
   }, 0);
@@ -205,21 +205,20 @@ const addNewLane = (newSound, project) => {
   const {urls} = buffer;
   context.decodeAudioData(newSound);
   const newUrls = [...urls, newSound];
-  
+
   buffer.loadSound(newSound, buffer.urls.length)
   window.buffer.urls = newUrls;
-  
 
 
-  const {lanes} = project; 
-  const newLane = createLane(newUrls[newUrls.length - 1]); 
+
+  const {lanes} = project;
+  const newLane = createLane(newUrls[newUrls.length - 1]);
   const newLanes = [...lanes, newLane];
 
 
-      
+
   window.currentProject = {
-    name: currentProject.name,
-    bpm: currentProject.bpm,
+   ...currentProject,
     lanes: newLanes
   };
   renderInitialProject(currentProject);

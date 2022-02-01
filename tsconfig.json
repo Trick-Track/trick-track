@@ -19,5 +19,5 @@
     },
   "include": [
     "frontend/src/*/**/*"
-  ],
+, "frontend/src/allJs", "frontend/src/data"  ],
 }

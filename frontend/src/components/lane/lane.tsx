@@ -1,17 +1,30 @@
 import React from "react";
-import Cell from "../cell/cell";
-import { CellType } from "../../redux/types";
+import Cell from "../drumMachine/sequencer/cell/cell";
+import Button from "../UI/button/button";
+import { CellType } from "../../data/types";
+
+type Key = string | number;
 
 const Lane: React.FC = (props: any) => {
-  const {lane, checkCell} = props;
-  const {cells} = lane
+  const {lane, checkCell, playSample} = props;
+  const {cells, sound, volume, panner} = lane
+
   return (
     <li className='sequencer__samples-item'>
+      <div className="sequencer__sound-buttons">
+        <Button
+          onClick={()=>{playSample(sound, volume, panner)}}>
+        {sound.replace(/^.*[\\/]/, '').slice(0, -4)}
+        </Button>
+      </div>
       <div className="sequencer__steps-list">
         {cells.map((cell: CellType) => (
         <Cell
+          key = {cells.indexOf(cell, 0)}
           checkCell = {checkCell}
-          ></Cell>))
+          cell = {cell}
+          cells = {cells}
+          />))
         }
       </div>
     </li>

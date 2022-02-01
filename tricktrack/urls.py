@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views, s3_presigned
+from session.views import RegisterUser
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index),
-    path('accounts/profile/', views.index),
-    path('accounts/', include('allauth.urls')),
-    path('', include('project.urls')),
-    path('upload/', s3_presigned.sign_s3)
+    path("", views.index, name="home"),
+    path("users/", RegisterUser.as_view(), name="register"),
+    path("session/", include("session.urls")),
+    path("admin/", admin.site.urls),
+    path("accounts/", include("rest_framework.urls")),
+    path("accounts/profile/", views.index),
+    path("project/", include("project.urls")),
+    path("", include("project.urls")),
+    path("upload/", s3_presigned.sign_s3),
 ]

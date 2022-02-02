@@ -2,11 +2,13 @@
 import type {CellType, LaneType, InitialState} from "../data/types";
 
 import {CHECK_CELL} from './actions/actionConstants';
-import { combineReducers, AnyAction } from "redux";
+
  import {initialState} from "../data/state";
+import { createDefaultLanes } from "../data/laneBuild";
 
 
-const rootReducer = (state:InitialState = initialState, action): InitialState => {
+
+const rootReducer = (state:InitialState = initialState, action) => {
   let newState: InitialState
   // = {
   //   ...state,
@@ -14,27 +16,15 @@ const rootReducer = (state:InitialState = initialState, action): InitialState =>
   // };
 
   switch(action.type) {
-    case action.CHECK_CELL:
-      //lanes = [...state.currentProject.lanes];
-      //lanes[i].cells = [...state.currentProject.lanes[i].cells]
-      newState = JSON.parse(JSON.stringify(state))
-      console.log(newState)
+    case CHECK_CELL:
+      newState = JSON.parse(JSON.stringify(state));
 
-      let {lanes} = newState.currentProject;
-      console.log(lanes)
+      const {lanes} = newState.currentProject;
 
-        const b = cells.find(cell => cell === action.cell)
-        b.checked == true
-      //}
+      const lane: LaneType | undefined = lanes.find(lane => lane.id == action.lane);
+      lane.cells[action.cell].checked = lane.cells[action.cell].checked ? false : true
 
-
-
-
-
-
-
-
-      return newState;
+     return newState;
 
     default: return state;
   };

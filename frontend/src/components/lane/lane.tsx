@@ -5,7 +5,7 @@ import { CellType } from "../../data/types";
 
 type Key = string | number;
 
-const Lane: React.FC = (props: any) => {
+const Lane: React.FC = (props) => {
   const {lane, checkCell, playSample} = props;
   const {cells, sound, volume, panner} = lane
 
@@ -24,6 +24,7 @@ const Lane: React.FC = (props: any) => {
           checkCell = {checkCell}
           cell = {cell}
           cells = {cells}
+          laneId = {lane.id}
           />))
         }
       </div>

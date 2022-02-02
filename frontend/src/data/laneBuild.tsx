@@ -1,7 +1,7 @@
 import {CellType, LaneType} from './types';
 
 const ENABLED_CELLS:number = 16;
-const DEFAULT_VOLUME:number = 1.75;
+const DEFAULT_VOLUME:number = 0.75;
 const DEFAULT_PANNER:number = 0;
 
 const initialCells = (steps:number):Array<CellType> => {
@@ -37,7 +37,12 @@ export const createDefaultLanes = (steps:number, sounds:Array<URL | string>) => 
   const lanes:Array<LaneType> = [];
   sounds.map((sound) => {
     const lane = createLane(steps,sound);
+    let i = sounds.indexOf(sound, 0);
+    let newKey: string = 'id';
+    const ind: number = i;
+    lane[newKey] = ind;
     lanes.push(lane);
+
   });
   return lanes;
 };

@@ -1,7 +1,8 @@
 import React from "react";
 
-const Cell = (props: any) => {
-  const {cell, cells, checkCell} = props
+const Cell = (props) => {
+  const {cell, cells, checkCell, id} = props
+
   let classNames = 'sequencer__cell'
 
   let i = cells.indexOf(cell, 0)
@@ -21,7 +22,7 @@ const Cell = (props: any) => {
   return (
     <button
       className={classNames}
-      onClick={()=> checkCell(cell)}>
+      onClick={()=> checkCell(id, i)}>
     </button>
   )
 }

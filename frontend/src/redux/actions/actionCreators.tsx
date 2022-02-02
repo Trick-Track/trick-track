@@ -1,9 +1,10 @@
 import * as Constants from './actionConstants';
 import * as Types from '../../data/types'
 
-export const checkCell = (cell: Types.CellType) => {
+export const checkCell = (lane: number, cell: number) => {
   return {
     type: Constants.CHECK_CELL,
+    lane,
     cell,
   };
 }
@@ -14,9 +15,5 @@ export const playSample = (url: URL | string, volume:number, panner:number) => {
     url,
     volume,
     panner
-
   }
 }
-
-
-

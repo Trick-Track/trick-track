@@ -14,7 +14,7 @@ const DrumMachine: React.FC = (props: any) => {
 
         {lanes.map((lane:LaneType) => (
           <Lane
-            key={lane.sound}
+            key={lane.id}
             lane = {lane}
             checkCell={checkCell}
             playSample={playSample}

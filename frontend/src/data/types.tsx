@@ -8,6 +8,7 @@ export type LaneType = {
   cells: Array<CellType>,
   volume: number,
   panner: number,
+  id: number
 }
 
 export type InitialState = {

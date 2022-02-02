@@ -5,6 +5,7 @@ import DrumMachine from './components/drumMachine/drumMachine';
 import * as actions from './redux/actions/actionCreators';
 import * as types from './data/types';
 import Header from './components/header/header';
+import {audioContext} from './audioPlayer/audioContext'
 import Input from './components/UI/input/input';
 
 const mapStateToProps = (state:types.InitialState) => {
@@ -16,17 +17,13 @@ const mapStateToProps = (state:types.InitialState) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    checkCell: (cell: types.CellType) => {dispatch(actions.checkCell(cell))},
+    checkCell: (lane: number, cell: number) => {dispatch(actions.checkCell(lane, cell))},
     playSample: (url: URL | string, volume:number, panner:number) => {dispatch(actions.playSample(url, volume, panner))}
   }
 };
 
-// const AudioContext = window.AudioContext || window.webkitAudioContext
-
-
 const App = ({lanes, checkCell, playSample}) => {
-
-  // const audioContextRef = useRef();
+  const audioContextRef = useRef();
 
 
     // useEffect(() => {

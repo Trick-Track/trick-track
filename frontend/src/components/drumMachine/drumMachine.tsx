@@ -1,6 +1,5 @@
 import React from "react";
 import Lane from "../lane/lane";
-import Sequencer from "./sequencer/sequencer";
 import {LaneType} from '../../data/types'
 
 type Key = string | number;

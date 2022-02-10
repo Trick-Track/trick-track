@@ -24,7 +24,7 @@ const Lane: React.FC = (props) => {
           checkCell = {checkCell}
           cell = {cell}
           cells = {cells}
-          laneId = {lane.id}
+          id = {lane.id}
           />))
         }
       </div>

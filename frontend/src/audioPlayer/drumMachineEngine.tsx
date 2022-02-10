@@ -35,7 +35,7 @@ export class DrumMachineEngine {
   }
 
 
-  playSound(snd: URL | string, vol:number, pann:number) {
+  playSound(snd: URL | string, vol:number, pann:number, playTime) {
     const source = this.context.createBufferSource();
     const gainNode = this.context.createGain();
     const pannerOptions = {pan: 0};
@@ -48,7 +48,7 @@ export class DrumMachineEngine {
     gainNode.gain.value = vol;
     panner.pan.value = pann;
     source.connect(gainNode).connect(panner).connect(this.context.destination);
-    source.start(0);
+    source.start(playTime);
   }
 }
 

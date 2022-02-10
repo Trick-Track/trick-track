@@ -11,6 +11,7 @@ export const initialState: InitialState = {
   currentProject: {
     name: 'noName',
     bpm: 120,
+    beats: 16,
     lanes: createDefaultLanes(STEPS, urls),
   },
   currentStep: 0,

@@ -22,25 +22,38 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
-const App = ({lanes, checkCell, playSample}) => {
+const App = ({lanes, checkCell, playSample, isPlaying}) => {
   const audioContextRef = useRef();
 
+  useEffect(() => {
+    audioContextRef.current = audioContext;
+    console.log(audioContextRef.current)
+  })
 
-    // useEffect(() => {
-    //   const audioContext = new AudioContext()
-    //   const sounds = []
-    //   lanes.forEach((lane: types.LaneType) => {
-    //     sounds.push(lane.sound)
-    //   })
-    //     const buffer  = new Buffer(audioContext, sounds)
-    //     console.log(buffer)
-    // }, [])
+    // const toggleContext = () => {
+    //   if (isPlaying) {
+    //     audioContextRef.current.suspend();
+    //   } else {
+    //     audioContextRef.current.resume();
+    //   }
+    //   setDataPlaying((play) => !play);
+    // };
 
 
 
     return (
     <div className="app">
-      <Header/>
+     <header className="app__header">
+     <div className="app__header-wrapper">
+        <a className="app__logo">
+          <img src="image/logo2.png" width="130" height="50" alt="logo"/>
+        </a>
+        <div className="app__header-input">
+          <Input id="bpm" type="number"/>
+          <Input id="beats" type="number"/>
+        </div>
+      </div>
+     </header>
       <DrumMachine lanes={lanes} checkCell={checkCell} playSample={playSample}/>
     </div>
   );

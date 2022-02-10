@@ -15,6 +15,7 @@ export type InitialState = {
   currentProject: {
     name: string,
     bpm: number,
+    beats: number,
     lanes: Array<LaneType>,
   },
   currentStep: number,

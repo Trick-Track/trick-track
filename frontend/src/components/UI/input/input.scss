@@ -1,0 +1,41 @@
+.input-fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  font-family: 'Share Tech Mono', 'Arial', monospace;
+  background-color: $sandy;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25) inset,
+              0px -4px 6px 0px rgba(255, 255, 255, 0.4) inset;
+  color: rgba(51, 49, 59, 0.8);
+  text-shadow: 4px 2px 2px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  outline: none;
+  padding: 5px;
+  display: inline-block;
+  box-sizing: border-box;
+  border: none;
+  width: 50px;
+  font-size: 16px;
+  line-height: 18px;
+
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
+  &:hover,
+  &:focus {
+    color: $close-red;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+  }
+}
+
+

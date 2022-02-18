@@ -13,7 +13,7 @@
     flex-direction: column;
   }
 }
- 
+
 .slider__arrow {
   @include button-reset;
 
@@ -38,7 +38,7 @@
     fill: $grey;
   }
 
-  &:hover svg, 
+  &:hover svg,
   &:focus svg {
     fill: lighten($aquamarine, 10%);
     color: $black;
@@ -47,7 +47,5 @@
 
   &:active svg {
     fill: darken($aquamarine, 10%);
-  
   }
 }
- 
